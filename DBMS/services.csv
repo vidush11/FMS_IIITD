@@ -1,0 +1,7 @@
+service_id,service_type
+1,Guard
+2,Cleaner
+3,Painter
+4,Carpenter
+5,Electrician
+6,Miscellaneous

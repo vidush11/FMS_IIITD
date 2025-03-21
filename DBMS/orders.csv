@@ -1,0 +1,101 @@
+order_id,collected,locaction,user_id,worker_id
+1,t,Faculty Residence,2023123,112
+2,f,Girls Hostel,MT2023300,80
+3,t,R&D block,MT2024062,39
+4,f,R&D block,MT2024389,91
+5,t,Old Academic,2021433,6
+6,f,R&D block,2024494,82
+7,f,LHC complex,2021308,75
+8,t,H1 boys hostel,MT2023393,44
+9,f,R&D block,MT2023342,91
+10,t,LHC complex,MT2023218,28
+11,t,R&D block,2024248,91
+12,t,Girls Hostel,MT2023026,91
+13,f,Old Academic,2023444,50
+14,t,R&D block,2024476,123
+15,f,H1 boys hostel,2024453,75
+16,t,Old Academic,2024160,75
+17,f,Faculty Residence,2024272,44
+18,f,H2 boys hostel,MT2024330,80
+19,f,Old Academic,MT2024395,62
+20,f,H2 boys hostel,2022371,126
+21,t,R&D block,MT2023399,82
+22,f,Girls Hostel,2022332,75
+23,f,Girls Hostel,MT2023398,75
+24,f,H1 boys hostel,MT2024004,39
+25,t,H1 boys hostel,MT2023222,114
+26,f,LHC complex,MT2023306,112
+27,f,H1 boys hostel,2024579,62
+28,t,H1 boys hostel,MT2024343,110
+29,t,Faculty Residence,2023367,91
+30,f,LHC complex,2023523,7
+31,f,H2 boys hostel,2023072,7
+32,t,H1 boys hostel,MT2024057,121
+33,t,R&D block,MT2024317,80
+34,t,H2 boys hostel,2024215,91
+35,f,Faculty Residence,MT2023325,28
+36,f,Girls Hostel,MT2024104,71
+37,t,Old Academic,MT2024033,80
+38,f,R&D block,2022155,112
+39,f,LHC complex,MT2024385,110
+40,f,Old Academic,2024319,82
+41,f,Faculty Residence,2021216,31
+42,t,H2 boys hostel,MT2023002,44
+43,t,Old Academic,2021174,44
+44,t,Faculty Residence,2022250,82
+45,t,Faculty Residence,2023217,91
+46,f,Faculty Residence,2021442,110
+47,t,Faculty Residence,2024093,114
+48,f,Faculty Residence,MT2024369,126
+49,f,Faculty Residence,MT2024307,121
+50,f,R&D block,MT2024395,71
+51,f,H2 boys hostel,MT2023363,6
+52,f,Faculty Residence,MT2024263,121
+53,f,Faculty Residence,2022486,28
+54,t,Girls Hostel,MT2024057,126
+55,t,H2 boys hostel,MT2023207,71
+56,t,Faculty Residence,2021525,91
+57,t,LHC complex,MT2023327,31
+58,t,Faculty Residence,MT2024176,112
+59,t,LHC complex,2023120,110
+60,f,Old Academic,MT2024266,126
+61,t,R&D block,2023093,121
+62,t,R&D block,2022141,50
+63,t,Faculty Residence,MT2023335,50
+64,f,Faculty Residence,2024230,75
+65,f,LHC complex,2023106,6
+66,f,Faculty Residence,MT2024277,31
+67,t,R&D block,2021364,71
+68,f,Girls Hostel,2021089,50
+69,f,Old Academic,MT2024213,62
+70,t,Faculty Residence,MT2023244,6
+71,t,Old Academic,2022163,44
+72,f,H1 boys hostel,MT2024183,36
+73,t,Old Academic,2022058,123
+74,f,Faculty Residence,2021408,28
+75,t,Faculty Residence,2024567,39
+76,t,H1 boys hostel,MT2024159,31
+77,f,LHC complex,MT2023166,80
+78,f,Faculty Residence,MT2024241,123
+79,t,Faculty Residence,2023106,36
+80,t,H1 boys hostel,2021307,71
+81,t,Faculty Residence,2021043,114
+82,f,R&D block,2023451,6
+83,f,Old Academic,2021346,110
+84,t,Old Academic,MT2024249,123
+85,t,R&D block,2022354,6
+86,f,Girls Hostel,MT2024329,126
+87,f,Old Academic,MT2023234,62
+88,t,R&D block,MT2023357,7
+89,f,H2 boys hostel,2022426,31
+90,f,H1 boys hostel,MT2023041,36
+91,f,Faculty Residence,2022488,71
+92,f,H1 boys hostel,MT2024087,44
+93,f,Old Academic,MT2024304,7
+94,f,H2 boys hostel,MT2023149,121
+95,f,Girls Hostel,2023361,110
+96,t,R&D block,2021608,121
+97,t,H2 boys hostel,MT2023147,121
+98,f,LHC complex,MT2024200,82
+99,f,R&D block,2023618,121
+100,f,Faculty Residence,MT2024356,82

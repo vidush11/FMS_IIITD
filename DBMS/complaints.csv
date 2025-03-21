@@ -1,0 +1,101 @@
+complaint_id,complaint,complaint_datetime
+1,too much time taken,2025-02-09 12:26:37
+2,too much time taken,2025-02-13 19:22:17
+3,not cleaned properly,2025-02-15 12:24:12
+4,not painted properly,2025-02-14 18:07:34
+5,work not done properly,2025-02-10 17:11:27
+6,not cleaned properly,2025-02-15 07:01:29
+7,too much time taken,2025-02-10 17:32:45
+8,work not done properly,2025-02-15 11:03:08
+9,too much time taken,2025-02-16 00:06:20
+10,not cleaned properly,2025-02-12 00:51:20
+11,not cleaned properly,2025-02-09 13:20:17
+12,not painted properly,2025-02-11 01:25:07
+13,work not done properly,2025-02-09 22:00:03
+14,not cleaned properly,2025-02-12 08:10:04
+15,work not done properly,2025-02-09 15:51:24
+16,not cleaned properly,2025-02-09 08:34:21
+17,too much time taken,2025-02-13 20:02:23
+18,too much time taken,2025-02-12 13:04:26
+19,not cleaned properly,2025-02-10 23:08:35
+20,not cleaned properly,2025-02-10 16:39:23
+21,work not done properly,2025-02-11 20:19:35
+22,not painted properly,2025-02-13 08:10:23
+23,not cleaned properly,2025-02-14 01:12:47
+24,too much time taken,2025-02-12 03:51:41
+25,work not done properly,2025-02-14 18:34:59
+26,not painted properly,2025-02-14 23:54:05
+27,work not done properly,2025-02-15 16:14:20
+28,too much time taken,2025-02-12 16:02:21
+29,not cleaned properly,2025-02-15 00:53:54
+30,not cleaned properly,2025-02-10 00:23:22
+31,not painted properly,2025-02-13 01:26:05
+32,work not done properly,2025-02-14 20:42:06
+33,work not done properly,2025-02-11 06:37:38
+34,not cleaned properly,2025-02-14 20:07:56
+35,work not done properly,2025-02-12 10:34:59
+36,not painted properly,2025-02-09 10:20:39
+37,work not done properly,2025-02-10 14:01:26
+38,not painted properly,2025-02-09 06:49:06
+39,not cleaned properly,2025-02-11 00:29:54
+40,not cleaned properly,2025-02-14 07:56:53
+41,work not done properly,2025-02-13 20:25:11
+42,not cleaned properly,2025-02-09 09:51:33
+43,too much time taken,2025-02-13 00:41:52
+44,too much time taken,2025-02-14 00:22:24
+45,not cleaned properly,2025-02-13 05:54:47
+46,too much time taken,2025-02-09 18:23:07
+47,too much time taken,2025-02-11 16:35:52
+48,not painted properly,2025-02-13 13:09:53
+49,work not done properly,2025-02-11 01:19:13
+50,too much time taken,2025-02-12 16:05:31
+51,seepage from the walls,2025-02-12 02:19:13
+52,seepage from the walls,2025-02-10 08:55:44
+53,"was in a hurry, didnot clean properly",2025-02-10 15:20:32
+54,seepage from the walls,2025-02-11 16:39:06
+55,ac not cooling still,2025-02-16 14:05:21
+56,dust still not cleaned,2025-02-12 14:18:13
+57,"was in a hurry, didnot clean properly",2025-02-11 02:09:26
+58,"was in a hurry, didnot clean properly",2025-02-16 05:06:22
+59,dust still not cleaned,2025-02-13 13:07:55
+60,dust still not cleaned,2025-02-11 13:11:45
+61,seepage from the walls,2025-02-13 14:06:12
+62,"was in a hurry, didnot clean properly",2025-02-16 16:23:25
+63,ac not cooling still,2025-02-16 19:56:50
+64,"was in a hurry, didnot clean properly",2025-02-13 03:45:06
+65,pipe still leaking,2025-02-14 08:53:16
+66,dust still not cleaned,2025-02-14 01:19:08
+67,seepage from the walls,2025-02-13 06:45:59
+68,dust still not cleaned,2025-02-12 18:06:14
+69,seepage from the walls,2025-02-13 12:10:17
+70,dust still not cleaned,2025-02-16 01:53:40
+71,dust still not cleaned,2025-02-16 18:46:34
+72,seepage from the walls,2025-02-12 16:02:52
+73,pipe still leaking,2025-02-10 23:52:41
+74,pipe still leaking,2025-02-13 16:42:50
+75,seepage from the walls,2025-02-13 02:14:53
+76,pipe still leaking,2025-02-12 21:04:41
+77,dust still not cleaned,2025-02-12 06:49:42
+78,seepage from the walls,2025-02-12 09:43:28
+79,"was in a hurry, didnot clean properly",2025-02-13 14:29:47
+80,pipe still leaking,2025-02-12 07:31:52
+81,pipe still leaking,2025-02-16 15:37:47
+82,pipe still leaking,2025-02-12 20:42:42
+83,"was in a hurry, didnot clean properly",2025-02-15 21:02:40
+84,pipe still leaking,2025-02-13 04:51:27
+85,pipe still leaking,2025-02-14 03:26:24
+86,"was in a hurry, didnot clean properly",2025-02-14 20:37:35
+87,pipe still leaking,2025-02-11 23:07:16
+88,"was in a hurry, didnot clean properly",2025-02-12 09:58:40
+89,seepage from the walls,2025-02-10 23:29:18
+90,ac not cooling still,2025-02-10 22:59:44
+91,dust still not cleaned,2025-02-10 20:58:32
+92,ac not cooling still,2025-02-13 11:01:37
+93,ac not cooling still,2025-02-11 03:34:09
+94,pipe still leaking,2025-02-12 13:29:19
+95,ac not cooling still,2025-02-13 10:39:56
+96,ac not cooling still,2025-02-13 06:54:49
+97,dust still not cleaned,2025-02-11 05:31:43
+98,pipe still leaking,2025-02-12 03:56:08
+99,pipe still leaking,2025-02-12 16:29:26
+100,dust still not cleaned,2025-02-16 07:15:39
