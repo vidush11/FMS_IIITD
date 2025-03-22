@@ -127,4 +127,6 @@ COPY assigns
 FROM '/Users/teo/Desktop/sql/fms/assigns.csv'
 WITH (FORMAT CSV, HEADER ON)
 
-
+COPY orders
+FROM '/Users/teo/Desktop/sql/fms/orders.csv'
+WITH (FORMAT CSV, HEADER ON)
