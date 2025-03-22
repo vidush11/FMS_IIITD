@@ -30,7 +30,7 @@ Create table Worker
 Worker_ID bigserial not null primary key,
 Name varchar(255) not null,
 Phone_no bigint not null,
-Assigned_role varchar(32) not null,
+worker_service_id bigserial  REFERENCES Services(service_id),
 Date_of_joining DATE not null,
 Rating numeric(3,2),
 WorkerPassword varchar(50) not null
