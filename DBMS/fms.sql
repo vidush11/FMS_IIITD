@@ -69,7 +69,7 @@ room_no varchar(20) not null ,
 feedback varchar(255) ,
 is_completed boolean not null ,
 request_time timestamp(0) not null,
-primary key(User_ID,Worker_ID,Service_ID)
+primary key(User_ID,Worker_ID,Service_ID, request_time)
 );
 
 Create table files
