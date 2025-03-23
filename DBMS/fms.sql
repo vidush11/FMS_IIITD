@@ -49,14 +49,15 @@ Complaint varchar(255),
 Complaint_dateTime timestamp(0)
 );
 
-create table Orders
+CREATE TABLE Orders
 (
-Order_ID BIGSERIAL not null,
-Collected boolean not null,
-Location varchar(50) not null,
-User_ID varchar(12)  not null references Users(User_ID),
-Worker_ID bigserial not null references Worker(Worker_ID),
-primary key(Order_ID)
+order_id BIGSERIAL NOT NULL,
+collected boolean NOT NULL,
+location varchar(50) NOT NULL,
+user_id varchar(12)  NOT NULL REFERENCES users(user_id),
+worker_id bigserial NOT NULL REFERENCES worker(worker_id),
+time timestamp,
+PRIMARY KEY(order_id)
 );
 
 Create table requests
