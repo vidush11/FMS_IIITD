@@ -1,0 +1,90 @@
+.service-row {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    margin: 8px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.service-row .service-icon {
+    width: 40px;
+    margin-right: 15px;
+}
+
+.service-row .service-name {
+    flex: 1;
+    font-size: 16px;
+}
+
+.service-row .action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.service-row button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.edit-btn {
+    background-color: #2980B9;
+}
+
+.delete-btn {
+    background-color: #E74C3C;
+}
+
+.save-btn {
+    background-color: #27AE60;
+}
+
+.cancel-btn {
+    background-color: #95A5A6;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid #3498DB;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+}
+
+.edit-input:focus {
+    border-color: #2980B9;
+}
+
+/* Animation for delete */
+.fade-out {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+}
+
+/* Hover effects */
+.edit-btn:hover {
+    background-color: #2573A7;
+}
+
+.delete-btn:hover {
+    background-color: #C0392B;
+}
+
+.save-btn:hover {
+    background-color: #219A52;
+}
+
+.cancel-btn:hover {
+    background-color: #7F8C8D;
+}

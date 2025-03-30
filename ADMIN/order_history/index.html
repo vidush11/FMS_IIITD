@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FMS Admin - Order History</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-city"></i>
+            </div>
+            <h2>FMS Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="../admin_home/index.html"><i class="fas fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
+                <li><a href="../manage_students/index.html"><i class="fas fa-user-graduate fa-fw"></i> Manage
+                        Students</a></li>
+                <li><a href="../manage_emp/index.html"><i class="fas fa-users fa-fw"></i> Manage Employees</a></li>
+                <li><a href="../manage_services/index.html"><i class="fas fa-concierge-bell fa-fw"></i> Manage
+                        Services</a></li>
+                <li><a href="#" class="active"><i class="fas fa-history fa-fw"></i> Order History</a></li>
+                <li><a href="../service_history/index.html"><i class="fas fa-clipboard-list fa-fw"></i> Request
+                        History</a></li>
+
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Order History</h1>
+
+        <div class="table-container">
+            <!-- Add the table actions section -->
+            <div class="table-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Search orders..." class="search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="filter-box">
+                    <select class="filter-select">
+                        <option value="all">All Orders</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+            <!-- End of table actions section -->
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>User ID</th>
+                        <th>Employee ID</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table body will be populated by script.js -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>

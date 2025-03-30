@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Facility Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <img src="../../assets/logo.png" alt="FMS Logo" class="logo">
+        <h1>Facility Management System</h1>
+        <div class="admin-text">ADMIN</div>
+
+        <form id="loginForm" onsubmit="return validateForm(event)">
+            <div class="input-group">
+                <input type="text" id="adminId" placeholder="Admin ID" required>
+                <div class="error-message" id="adminIdError">Please enter a valid Admin ID</div>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+                <div class="error-message" id="passwordError">Password must be at least 6 characters</div>
+            </div>
+
+            <button type="submit" class="login-button">Login</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

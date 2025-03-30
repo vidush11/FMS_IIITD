@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area of Service Management - FMS Admin</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to the SAME external CSS file used for the dashboard -->
+    <link rel="stylesheet" href="styles_service.css">
+</head>
+
+<body>
+
+    <!-- Sidebar (Same as dashboard, but "Manage Services" is active) -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-city"></i>
+            </div>
+            <h2>FMS Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="../admin_home/index.html"><i class="fas fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
+                <li><a href="../manage_students/index.html"><i class="fas fa-user-graduate fa-fw"></i> Manage
+                        Students</a></li>
+                <li><a href="../manage_emp/index.html"><i class="fas fa-users fa-fw"></i> Manage Employees</a></li>
+                <li><a href="../manage_services/index.html"><i class="fas fa-concierge-bell fa-fw"></i> Manage
+                        Services</a></li>
+                <li><a href="../order_history/index.html"><i class="fas fa-history fa-fw"></i> Order History</a></li>
+                <li><a href="../service_history/index.html"><i class="fas fa-clipboard-list fa-fw"></i> Request
+                        History</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Area of Service Management</h1>
+
+        <!-- Service Management Table Card -->
+        <section class="card service-management-full-page">
+            <!-- Optional: Add a card header if desired, or keep it clean like the image -->
+            <!-- <div class="card-header">Manage Employee Service Areas</div> -->
+            <div class="card-content" style="padding: 0;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">ID</th>
+                            <th style="width: 25%;">Employee Name</th>
+                            <th style="width: 55%;">Area of Service</th>
+                            <th style="width: 15%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>ABC Kumar</td>
+                            <td>
+                                <select name="area1">
+                                    <option value="uhc" selected>UHC Building</option>
+                                    <!-- Add other options if known -->
+                                </select>
+                            </td>
+                            <td>
+                                <div class="action-buttons" style="justify-content: flex-start;"> <!-- Align left -->
+                                    <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>XYZ Kumar</td>
+                            <td>
+                                <select name="area2">
+                                    <option value="rsj" selected>Rs.D Building</option>
+                                    <!-- Corrected based on image -->
+                                </select>
+                            </td>
+                            <td>
+                                <div class="action-buttons" style="justify-content: flex-start;">
+                                    <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>ABC Yadav</td>
+                            <td>
+                                <select name="area3">
+                                    <option value="h1" selected>H1 Hostel</option>
+                                </select>
+                                <select name="area3_extra" style="margin-left: 5px;">
+                                    <option value="b" selected>B</option> <!-- Added default selected 'B' -->
+                                </select>
+                            </td>
+                            <td>
+                                <div class="action-buttons" style="justify-content: flex-start;">
+                                    <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>ASD Kapoor</td>
+                            <td>
+                                <select name="area4">
+                                    <option value="building" selected>Building</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div class="action-buttons" style="justify-content: flex-start;">
+                                    <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Add empty rows to mimic the visual length -->
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- No footer with "View All" needed here -->
+        </section>
+
+        <!-- New Section for Managing Service Types -->
+        <section class="card">
+            <div class="card-header">
+                <h2>Manage Service Types</h2>
+            </div>
+            <div class="card-content">
+                <div class="service-list-container">
+                    <ul class="service-list">
+                        <!-- Service items will be populated by script.js -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Link to the SAME external JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

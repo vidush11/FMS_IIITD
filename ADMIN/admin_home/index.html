@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMS Admin Dashboard</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styleshome.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-city"></i> <!-- Using Font Awesome city icon -->
+            </div>
+            <h2>FMS Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#" class="active"><i class="fas fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
+                <li><a href="../manage_students/index.html"><i class="fas fa-user-graduate fa-fw"></i> Manage
+                        Students</a></li>
+                <li><a href="../manage_emp/index.html"><i class="fas fa-users fa-fw"></i> Manage Employees</a></li>
+                <li><a href="../manage_services/index.html"><i class="fas fa-concierge-bell fa-fw"></i> Manage
+                        Services</a></li>
+                <li><a href="../order_history/index.html"><i class="fas fa-history fa-fw"></i> Order History</a></li>
+                <li><a href="../service_history/index.html"><i class="fas fa-clipboard-list fa-fw"></i> Request
+                        History</a></li>
+
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Dashboard</h1>
+
+        <div class="content-grid">
+
+            <!-- Active Requests Card -->
+            <section class="card main-section active-requests">
+                <div class="card-header">Active Requests</div>
+                <div class="card-content" style="padding: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>User ID</th>
+                                <th>Requested Service</th>
+                                <th>Building</th>
+                                <th>Room No</th>
+                                <th>Request time</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Example Data Row (replace empty rows) -->
+                            <tr>
+                                <td>EMP001</td>
+                                <td>USR123</td>
+                                <td>Plumbing</td>
+                                <td>H1</td>
+                                <td>101</td>
+                                <td>13/03/2024 11:00</td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                                class="fas fa-pencil-alt"></i></a>
+                                        <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP002</td>
+                                <td>USR456</td>
+                                <td>Electrical</td>
+                                <td>Library</td>
+                                <td>Main Hall</td>
+                                <td>13/03/2024 14:20</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                                class="fas fa-pencil-alt"></i></a>
+                                        <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Keep some empty rows if desired for spacing -->
+                            <tr class="empty-row">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="empty-row">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="empty-row">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="../active_requests/index.html">View all <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+
+            <!-- Admin Profile Card -->
+            <section class="card admin-profile">
+                <!-- No header needed as per design -->
+                <div class="card-content">
+                    <div class="profile-icon">
+                        <i class="fas fa-user-cog"></i> <!-- User with gear icon -->
+                    </div>
+                    <h3>Admin-1</h3>
+                    <p class="login-time">Login Time: 2025-02-16 04:22:14</p>
+                    <div class="profile-actions">
+                        <a href="#" class="btn btn-view-profile">View Profile</a>
+                        <a href="#" class="btn btn-logout">Logout</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Area of Service Management Card -->
+            <section class="card main-section service-management">
+                <div class="card-header">Area of Service Management</div>
+                <div class="card-content" style="padding: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Employee Name</th>
+                                <th>Area of Service</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>ABC Kumar</td>
+                                <td>
+                                    <select name="area1">
+                                        <option value="uhc">UHC Building</option>
+                                        <!-- Add other options if known -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="action-buttons" style="justify-content: flex-start;">
+                                        <!-- Align left -->
+                                        <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>XYZ Kumar</td>
+                                <td>
+                                    <select name="area2">
+                                        <option value="rsj">Rs.J Building</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="action-buttons" style="justify-content: flex-start;">
+                                        <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>ABC Yadav</td>
+                                <td>
+                                    <select name="area3">
+                                        <option value="h1">H1 Hostel</option>
+                                    </select>
+                                    <select name="area3_extra" style="margin-left: 5px;">
+                                        <option value="b">B</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="action-buttons" style="justify-content: flex-start;">
+                                        <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>ASD Kapoor</td>
+                                <td>
+                                    <select name="area4">
+                                        <option value="building">Building</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="action-buttons" style="justify-content: flex-start;">
+                                        <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Add more rows if needed -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="#">View all <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+
+            <!-- Active Complaints Card -->
+            <section class="card main-section active-complaints">
+                <div class="card-header">Active Complaints</div>
+                <div class="card-content" style="padding: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Complaint ID</th>
+                                <th>Time</th>
+                                <th>Complaint</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CMP001</td>
+                                <td>10/03/2024 10:00</td>
+                                <td>Leaky faucet in H1 washroom</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>CMP002</td>
+                                <td>11/03/2024 15:30</td>
+                                <td>Broken chair in Library Room 3</td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                            </tr>
+                            <tr>
+                                <td>CMP003</td>
+                                <td>12/03/2024 08:15</td>
+                                <td>WiFi not working in Block C</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                            </tr>
+                            <tr class="empty-row">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="empty-row">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="#">View all <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+
+        </div> <!-- End content-grid -->
+
+    </main>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

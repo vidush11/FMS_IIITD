@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Services - FMS Admin</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to the SAME external CSS file -->
+    <link rel="stylesheet" href="services.css">
+</head>
+
+<body>
+
+    <!-- Sidebar (Manage Services is active) -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-city"></i>
+            </div>
+            <h2>FMS Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="../admin_home/index.html"><i class="fas fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
+                <li><a href="../manage_students/index.html"><i class="fas fa-user-graduate fa-fw"></i> Manage
+                        Students</a></li>
+                <li><a href="../manage_emp/index.html"><i class="fas fa-users fa-fw"></i> Manage Employees</a></li>
+                <li><a href="index.html" class="active"><i class="fas fa-concierge-bell fa-fw"></i> Manage
+                        Services</a></li>
+                <li><a href="../order_history/index.html"><i class="fas fa-history fa-fw"></i> Order History</a></li>
+                <li><a href="../service_history/index.html"><i class="fas fa-clipboard-list fa-fw"></i> Request
+                        History</a></li>
+                <!-- Example link -->
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header-actions">
+            <h1>Manage Services</h1>
+            <button class="btn-add-new" title="Add New Service">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+
+
+        <!-- Service List Container -->
+        <section class="service-list-container">
+            <ul class="service-list">
+                <li>
+                    <div class="service-info">
+                        <i class="fas fa-broom"></i> <!-- Housekeeping icon -->
+                        <span>Housekeeping</span>
+                    </div>
+                    <div class="service-actions">
+                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Housekeeping">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Housekeeping">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="service-info">
+                        <i class="fas fa-paint-roller"></i> <!-- Painting icon -->
+                        <span>Painting</span>
+                    </div>
+                    <div class="service-actions">
+                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Painting">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Painting">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="service-info">
+                        <i class="fas fa-tools"></i> <!-- Carpentry icon -->
+                        <span>Carpentry</span>
+                    </div>
+                    <div class="service-actions">
+                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Carpentry">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Carpentry">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="service-info">
+                        <i class="fas fa-bolt"></i> <!-- Electrical Work icon -->
+                        <span>Electrical Work</span>
+                    </div>
+                    <div class="service-actions">
+                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Electrical Work">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Electrical Work">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="service-info">
+                        <i class="fas fa-user-shield"></i> <!-- Security icon -->
+                        <span>Security</span>
+                    </div>
+                    <div class="service-actions">
+                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Security">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Security">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="service-info">
+                        <i class="fas fa-cog"></i> <!-- Miscellaneous icon -->
+                        <span>Miscellaneous</span>
+                    </div>
+                    <div class="service-actions">
+                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Miscellaneous">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Miscellaneous">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </li>
+                <!-- Add more services as needed -->
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- Link to the SAME external JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

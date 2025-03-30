@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FMS Admin - Manage Students</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-city"></i>
+            </div>
+            <h2>FMS Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="../admin_home/index.html"><i class="fas fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
+                <li><a href="#" class="active"><i class="fas fa-user-graduate fa-fw"></i> Manage Students</a></li>
+                <li><a href="../manage_emp/index.html"><i class="fas fa-users fa-fw"></i> Manage Employees</a></li>
+                <li><a href="../manage_services/index.html"><i class="fas fa-concierge-bell fa-fw"></i> Manage
+                        Services</a></li>
+                <li><a href="../order_history/index.html"><i class="fas fa-history fa-fw"></i> Order History</a></li>
+                <li><a href="../service_history/index.html"><i class="fas fa-clipboard-list fa-fw"></i> Request
+                        History</a></li>
+                
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <h1>Manage Students</h1>
+
+        <div class="table-container">
+            <!-- Add Student Button (now positioned by CSS, but keep logic) -->
+
+            <!-- Search and Filter Bar -->
+            <div class="table-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Search students..." class="search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="filter-box">
+                    <select class="filter-select">
+                        <option value="all">All Buildings</option>
+                        <option value="H1">H1</option>
+                        <option value="H2">H2</option>
+                        <option value="Old Boys Hostel">Old Boys Hostel</option>
+                        <option value="Girls Hostel">Girls Hostel</option>
+                    </select>
+                </div>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Building</th>
+                        <th>Floor</th>
+                        <th>Room Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2023001</td>
+                        <td>Alice Wonderland</td>
+                        <td>9123456780</td>
+                        <td>H1</td>
+                        <td>1</td>
+                        <td>101</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="#" class="action-btn btn-reject"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2023002</td>
+                        <td>Bob The Builder</td>
+                        <td>9123456781</td>
+                        <td>H2</td>
+                        <td>2</td>
+                        <td>205</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="#" class="action-btn btn-reject"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

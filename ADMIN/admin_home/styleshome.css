@@ -1,0 +1,315 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #f4f7f6; /* Light background for the area outside the main content */
+    overflow: hidden; /* Prevent scrolling on the body itself */
+}
+
+/* Colors */
+:root {
+    --primary-color: #1ABC9C; /* Teal */
+    --primary-dark: #16A085;  /* Darker Teal */
+    --secondary-bg: #E8F8F5; /* Very light teal background */
+    --card-bg: #ffffff;      /* White card background */
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --text-muted: #666666;
+    --border-color: #dddddd;
+    --danger-color: #C0392B;  /* Red for logout/cancel */
+    --success-color: #27AE60; /* Green for accept */
+    --edit-color: #2980B9;    /* Blue for edit */
+    --header-bg: #34495E;    /* Dark header for tables */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed; /* Keep sidebar fixed */
+    left: 0;
+    top: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.sidebar-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--primary-dark);
+}
+
+.sidebar-header .logo {
+    font-size: 2em; /* Adjust size as needed */
+    margin-right: 15px;
+    color: var(--text-light);
+}
+
+.sidebar-header h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+    padding: 20px 15px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 10px;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    font-size: 0.95em;
+}
+
+.sidebar-nav a:hover {
+    background-color: var(--primary-dark);
+}
+
+.sidebar-nav a.active {
+    background-color: var(--header-bg); /* Dark background for active item */
+    font-weight: bold;
+    color: var(--text-light); /* Ensure text stays light */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Content Area */
+.main-content {
+    flex-grow: 1;
+    margin-left: 250px; /* Same as sidebar width */
+    background-color: var(--secondary-bg);
+    padding: 30px;
+    height: 100vh;
+    overflow-y: auto; /* Allow scrolling only in the main content */
+}
+
+.main-content h1 {
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+/* Grid for Content Cards */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Adjust column ratio as needed */
+    grid-template-rows: auto auto;
+    gap: 25px;
+    grid-template-areas:
+        "requests profile"
+        "management complaints";
+}
+
+/* General Card Styling */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    overflow: hidden; /* Ensures header corners are clipped */
+}
+
+.card-header {
+    background-color: var(--header-bg);
+    color: var(--text-light);
+    padding: 12px 15px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1.1em;
+}
+ /* Specific card header for the main sections like requests/complaints */
+.card.main-section .card-header {
+     background-color: var(--primary-dark);
+     color: var(--text-light);
+     padding: 12px 20px;
+     font-weight: bold;
+     border-bottom: 1px solid var(--border-color);
+     font-size: 1.1em;
+ }
+
+.card-content {
+    padding: 15px;
+}
+
+.card-footer {
+    padding: 10px 15px;
+    text-align: right;
+    border-top: 1px solid #eee; /* Lighter border for footer */
+}
+
+.card-footer a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+ .card-footer a:hover {
+     text-decoration: underline;
+ }
+
+
+/* Table Styling */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.data-table thead {
+     background-color: var(--header-bg); /* Dark header */
+     color: var(--text-light);
+}
+
+.data-table th,
+.data-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.data-table th {
+    font-weight: 600;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+ /* Specific styling for empty rows to mimic the placeholder look */
+.data-table tbody tr.empty-row td {
+    height: 38px; /* Match approximate height of filled rows */
+     border-bottom: 1px solid var(--border-color);
+     background-color: #f9f9f9; /* Slightly different bg for empty */
+}
+.data-table tbody tr.empty-row:last-child td {
+     border-bottom: none;
+ }
+
+
+/* Action Buttons in Tables */
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: center; /* Center buttons in the cell */
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 5px;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 0.9em;
+    text-decoration: none; /* For link-based buttons */
+}
+
+.btn-accept { background-color: var(--success-color); }
+.btn-reject { background-color: var(--danger-color); }
+.btn-edit { background-color: var(--edit-color); }
+.btn-save { background-color: var(--primary-dark); } /* Use teal for save */
+
+/* Dropdown Styling */
+.data-table select {
+    padding: 5px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    min-width: 100px; /* Adjust as needed */
+    font-size: 0.9em;
+}
+
+/* Specific Card Placements */
+.active-requests { grid-area: requests; }
+.admin-profile { grid-area: profile; }
+.service-management { grid-area: management; }
+.active-complaints { grid-area: complaints; }
+
+/* Admin Profile Card */
+.admin-profile .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 15px;
+}
+
+.admin-profile .profile-icon {
+    font-size: 4em;
+    color: var(--text-dark);
+    background-color: #e0e0e0; /* Light grey background for icon circle */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.admin-profile .profile-icon i {
+     color: var(--header-bg); /* Dark icon color */
+ }
+
+.admin-profile h3 {
+    font-size: 1.4em;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.admin-profile .login-time {
+    font-size: 0.8em;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.admin-profile .profile-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 15px; /* Add padding to buttons */
+}
+
+.admin-profile .btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    color: var(--text-light);
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.95em;
+}
+
+.btn-view-profile { background-color: var(--primary-color); }
+.btn-view-profile:hover { background-color: var(--primary-dark); }
+.btn-logout { background-color: var(--danger-color); }
+.btn-logout:hover { background-color: #a52d23; } /* Darker red on hover */

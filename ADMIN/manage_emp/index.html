@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FMS Admin - Manage Employees</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-city"></i>
+            </div>
+            <h2>FMS Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="../admin_home/index.html"><i class="fas fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
+                <li><a href="../manage_students/index.html"><i class="fas fa-user-graduate fa-fw"></i> Manage
+                        Students</a></li>
+                <li><a href="#" class="active"><i class="fas fa-users fa-fw"></i> Manage Employees</a></li>
+                <li><a href="../manage_services/index.html"><i class="fas fa-concierge-bell fa-fw"></i> Manage
+                        Services</a></li>
+                <li><a href="../order_history/index.html"><i class="fas fa-history fa-fw"></i> Order History</a></li>
+                <li><a href="../service_history/index.html"><i class="fas fa-clipboard-list fa-fw"></i> Request
+                        History</a></li>
+                
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Manage Employees</h1>
+
+        <div class="table-container">
+            <!-- Search and Filter Bar -->
+            <div class="table-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Search employees..." class="search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="filter-box">
+                    <select class="filter-select">
+                        <option value="all">All Roles</option>
+                        <!-- Options will match availableRoles in JS -->
+                        <option value="Electrician">Electrician</option>
+                        <option value="Plumber">Plumber</option>
+                        <option value="Carpenter">Carpenter</option>
+                        <option value="HVAC Technician">HVAC Technician</option>
+                        <option value="Security">Security</option>
+                        <option value="Janitor">Janitor</option>
+                        <option value="Maintenance Staff">Maintenance Staff</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Add Employee Button will be positioned via CSS -->
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Date of Joining</th>
+                        <th>Phone Number</th>
+                        <th>Assigned Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EMP001</td>
+                        <td>John Doe</td>
+                        <td>01/01/2024</td>
+                        <td>9876543210</td>
+                        <td>Electrician</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="#" class="action-btn btn-reject"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>EMP002</td>
+                        <td>Jane Smith</td>
+                        <td>15/01/2024</td>
+                        <td>9876543211</td>
+                        <td>Plumber</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="#" class="action-btn btn-reject"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Empty rows for spacing -->
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="empty-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
