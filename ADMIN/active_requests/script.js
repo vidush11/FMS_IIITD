@@ -19,7 +19,59 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('.search-input');
     const filterSelect = document.querySelector('.filter-select');
     const tableBody = document.querySelector('.data-table tbody');
-
+    // 🆕 Fetch and populate active complaints
+    async function fetchAndDisplayRequests() {
+        try {
+            const response = await fetch("https://fmsbackend-iiitd.up.railway.app/admin/active-requests", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+    
+            const data = await response.json();
+            const requests = data.requests || [];
+    
+            if (!tableBody) return;
+            tableBody.innerHTML = ""; // Clear table
+    
+            if (requests.length === 0) {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td colspan="8" style="text-align:center;">No active requests found</td>`;
+                tableBody.appendChild(row);
+                return;
+            }
+    
+            requests.forEach((item) => {
+                const row = document.createElement("tr");
+    
+                row.innerHTML = `
+                    <td>${item.worker_id || "N/A"}</td>
+                    <td>${item.user_id}</td>
+                    <td>${item.service}</td>
+                    <td>${item.building}</td>
+                    <td>${item.room_no}</td>
+                    <td>${new Date(item.time).toLocaleString()}</td>
+                    <td><span class="status-badge ${item.status.toLowerCase()}">${item.status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="action-btn btn-edit" title="Edit"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="action-btn btn-reject" title="Reject"><i class="fas fa-times"></i></a>
+                        </div>
+                    </td>
+                `;
+    
+                tableBody.appendChild(row);
+            });
+    
+            // Refresh rows for search/filter logic
+            rows = getRows();
+            filterTable();
+        } catch (error) {
+            console.error("Error fetching Requests:", error);
+        }
+    }    
+    fetchAndDisplayRequests();
     function getRows() {
         // Ensure we select rows from the correct table body
         const currentTableBody = document.querySelector('.data-table tbody');

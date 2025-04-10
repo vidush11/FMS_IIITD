@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Dashboard loaded');
 
-
+    
     // Profile actions
     const viewProfileBtn = document.querySelector('.btn-view-profile');
     if (viewProfileBtn) {
@@ -99,6 +99,52 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+async function loadDashboardActiveRequests() {
+    const dashboardTableBody = document.querySelector('.active-requests .data-table tbody');
+    if (!dashboardTableBody) return;
+
+    try {
+        const response = await fetch("https://fmsbackend-iiitd.up.railway.app/admin/active-requests?limit=5");
+        const data = await response.json();
+        const requests = data.requests || [];
+
+        dashboardTableBody.innerHTML = ""; // Clear any placeholder rows
+
+        if (requests.length === 0) {
+            dashboardTableBody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No active requests</td></tr>`;
+            return;
+        }
+
+        requests.forEach(item => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${item.worker_id || "N/A"}</td>
+                <td>${item.user_id}</td>
+                <td>${item.service}</td>
+                <td>${item.building}</td>
+                <td>${item.room_no}</td>
+                <td>${new Date(item.time).toLocaleString()}</td>
+                <td><span class="status-badge ${item.status}">${item.status.replace("-", " ")}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="#" class="action-btn btn-edit" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="#" class="action-btn btn-reject" title="Remove"><i class="fas fa-trash"></i></a>
+                    </div>
+                </td>
+            `;
+            dashboardTableBody.appendChild(row);
+        });
+    } catch (err) {
+        console.error("Error loading dashboard requests:", err);
+    }
+}
+
+// Call it inside DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    loadDashboardActiveRequests();
+});
+
 
 // Profile Functions
 function viewProfile() {
