@@ -39,8 +39,9 @@
     <main class="main-content">
         <h1>Manage Orders</h1>
 
+
         <div class="table-container">
-            <!-- Add the table actions section -->
+
             <div class="table-actions">
                 <div class="search-box">
                     <input type="text" placeholder="Search orders..." class="search-input">
@@ -48,32 +49,36 @@
                 </div>
                 <div class="filter-box">
                     <select class="filter-select">
-                        <option value="all">All Orders</option>
-                        <option value="completed">Completed</option>
-                        <option value="pending">Pending</option>
-                        <option value="cancelled">Cancelled</option>
+                        <option value="all">All Status</option>
+                        <option value="true">Completed (True)</option>
+                        <option value="false">Not Completed (False)</option>
                     </select>
                 </div>
             </div>
-            <!-- End of table actions section -->
 
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>User ID</th>
-                        <th>Employee ID</th>
-                        <th>Location</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Table body will be populated by script.js -->
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>Employee ID</th>
+                            <th>Location</th>
+                            <th>Collected</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
         </div>
+
     </main>
 
     <!-- Script -->

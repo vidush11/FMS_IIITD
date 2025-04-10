@@ -6,30 +6,21 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Copied Theme Variables from styleshome.css */
+/* Theme Variables */
 :root {
     --primary-color: #1ABC9C;
-    /* Teal */
     --primary-dark: #16A085;
-    /* Darker Teal */
     --secondary-bg: #f4f7f6;
-    /* Very light grey/teal background */
     --card-bg: #ffffff;
-    /* White card background */
     --text-light: #ffffff;
     --text-dark: #333333;
     --text-muted: #666666;
     --border-color: #dddddd;
     --danger-color: #C0392B;
-    /* Red for logout/cancel */
     --success-color: #27AE60;
-    /* Green for accept */
     --warning-color: #ffc107;
-    /* Keeping warning from previous */
     --edit-color: #2980B9;
-    /* Blue for edit */
     --header-bg: #34495E;
-    /* Dark header for tables */
     --sidebar-width: 250px;
 }
 
@@ -38,10 +29,10 @@ body {
     min-height: 100vh;
     background-color: var(--secondary-bg);
     overflow: hidden;
-    /* Added back from styleshome.css */
+    /* Prevent body scroll */
 }
 
-/* Sidebar Styles Copied from styleshome.css */
+/* Sidebar Styles */
 .sidebar {
     width: var(--sidebar-width);
     background-color: var(--primary-color);
@@ -50,7 +41,6 @@ body {
     flex-direction: column;
     height: 100vh;
     position: fixed;
-    /* Keep sidebar fixed */
     left: 0;
     top: 0;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -65,9 +55,7 @@ body {
 }
 
 .sidebar-header .logo {
-    /* Using class selector for consistency */
     font-size: 2em;
-    /* Adjust size as needed */
     margin-right: 15px;
     color: var(--text-light);
 }
@@ -76,7 +64,6 @@ body {
     font-size: 1.5em;
     font-weight: 600;
     color: var(--text-light);
-    /* Ensure white */
 }
 
 .sidebar-nav {
@@ -94,14 +81,12 @@ body {
 
 .sidebar-nav a {
     display: block;
-    /* Changed back from flex */
     padding: 12px 20px;
     color: var(--text-light);
     text-decoration: none;
     border-radius: 8px;
     transition: background-color 0.3s ease;
     font-size: 0.95em;
-    /* Removed gap, border-left */
 }
 
 .sidebar-nav a:hover {
@@ -110,46 +95,54 @@ body {
 
 .sidebar-nav a.active {
     background-color: var(--header-bg);
-    /* Dark background for active item */
     font-weight: bold;
     color: var(--text-light);
-    /* Ensure text stays light */
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
     border-left: none;
-    /* Ensure no blue border */
 }
 
-/* Icons inside nav links (if using <i> tags) */
-
-
-/* Main Content Styles (Layout fixes kept, adapted from styleshome.css) */
+/* Main Content Styles */
 .main-content {
     flex-grow: 1;
     margin-left: var(--sidebar-width);
-    /* Same as sidebar width */
     background-color: var(--secondary-bg);
     padding: 30px;
     height: 100vh;
-    overflow-y: auto;
-    /* Allow scrolling only in the main content */
+    /* Make main content a flex container to manage children's height */
+    display: flex;
+    flex-direction: column;
+    /* Allow main content scroll ONLY if its direct content overflows viewport height */
+    /* Usually not needed if table-container grows correctly */
+    /* overflow-y: auto; */
 }
 
-/* H1 (Adapted from styleshome.css) */
+/* H1 */
 h1 {
     color: var(--text-dark);
     margin-bottom: 25px;
+    /* Space between H1 and table container */
     font-size: 2.2em;
     font-weight: 700;
+    flex-shrink: 0;
+    /* Prevent H1 from shrinking */
 }
 
 /* Table Container */
 .table-container {
     background-color: var(--card-bg);
     border-radius: 8px;
-    /* Adjusted from 10px */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Adjusted shadow */
     overflow: hidden;
+    /* Clip corners */
+    /* Make table-container a flex container */
+    display: flex;
+    flex-direction: column;
+    /* Allow table-container to grow and fill remaining space */
+    flex-grow: 1;
+    /* Add space below the container if needed */
+    margin-bottom: 20px;
+    /* Important for scrolling child */
+    min-height: 0;
 }
 
 /* Table Actions (Search/Filter) */
@@ -159,6 +152,8 @@ h1 {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    /* Prevent actions bar from shrinking */
 }
 
 .search-box {
@@ -185,9 +180,13 @@ h1 {
 
 .filter-box {
     margin-left: 15px;
+    min-width: 180px;
+    /* Give dropdown some minimum width */
 }
 
 .filter-select {
+    width: 100%;
+    /* Make select fill filter-box */
     padding: 8px 30px 8px 12px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
@@ -196,31 +195,57 @@ h1 {
     cursor: pointer;
 }
 
-/* Data Table Styles (Adapted from styleshome.css) */
+/* Table Wrapper - Enables scrolling */
+.table-wrapper {
+    flex-grow: 1;
+    /* Allow wrapper to take remaining space in table-container */
+    overflow-y: auto;
+    /* Enable vertical scrolling ONLY for the wrapper */
+    min-height: 0;
+    /* Necessary flexbox fix for scrolling */
+}
+
+/* Data Table Styles */
 .data-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.9em;
 }
 
-.data-table th {
+.data-table thead {
+    position: sticky;
+    /* Make header stick to top of .table-wrapper */
+    top: 0;
+    z-index: 1;
+    /* Keep header above body */
     background-color: var(--header-bg);
-    /* Dark header */
+    /* Ensure background consistency */
+}
+
+.data-table th {
+    /* Background is applied by thead rule now, but keep text styles */
     color: var(--text-light);
-    padding: 10px 12px;
-    /* Adjusted padding */
+    padding: 12px 15px;
+    /* Increased padding slightly */
     text-align: left;
     font-weight: 600;
-    border-bottom: 1px solid var(--border-color);
-    /* Adjusted border */
+    border-bottom: 1px solid var(--primary-dark);
+    /* Darker border below header */
+    white-space: nowrap;
 }
 
 .data-table td {
-    padding: 10px 12px;
-    /* Adjusted padding */
+    padding: 10px 15px;
+    /* Match horizontal padding */
     border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
+    color: var(--text-dark);
+    /* Use text-dark */
     vertical-align: middle;
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--secondary-bg);
+    /* Use light background on hover */
 }
 
 .data-table tbody tr:last-child td {
@@ -228,31 +253,45 @@ h1 {
 }
 
 
-/* Status Badges (Kept standard colors) */
+/* Status Badges */
 .status-badge {
     padding: 5px 10px;
     border-radius: 15px;
     font-size: 0.85rem;
     font-weight: 500;
     display: inline-block;
+    text-align: center;
+    /* Center text in badge */
+    min-width: 80px;
+    /* Give badges consistent width */
 }
 
 .status-badge.completed {
     background-color: #e8f5e9;
+    /* Lighter green */
     color: var(--success-color);
+    border: 1px solid var(--success-color);
+    /* Add border */
 }
 
 .status-badge.pending {
-    background-color: #fff3e0;
-    color: var(--warning-color);
+    background-color: #fff8e1;
+    /* Lighter yellow */
+    color: #f59e0b;
+    /* Amber color */
+    border: 1px solid #f59e0b;
+    /* Add border */
 }
 
 .status-badge.cancelled {
     background-color: #ffebee;
+    /* Lighter red */
     color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+    /* Add border */
 }
 
-/* Action Buttons (Adapted from active_requests styles) */
+/* Action Buttons */
 .action-buttons {
     display: flex;
     justify-content: center;
@@ -264,7 +303,6 @@ h1 {
     align-items: center;
     justify-content: center;
     width: 30px;
-    /* Slightly larger */
     height: 30px;
     border: none;
     border-radius: 5px;
@@ -279,30 +317,21 @@ h1 {
     opacity: 0.85;
 }
 
-/* Define specific button colors */
-.btn-view {
-    background-color: var(--edit-color);
-}
-
-/* Keep view style for potential future use */
+.btn-view,
 .btn-edit {
+    /* Combine view/edit style */
     background-color: var(--edit-color);
 }
 
-/* Blue for edit */
 .btn-save {
     background-color: var(--success-color);
 }
 
-/* Green for save */
 .btn-cancel {
     background-color: var(--text-muted);
 }
 
-/* Grey for cancel */
-
-
-/* Style for the inline edit input/select */
+/* Edit Input/Select (For potential inline editing) */
 .edit-input,
 .status-select {
     padding: 6px 8px;
@@ -310,61 +339,78 @@ h1 {
     border-radius: 4px;
     font-size: 0.9em;
     width: 100%;
-    /* Take up available space */
     box-sizing: border-box;
-    /* Ensure padding doesn't increase size */
 }
 
-/* Empty Rows */
+/* Empty Rows (If used for spacing) */
 .empty-row td {
     border-bottom: 1px solid var(--border-color);
     height: 38px;
-    /* Adjusted height */
     background-color: #f9f9f9;
-    /* Added background */
 }
 
 .empty-row:last-child td {
     border-bottom: none;
 }
 
-/* Responsive Design (Adapted from styleshome.css) */
+/* Responsive Design */
 @media (max-width: 768px) {
     .sidebar {
         width: 70px;
-        /* Adjusted width */
         overflow: hidden;
     }
 
     .sidebar-header h2,
     .sidebar-nav a span {
+        /* Assuming text is wrapped in span, adjust if not */
         display: none;
     }
 
-    .sidebar-nav a {
-        justify-content: center;
-        padding: 12px;
-        border-radius: 0;
-        text-align: center;
-        /* Added */
+    .sidebar-header .logo {
+        margin-right: 0;
+        /* Remove margin when text is hidden */
+        font-size: 1.8em;
+        /* Slightly smaller logo */
     }
 
-    /* Ensure icons are visible */
+    .sidebar-nav a {
+        display: flex;
+        /* Use flex for centering icon */
+        justify-content: center;
+        padding: 15px 0;
+        /* Vertical padding, no horizontal needed */
+        border-radius: 0;
+        text-align: center;
+    }
+
     .sidebar-nav a i {
         display: block;
+        /* Ensure icon is visible */
         margin-right: 0;
-        margin: 0 auto;
+        font-size: 1.2em;
+        /* Adjust icon size */
     }
 
     .main-content {
         margin-left: 70px;
-        /* Adjusted margin */
+        /* Match collapsed sidebar width */
+        padding: 20px;
+        /* Reduce padding */
+    }
+
+    h1 {
+        font-size: 1.8em;
+        /* Smaller heading */
+        margin-bottom: 20px;
     }
 
     .table-actions {
         flex-direction: column;
+        /* Stack search/filter */
         gap: 15px;
         align-items: stretch;
+        /* Make children full width */
+        padding: 15px;
     }
 
     .search-box {
@@ -374,15 +420,34 @@ h1 {
     .filter-box {
         margin-left: 0;
         width: 100%;
-    }
-
-    .filter-select {
-        width: 100%;
+        min-width: unset;
+        /* Remove min-width */
     }
 
     .data-table th,
     .data-table td {
-        padding: 10px 8px;
+        padding: 8px 10px;
+        /* Reduce cell padding */
         font-size: 0.85rem;
+        /* Smaller font in table */
+        white-space: normal;
+        /* Allow text wrapping on small screens */
+    }
+
+    .data-table th {
+        white-space: nowrap;
+        /* Keep header nowrap if possible */
+    }
+
+    .status-badge {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+        min-width: 70px;
+    }
+
+    .action-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9em;
     }
 }

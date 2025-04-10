@@ -1,137 +1,142 @@
+// Complete script.js for Order History Page (Date Removed)
+
 document.addEventListener('DOMContentLoaded', function () {
+    // --- Get DOM Elements ---
     const searchInput = document.querySelector('.search-input');
     const filterSelect = document.querySelector('.filter-select');
     const tableBody = document.querySelector('.data-table tbody');
-    // const rows = tableBody.querySelectorAll('tr:not(.empty-row)'); // No longer needed here
 
-    // --- Sample Data Store ---
-    // In a real app, this would be fetched from an API
-    let orderHistoryData = [
-        { orderId: 'ORD-101', userId: 'USR-001', employeeId: 'EMP-003', location: 'H1-B-101', date: '2024-07-20', status: 'completed' },
-        { orderId: 'ORD-102', userId: 'USR-005', employeeId: 'EMP-001', location: 'UHC-205', date: '2024-07-21', status: 'pending' },
-        { orderId: 'ORD-103', userId: 'USR-012', employeeId: 'EMP-002', location: 'Rs.D-110', date: '2024-07-21', status: 'cancelled' },
-        { orderId: 'ORD-104', userId: 'USR-008', employeeId: 'EMP-003', location: 'H1-A-302', date: '2024-07-19', status: 'completed' },
-        { orderId: 'ORD-105', userId: 'USR-002', employeeId: 'EMP-004', location: 'Building-X-101', date: '2024-07-22', status: 'in-progress' },
-        // Add more sample orders if needed
-    ];
-
-    // --- Helper Functions (Keep createStatusBadge and createStatusSelect) ---
-    // Helper: Create Status Badge
-    function createStatusBadge(statusClass) {
-        const span = document.createElement('span');
-        span.classList.add('status-badge', statusClass);
-        let statusText = statusClass.replace('-', ' ');
-        statusText = statusText.charAt(0).toUpperCase() + statusText.slice(1);
-        span.textContent = statusText;
-        return span;
+    // --- Check if elements exist ---
+    if (!searchInput || !filterSelect || !tableBody) {
+        console.error("FATAL: Missing required elements."); return;
     }
 
-    // Helper: Create Status Select Dropdown
-    function createStatusSelect(currentStatusClass) {
+    // --- Global store for fetched order data ---
+    let orderHistoryData = [];
+
+    // --- Helper: Create True/False Select Dropdown ---
+    function createBooleanStatusSelect(currentValue) {
         const select = document.createElement('select');
         select.className = 'status-select edit-input';
-        const statuses = {
-            'pending': 'Pending',
-            'in-progress': 'In Progress',
-            'completed': 'Completed',
-            'cancelled': 'Cancelled'
-        };
-        for (const value in statuses) {
-            const option = document.createElement('option');
-            option.value = value;
-            option.textContent = statuses[value];
-            if (value === currentStatusClass) {
-                option.selected = true;
-            }
-            select.appendChild(option);
+        const options = [{ value: 'true', text: 'True' }, { value: 'false', text: 'False' }];
+        if (typeof currentValue !== 'boolean') {
+            const prompt = document.createElement('option');
+            prompt.value = ""; prompt.textContent = "-- Select Status --"; prompt.selected = true; prompt.disabled = true; select.appendChild(prompt);
         }
+        options.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt.value; option.textContent = opt.text;
+            if (typeof currentValue === 'boolean' && String(currentValue) === opt.value) { option.selected = true; }
+            select.appendChild(option);
+        });
         return select;
     }
 
-    // --- Table Rendering Function ---
-    function renderTable(data) {
-        tableBody.innerHTML = ''; // Clear existing rows
-        if (!data || data.length === 0) {
-            // Optional: Display a message if no data
-            const tr = document.createElement('tr');
-            const td = document.createElement('td');
-            td.colSpan = 7; // Match number of columns
-            td.textContent = 'No orders found.';
-            td.style.textAlign = 'center';
-            tr.appendChild(td);
-            tableBody.appendChild(tr);
-            return;
+    // --- Renders a given array of order data into the table body ---
+    function renderFiltered(dataToRender) {
+        if (!tableBody) return;
+        tableBody.innerHTML = '';
+
+        // --- Update Colspan ---
+        const numberOfColumns = 6; // OrderID, UserID, EmpID, Location, Collected, Actions
+
+        if (!dataToRender || dataToRender.length === 0) {
+            const tr = document.createElement('tr'); const td = document.createElement('td');
+            td.colSpan = numberOfColumns; // Use variable
+            td.textContent = 'No matching orders found.'; td.style.textAlign = 'center';
+            tr.appendChild(td); tableBody.appendChild(tr); return;
         }
 
-        data.forEach(order => {
+        dataToRender.forEach(order => {
             const tr = document.createElement('tr');
-            tr.dataset.orderId = order.orderId; // Store ID for reference if needed
+            tr.dataset.orderId = order.order_id;
+            const statusText = order.collected === true ? 'True' : (order.collected === false ? 'False' : 'N/A');
 
+            // --- Updated innerHTML (Removed Date Cell) ---
             tr.innerHTML = `
-                <td>${order.orderId}</td>
-                <td>${order.userId}</td>
-                <td>${order.employeeId}</td>
-                <td>${order.location}</td>
-                <td>${order.date}</td>
-                <td></td> 
-                <td>
+                <td>${order.order_id || 'N/A'}</td>           
+                <td>${order.user_id || 'N/A'}</td>          
+                <td>${order.worker_id || 'N/A'}</td>        
+                <td>${order.location || 'N/A'}</td>        
+                <td>${statusText}</td>                       
+                <td>                                         
                     <div class="action-buttons">
                         <a href="#" class="action-btn btn-edit" title="Edit Status"><i class="fas fa-pencil-alt"></i></a>
                     </div>
                 </td>
             `;
-
-            // Append the status badge to the correct cell (index 5)
-            const statusCell = tr.cells[5];
-            statusCell.appendChild(createStatusBadge(order.status));
-
             tableBody.appendChild(tr);
         });
     }
 
-    // Function to filter and re-render table rows
+    // --- Fetches initial data ---
+    async function renderTable() {
+        if (!tableBody) { console.error("renderTable: Cannot find table body element."); return; }
+        try {
+            console.log("Fetching initial orders data...");
+            const response = await fetch("https://fmsbackend-iiitd.up.railway.app/orders/all-orders", { credentials: 'include' });
+            console.log("Fetch response status:", response.status);
+            if (!response.ok) { let errorText = response.statusText; try { errorText = await response.text(); } catch (e) { } throw new Error(`HTTP error ${response.status}: ${errorText}`); }
+            const fetchedResult = await response.json();
+            console.log("Data fetched:", fetchedResult);
+            if (!fetchedResult || !Array.isArray(fetchedResult.orders)) { console.error("Fetched data unexpected format. Received:", fetchedResult); throw new Error("Unexpected data format."); }
+            orderHistoryData = fetchedResult.orders;
+            renderFiltered(orderHistoryData); // Render the full initial data set
+        } catch (error) {
+            console.error("Error fetching/processing data:", error);
+            // --- Update Colspan ---
+            tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">Failed to load orders: ${error.message}</td></tr>`;
+        }
+    }
+
+    // --- Filtering Logic ---
     function filterAndRenderTable() {
         const searchTerm = searchInput.value.toLowerCase();
         const filterValue = filterSelect.value;
 
         const filteredData = orderHistoryData.filter(order => {
-            const matchesSearch = Object.values(order).some(value =>
-                String(value).toLowerCase().includes(searchTerm)
-            );
-            const matchesFilter = filterValue === 'all' || order.status === filterValue;
+            const statusBool = order.collected;
+            const statusText = statusBool === true ? 'true' : (statusBool === false ? 'false' : '');
+
+            // --- Updated Searchable Values (Removed Date) ---
+            const searchableValues = [
+                order.order_id,
+                order.user_id,
+                order.worker_id,
+                order.location,
+                // No Date
+                statusText
+            ];
+            const orderString = JSON.stringify(searchableValues).toLowerCase();
+            const matchesSearch = orderString.includes(searchTerm);
+
+            // Filter logic (remains same)
+            let matchesFilter = (filterValue === 'all') || (filterValue === 'true' && statusBool === true) || (filterValue === 'false' && statusBool !== true);
+
             return matchesSearch && matchesFilter;
         });
-
-        renderTable(filteredData);
-        // Important: Re-attach or ensure edit listeners work on the newly rendered rows.
-        // Since we use event delegation on tableBody, the existing edit listener should still work.
+        renderFiltered(filteredData); // Render the filtered subset
     }
 
-    // Event listeners for search and filter
-    searchInput.addEventListener('input', filterAndRenderTable);
-    filterSelect.addEventListener('change', filterAndRenderTable);
-
-    // --- Inline Status Editing Logic (Slightly Modified) ---
-
-    // Function to make a status cell editable (mostly unchanged, operates on the clicked row's DOM)
+    // --- Inline Status Editing Function ---
     function makeStatusEditable(row) {
-        const statusCell = row.cells[5];
-        const actionCell = row.cells[6];
-        const originalStatusBadge = statusCell.querySelector('.status-badge');
-        const currentStatusClass = originalStatusBadge ? Array.from(originalStatusBadge.classList).find(cls => cls !== 'status-badge') : 'pending';
-        const orderId = row.dataset.orderId; // Get order ID if needed for data update
+        // --- Updated Cell Indices ---
+        const statusCell = row.cells[4]; // 5th cell is Status (Collected)
+        const actionCell = row.cells[5]; // 6th cell is Actions
+        if (!statusCell || !actionCell) { console.error("Could not find status or action cell"); return; }
 
-        // Store original HTML (still useful for cancel)
+        const currentText = statusCell.textContent.trim().toLowerCase();
+        const currentValue = currentText === 'true';
+        const orderId = row.dataset.orderId;
+
         row.dataset.originalStatusHTML = statusCell.innerHTML;
         row.dataset.originalActionsHTML = actionCell.innerHTML;
 
-        // Create select dropdown
-        const statusSelect = createStatusSelect(currentStatusClass);
+        const statusSelect = createBooleanStatusSelect(currentValue);
         statusCell.innerHTML = '';
         statusCell.appendChild(statusSelect);
         statusSelect.focus();
 
-        // Change action buttons to Save/Cancel
         actionCell.innerHTML = `
             <div class="action-buttons">
                 <a href="#" class="action-btn btn-save" title="Save Status"><i class="fas fa-check"></i></a>
@@ -139,76 +144,80 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `;
 
-        // Add temporary listeners for Save/Cancel
         const saveBtn = actionCell.querySelector('.btn-save');
         const cancelBtn = actionCell.querySelector('.btn-cancel');
 
+        // --- Save Button Handler ---
         saveBtn.addEventListener('click', function handleSave(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const newStatusClass = statusSelect.value;
+            e.preventDefault(); e.stopPropagation();
+            const newStatusString = statusSelect.value;
+            if (newStatusString === "") { alert("Please select a status (True or False)."); return; }
+            const newStatusBoolean = newStatusString === 'true';
 
-            // --- Update the DOM directly --- 
-            statusCell.innerHTML = '';
-            statusCell.appendChild(createStatusBadge(newStatusClass));
-            actionCell.innerHTML = row.dataset.originalActionsHTML; // Restore original edit button
-            row.classList.remove('editing');
+            const payload = { order_id: orderId, collected: newStatusBoolean };
+            console.log(`Attempting update for order ${orderId} with payload:`, payload);
+            const apiUrl = `https://fmsbackend-iiitd.up.railway.app/admin/update-order-status`;
 
-            // --- Update the underlying data store --- 
-            const dataIndex = orderHistoryData.findIndex(order => order.orderId === orderId);
-            if (dataIndex !== -1) {
-                orderHistoryData[dataIndex].status = newStatusClass;
-                console.log(`Order ${orderId} data updated to status: ${newStatusClass}`);
-            } else {
-                console.error(`Could not find order ${orderId} in data store to update.`);
-            }
+            saveBtn.style.opacity = '0.5'; saveBtn.style.pointerEvents = 'none';
+            if (cancelBtn) { cancelBtn.style.opacity = '0.5'; cancelBtn.style.pointerEvents = 'none'; }
 
-            // Clean up dataset attributes
-            delete row.dataset.originalStatusHTML;
-            delete row.dataset.originalActionsHTML;
+            fetch(apiUrl, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, credentials: 'include', body: JSON.stringify(payload) })
+                .then(res => { if (!res.ok) return res.text().then(text => { throw new Error(`API Error ${res.status}: ${text || res.statusText}`) }); return res.json(); })
+                .then(data => {
+                    // Success: Update UI
+                    console.log('Status updated on backend:', data);
+                    statusCell.textContent = newStatusBoolean ? 'True' : 'False'; // Update status text
+                    actionCell.innerHTML = row.dataset.originalActionsHTML || ''; // Restore actions
+                    row.classList.remove('editing');
+                    // Update local data
+                    const dataIndex = orderHistoryData.findIndex(order => String(order.order_id) === String(orderId));
+                    if (dataIndex !== -1) { orderHistoryData[dataIndex].collected = newStatusBoolean; }
+                })
+                .catch(error => {
+                    // Error: Revert UI
+                    console.error('Failed to update status:', error);
+                    alert(`Error updating status: ${error.message}`);
+                    statusCell.innerHTML = row.dataset.originalStatusHTML || currentText;
+                    actionCell.innerHTML = row.dataset.originalActionsHTML || '';
+                    row.classList.remove('editing');
+                })
+                .finally(() => {
+                    // Clean up
+                    delete row.dataset.originalStatusHTML; delete row.dataset.originalActionsHTML;
+                    // Re-enable buttons (optional, as innerHTML change removes old ones)
+                });
+        });
 
-            // Re-filter/render *could* be done, but might be jarring if the edit causes the row to disappear.
-            // For now, just updating the DOM and data source is fine.
-            filterAndRenderTable(); // Re-render to ensure consistency after edit
-        }, { once: true });
-
+        // --- Cancel Button Handler ---
         cancelBtn.addEventListener('click', function handleCancel(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            // Restore original cell HTML
+            e.preventDefault(); e.stopPropagation();
             statusCell.innerHTML = row.dataset.originalStatusHTML;
             actionCell.innerHTML = row.dataset.originalActionsHTML;
             row.classList.remove('editing');
-
-            // Clean up dataset attributes
-            delete row.dataset.originalStatusHTML;
-            delete row.dataset.originalActionsHTML;
+            delete row.dataset.originalStatusHTML; delete row.dataset.originalActionsHTML;
             console.log(`Edit cancelled for order ${orderId}`);
         }, { once: true });
     }
 
-    // Event listener for Edit button clicks (using delegation - this remains the same)
+    // --- Event Delegation for Edit Button Clicks ---
     tableBody.addEventListener('click', function (e) {
         const editBtn = e.target.closest('.btn-edit');
         if (!editBtn) return;
-
         e.preventDefault();
         const row = editBtn.closest('tr');
-        // Ensure it's not an 'editing' row already or a header/empty row
-        if (row.classList.contains('editing') || !row.dataset.orderId) return;
-
-        // Prevent editing multiple rows at once
+        if (!row || !row.dataset.orderId || row.classList.contains('editing')) return;
         const currentlyEditing = tableBody.querySelector('tr.editing');
-        if (currentlyEditing && currentlyEditing !== row) {
-            alert('Please save or cancel the current edit first.');
-            return;
-        }
-
+        if (currentlyEditing && currentlyEditing !== row) { alert('Please save or cancel the current edit first.'); return; }
         row.classList.add('editing');
         makeStatusEditable(row);
     });
 
-    // --- Initial Table Render ---
-    renderTable(orderHistoryData);
+    // --- Attach Filter/Search Listeners ---
+    searchInput.addEventListener('input', filterAndRenderTable);
+    filterSelect.addEventListener('change', filterAndRenderTable);
 
-}); 
+    // --- Initial Load ---
+    renderTable();
+
+    console.log("Order History script initialized.");
+});

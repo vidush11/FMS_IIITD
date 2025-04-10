@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     cells[2].textContent = payload.building;
                     cells[3].textContent = payload.roomno;
                     cells[4].textContent = payload.email;
-                    cells[5].textconteny = payload.password;
+                    cells[5].textcontent = payload.password;
                     // Don't need to update password cell display
 
                     actionCell.innerHTML = row.dataset.originalActionsHTML || '';
