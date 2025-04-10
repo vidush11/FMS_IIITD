@@ -4,12 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('.search-input');
     const filterSelect = document.querySelector('.filter-select');
     const mainContent = document.querySelector('.main-content');
+    const addButton = document.querySelector('.EMP_ADD');
 
     // Add "Add Employee" button to the top of the table
-    const addButton = document.createElement('button');
-    addButton.className = 'add-employee-btn';
-    addButton.innerHTML = '<i class="fas fa-plus"></i> Add Employee';
-    document.querySelector('.table-container').insertBefore(addButton, document.querySelector('.data-table'));
+
 
     // Available roles for the dropdown
     const availableRoles = [
@@ -385,4 +383,103 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initial filter call
     filterTable();
-}); 
+});
+
+const employees = [
+    {
+        id: 'EMP001',
+        name: 'John Smith',
+        joiningDate: '01/01/2024',
+        phone: '9876543210',
+        role: 'Electrician'
+    },
+    {
+        id: 'EMP002',
+        name: 'Sarah Wilson',
+        joiningDate: '15/01/2024',
+        phone: '9876543211',
+        role: 'Plumber'
+    },
+    // Add more employee objects here as needed
+];
+
+// Function to populate the employee table
+function populateEmployeeTable() {
+    const tableBody = document.querySelector('.data-table tbody');
+    if (!tableBody) {
+        console.error('Table body not found!');
+        return;
+    }
+
+    // Clear existing content
+    tableBody.innerHTML = '';
+
+    // Populate table with employee data
+    employees.forEach(employee => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${employee.id}</td>
+            <td>${employee.name}</td>
+            <td>${employee.joiningDate}</td>
+            <td>${employee.phone}</td>
+            <td>${employee.role}</td>
+            <td>
+                <div class="action-buttons">
+                    <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="action-btn btn-reject"><i class="fas fa-trash"></i></a>
+                </div>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+
+    // Add empty rows if needed for styling/layout consistency
+    const minRows = 8; // Adjust as needed based on desired empty space
+    const currentRows = employees.length;
+    const emptyRowsToAdd = Math.max(0, minRows - currentRows);
+
+    for (let i = 0; i < emptyRowsToAdd; i++) {
+        const emptyRow = document.createElement('tr');
+        emptyRow.innerHTML = `
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        `;
+        tableBody.appendChild(emptyRow);
+    }
+}
+
+// Function to generate next employee ID
+function generateNextEmployeeId() {
+    if (employees.length === 0) return 'EMP001';
+
+    const lastEmployee = employees[employees.length - 1];
+    const lastId = parseInt(lastEmployee.id.replace('EMP', ''));
+    const nextId = lastId + 1;
+    return `EMP${String(nextId).padStart(3, '0')}`;
+}
+
+// Function to add a new employee
+function addEmployee() {
+    // Here you would typically show a form or modal to collect employee details
+    // For now, let's add a sample employee
+    const newEmployee = {
+        id: generateNextEmployeeId(),
+        name: 'New Employee',
+        joiningDate: new Date().toLocaleDateString(),
+        phone: '9876543212',
+        role: 'Maintenance Staff'
+    };
+
+    employees.push(newEmployee);
+    populateEmployeeTable();
+}
+
+// Add click event listener to the Add Employee button
+document.querySelector('.EMP_ADD').addEventListener('click', addEmployee);
+
+// Initialize the table when the page loads
+document.addEventListener('DOMContentLoaded', populateEmployeeTable); 

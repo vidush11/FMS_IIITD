@@ -16,7 +16,7 @@
         <h1>Facility Management System</h1>
         <div class="admin-text">ADMIN</div>
 
-        <form id="loginForm" onsubmit="return validateForm(event)">
+        <form id="loginForm" >
             <div class="input-group">
                 <input type="text" id="adminId" placeholder="Admin ID" required>
                 <div class="error-message" id="adminIdError">Please enter a valid Admin ID</div>
@@ -27,7 +27,7 @@
                 <div class="error-message" id="passwordError">Password must be at least 6 characters</div>
             </div>
 
-            <button type="submit" class="login-button">Login</button>
+            <button class="login-button" id="loginButton">Login</button>
         </form>
     </div>
 

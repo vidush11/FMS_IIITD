@@ -126,12 +126,18 @@ body {
 .main-content {
     flex-grow: 1;
     margin-left: var(--sidebar-width);
-    /* Same as sidebar width */
+    /* Keep existing */
     background-color: var(--secondary-bg);
+    /* Keep existing */
     padding: 30px;
+    /* Keep existing */
     height: 100vh;
+    /* Keep existing */
     overflow-y: auto;
-    /* Allow scrolling only in the main content */
+    /* Keep existing */
+    /* Add these lines */
+    display: flex;
+    flex-direction: column;
 }
 
 /* H1 (Adapted from styleshome.css) */
@@ -145,12 +151,23 @@ h1 {
 /* Table Container */
 .table-container {
     background-color: var(--card-bg);
+    /* Keep existing */
     border-radius: 8px;
-    /* Adjusted from 10px */
+    /* Keep existing */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Adjusted shadow */
+    /* Keep existing */
     overflow: hidden;
+    /* Keep existing */
+    /* Add these lines */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* Allows container to take available vertical space */
+    margin-bottom: 20px;
+    /* Optional: Consistent spacing like students page */
 }
+
+
 
 /* Table Actions (Search/Filter) */
 .table-actions {
@@ -197,29 +214,47 @@ h1 {
 }
 
 /* Data Table Styles (Adapted from styleshome.css) */
+.table-wrapper {
+    flex-grow: 1;
+    /* Takes space within table-container */
+    overflow-y: auto;
+    /* Enables vertical scroll */
+    min-height: 0;
+    /* Flexbox fix for overflow */
+}
+
 .data-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.9em;
 }
 
-.data-table th {
+.data-table thead {
+    position: sticky;
+    top: 0;
+    /* Ensure background matches existing th style if needed */
     background-color: var(--header-bg);
-    /* Dark header */
+    z-index: 1;
+    /* Keeps header above scrolling content */
+}
+
+.data-table th {
+    /* Your existing th styles */
+    background-color: var(--header-bg);
     color: var(--text-light);
     padding: 10px 12px;
-    /* Adjusted padding */
     text-align: left;
     font-weight: 600;
     border-bottom: 1px solid var(--border-color);
-    /* Adjusted border */
+    /* Make sure this background isn't overridden by the new thead rule if needed */
 }
 
 .data-table td {
+    /* Your existing td styles */
     padding: 10px 12px;
-    /* Adjusted padding */
     border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
+    color: var(--text-dark);
+    /* Use var(--text-dark) if defined, else keep existing */
     vertical-align: middle;
 }
 

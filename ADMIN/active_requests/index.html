@@ -58,88 +58,430 @@
                 </div>
             </div>
 
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Employee ID</th>
-                        <th>User ID</th>
-                        <th>Requested Service</th>
-                        <th>Building</th>
-                        <th>Room No</th>
-                        <th>Request time</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Example Data Row -->
-                    <tr>
-                        <td>EMP001</td>
-                        <td>USR123</td>
-                        <td>Plumbing</td>
-                        <td>H1</td>
-                        <td>101</td>
-                        <td>13/03/2024 11:00</td>
-                        <td><span class="status-badge in-progress">In Progress</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
-                                        class="fas fa-pencil-alt"></i></a>
-                                <a href="#" class="action-btn btn-reject" title="Remove Request"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>EMP002</td>
-                        <td>USR456</td>
-                        <td>Electrical</td>
-                        <td>Library</td>
-                        <td>Main Hall</td>
-                        <td>13/03/2024 14:20</td>
-                        <td><span class="status-badge pending">Pending</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
-                                        class="fas fa-pencil-alt"></i></a>
-                                <a href="#" class="action-btn btn-reject" title="Remove Request"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- Empty rows for spacing -->
-                    <tr class="empty-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="empty-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="empty-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>User ID</th>
+                            <th>Requested Service</th>
+                            <th>Building</th>
+                            <th>Room No</th>
+                            <th>Request time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example Data Row -->
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP002</td>
+                            <td>USR456</td>
+                            <td>Electrical</td>
+                            <td>Library</td>
+                            <td>Main Hall</td>
+                            <td>13/03/2024 14:20</td>
+                            <td><span class="status-badge pending">Pending</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EMP001</td>
+                            <td>USR123</td>
+                            <td>Plumbing</td>
+                            <td>H1</td>
+                            <td>101</td>
+                            <td>13/03/2024 11:00</td>
+                            <td><span class="status-badge in-progress">In Progress</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="action-btn btn-edit" title="Edit/Assign Employee"><i
+                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="action-btn btn-reject" title="Remove Request"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Empty rows for spacing -->
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="empty-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </main>

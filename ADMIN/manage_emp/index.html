@@ -28,7 +28,7 @@
                 <li><a href="#" class="active"><i class="fas fa-users fa-fw"></i> Manage Employees</a></li>
                 <li><a href="../manage_services/index.html"><i class="fas fa-concierge-bell fa-fw"></i> Manage
                         Services</a></li>
-                <li><a href="../order_history/index.html"><i class="fas fa-history fa-fw"></i> Order History</a></li>
+                <li><a href="../order_history/index.html"><i class="fas fa-history fa-fw"></i> Manage Orders</a></li>
                 <li><a href="../service_history/index.html"><i class="fas fa-clipboard-list fa-fw"></i> Request
                         History</a></li>
 
@@ -38,7 +38,12 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <h1>Manage Employees</h1>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <h1>Manage Employees</h1>
+            <button class="EMP_ADD">
+                Add Employee
+            </button>
+        </div>
 
         <div class="table-container">
             <!-- Search and Filter Bar -->
@@ -61,97 +66,25 @@
                     </select>
                 </div>
             </div>
-            <!-- Add Employee Button will be positioned via CSS -->
 
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Employee ID</th>
-                        <th>Name</th>
-                        <th>Date of Joining</th>
-                        <th>Phone Number</th>
-                        <th>Assigned Role</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>EMP001</td>
-                        <td>John Doe</td>
-                        <td>01/01/2024</td>
-                        <td>9876543210</td>
-                        <td>Electrician</td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="#" class="action-btn btn-reject"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>EMP002</td>
-                        <td>Jane Smith</td>
-                        <td>15/01/2024</td>
-                        <td>9876543211</td>
-                        <td>Plumber</td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="#" class="action-btn btn-reject"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- Empty rows for spacing -->
-                    <tr class="empty-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="empty-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="empty-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="empty-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="empty-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="empty-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Table Wrapper for Scrolling -->
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Date of Joining</th>
+                            <th>Phone Number</th>
+                            <th>Assigned Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table body will be populated dynamically by script.js -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 

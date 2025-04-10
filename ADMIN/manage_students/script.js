@@ -1,10 +1,23 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function () {
+
+    students = []
+
+    fetch("https://fmsbackend-iiitd.up.railway.app/admin/view-users").then(res => res.json()).then(
+        data => {
+            students = data;
+            console.log(data);
+        }
+    ).catch(error => {
+        console.error("Error fetching data:", error);
+    });
+
     // Get the table body where students are listed
     const tableBody = document.querySelector('.data-table tbody');
     const mainContent = document.querySelector('.main-content');
     const searchInput = document.querySelector('.search-input'); // Get search input
-    const filterSelect = document.querySelector('.filter-select'); // Get filter select
+    const filterSelect = document.querySelector('.filter-select');
+    const addbut = document.querySelector('.PLEASE_B'); // Get filter select
 
     // --- Debugging: Check if elements are selected ---
     console.log("Search Input Element:", searchInput);
@@ -15,19 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     // --------------------------------------------------
 
+
     // Add "Add Student" button
-    const addButton = document.createElement('button');
-    addButton.className = 'add-student-btn'; // Changed class name
-    addButton.innerHTML = '<i class="fas fa-plus"></i> Add Student'; // Changed text
-    const tableContainer = document.querySelector('.table-container');
-    if (tableContainer) {
-        tableContainer.appendChild(addButton);
-    } else {
-        console.error("ERROR: .table-container not found for Add button!");
-    }
+
 
     // Counter for new student roll numbers (assuming simple increment)
-    let lastRollNo = 0;
+
     const buildingOptions = ['H1', 'H2', 'Old Boys Hostel', 'Girls Hostel']; // Building options
 
     // Get all non-empty rows initially
@@ -37,15 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let rows = getRows();
 
     // Update last roll number based on existing entries
-    function updateLastRollNo() {
-        const rollNos = Array.from(tableBody.querySelectorAll('tr:not(.empty-row) td:first-child'))
-            .map(td => parseInt(td.textContent)); // Assuming roll no is just numeric
-        lastRollNo = rollNos.length > 0 ? Math.max(...rollNos) : 2023000; // Start from a base if empty
-        // Adjust base year/number as needed
-    }
+
 
     // Initialize last roll number
-    updateLastRollNo();
+
 
     // Function to filter table rows based on search and building
     function filterTable() {
@@ -63,14 +64,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Indices: 0=RollNo, 1=Name, 2=Phone, 3=Building, 4=Floor, 5=Room
+            // Indices: 0=RollNo, 1=Name, 2=Building, 3=Room
             const studentData = {
                 rollNo: row.cells[0]?.textContent.toLowerCase() || '',
                 name: row.cells[1]?.textContent.toLowerCase() || '',
-                phone: row.cells[2]?.textContent.toLowerCase() || '',
-                building: row.cells[3]?.textContent.toLowerCase() || '',
-                floor: row.cells[4]?.textContent.toLowerCase() || '',
-                room: row.cells[5]?.textContent.toLowerCase() || ''
+                building: row.cells[2]?.textContent.toLowerCase() || '',
+                room: row.cells[3]?.textContent.toLowerCase() || ''
             };
 
             // Check search match
@@ -78,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 value.includes(searchTerm)
             );
 
-            // Check filter match (Building is in cell 3)
-            const buildingCell = row.cells[3];
+            // Check filter match (Building is in cell 2)
+            const buildingCell = row.cells[2];
             const matchesFilter = filterValue === 'all' ||
                 (buildingCell && buildingCell.textContent === filterValue);
 
@@ -92,15 +91,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Function to create a new student row
-    function createStudentRow(rollNo = null, name = '', phone = '', building = '', floor = '', room = '') {
-        const newRollNo = rollNo || lastRollNo;
+    function createStudentRow(rollNo = '', name = '', building = '', room = '') {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${newRollNo}</td>
+            <td>${rollNo}</td>
             <td>${name}</td>
-            <td>${phone}</td>
             <td>${building}</td>
-            <td>${floor}</td>
             <td>${room}</td>
             <td>
                 <div class="action-buttons">
@@ -142,20 +138,19 @@ document.addEventListener('DOMContentLoaded', function () {
         const originalValues = [];
         row.dataset.originalHTML = {}; // Store original HTML per cell
 
-        // Indices: 1=Name, 2=Phone, 3=Building, 4=Floor, 5=Room
-        for (let i = 1; i < cells.length - 1; i++) {
+        // Indices: 1=Name, 2=Building, 3=Room
+        for (let i = 0; i < cells.length - 1; i++) {
             const cell = cells[i];
             originalValues[i] = cell.textContent; // Store text content for cancel
             row.dataset.originalHTML[i] = cell.innerHTML; // Store innerHTML for cancel
 
+            // Only skip Roll No (index 0) if it's not empty (existing student)
+            if (i === 0 && cell.textContent.trim() !== '') continue;
+
             let inputElement;
-            if (i === 2) { // Phone number
-                inputElement = document.createElement('input');
-                inputElement.type = 'tel';
-                inputElement.value = cell.textContent;
-            } else if (i === 3) { // Building -> Dropdown
+            if (i === 2) { // Building -> Dropdown
                 inputElement = createBuildingSelect(cell.textContent);
-            } else { // Name (i=1), Floor (i=4), Room (i=5)
+            } else { // Roll No (i=0), Name (i=1), Room (i=3)
                 inputElement = document.createElement('input');
                 inputElement.type = 'text';
                 inputElement.value = cell.textContent;
@@ -188,8 +183,12 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             e.stopPropagation(); // Prevent triggering the table body listener again
             const inputsAndSelect = row.querySelectorAll('.edit-input');
+            const isNewRow = cells[0].querySelector('.edit-input') !== null;
+
             inputsAndSelect.forEach((element, index) => {
-                const targetCell = cells[index + 1];
+                // For new rows, start from index 0; for existing rows, offset by 1
+                const targetIndex = isNewRow ? index : index + 1;
+                const targetCell = cells[targetIndex];
                 targetCell.textContent = element.value; // Update cell text content
             });
             actionCell.innerHTML = row.dataset.originalActionsHTML || ''; // Restore original buttons
@@ -245,17 +244,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(() => {
                     row.remove();
                     rows = getRows(); // Update rows list
-                    updateLastRollNo();
+
                 }, 300);
             }
         }
     });
 
     // Add new student functionality
-    addButton.addEventListener('click', function () {
-        lastRollNo++;
-        // Create row with empty values for Building, Floor, Room
-        const newRow = createStudentRow(lastRollNo, '', '', '', '', '');
+    addbut.addEventListener('click', function () {
+        // Create row with empty values for Building, Room
+        const newRow = createStudentRow('', '', '', '');
 
         const lastDataRow = Array.from(tableBody.querySelectorAll('tr:not(.empty-row)')).pop();
         if (lastDataRow) {
@@ -266,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         rows = getRows(); // Update rows list
 
-        row.classList.add('editing'); // Mark row as being edited
+        //row.classList.add('editing'); // Mark row as being edited
         makeRowEditable(newRow); // Make the new row editable immediately
     });
 
@@ -368,8 +366,25 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("Event listeners attached.");
         // ------------------------------------
     }
+
+    function loadstudents() {
+        students.forEach(student => {
+            const row = createStudentRow(
+                student.rollNumber || '',
+                student.name || '',
+                student.hostel || '',
+                student.roomNumber || ''
+            );
+            tableBody.appendChild(row);
+        });
+
+        // Update rows and apply initial filter
+        rows = getRows();
+        filterTable();
+    }
     // --------------------------------
 
     // Initial filter call
     filterTable();
+    loadstudents();
 }); 
