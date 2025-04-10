@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Student Modal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f3f3;
+      padding: 2rem;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-box h2 {
+      margin-top: 0;
+      margin-bottom: 1.2rem;
+      text-align: center;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      color: #555;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-cancel {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    .btn-cancel:hover {
+      background-color: #bbb;
+    }
+
+    .btn-save {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .btn-save:hover {
+      background-color: #2980b9;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button onclick="showModal()">+ Add Student</button>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-box">
+      <h2>Add New Student</h2>
+      <form id="studentForm">
+        <div class="form-group">
+          <label for="roll">Student Roll No.</label>
+          <input type="text" id="roll" name="roll" required>
+        </div>
+        <div class="form-group">
+          <label for="name">Student Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="building">Building</label>
+          <input type="text" id="building" name="building" required>
+        </div>
+        <div class="form-group">
+          <label for="room">Room No.</label>
+          <input type="text" id="room" name="room" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email ID</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div class="modal-buttons">
+          <button type="button" class="btn btn-cancel" onclick="hideModal()">Cancel</button>
+          <button type="submit" class="btn btn-save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const form = document.getElementById('studentForm');
+
+    function showModal() {
+      modal.style.display = 'flex';
+    }
+
+    function hideModal() {
+      modal.style.display = 'none';
+      form.reset();
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const data = {
+        roll: form.roll.value,
+        name: form.name.value,
+        building: form.building.value,
+        room: form.room.value,
+        email: form.email.value,
+        password: form.password.value
+      };
+
+      console.log("Student Data:", data);
+      // 👉 Here, you can send `data` to backend using fetch()
+
+      hideModal(); // close modal after saving
+      alert("Student saved successfully!");
+    });
+
+    // Optional: Close on Escape
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') hideModal();
+    });
+  </script>
+</body>
+</html>

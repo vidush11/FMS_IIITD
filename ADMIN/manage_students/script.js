@@ -1,6 +1,16 @@
 // Global students array (can be initialized empty)
 let students = [];
 
+function showModal() {
+    const modal = document.getElementById("addStudentModal");
+    if (modal) modal.style.display = "block";
+}
+
+function hideModal() {
+    const modal = document.getElementById("addStudentModal");
+    if (modal) modal.style.display = "none";
+}
+
 document.addEventListener('DOMContentLoaded', async function () {
     console.log("DOM fully loaded. Starting setup...");
 
@@ -8,6 +18,55 @@ document.addEventListener('DOMContentLoaded', async function () {
     const searchInput = document.querySelector('.search-input');
     const filterSelect = document.querySelector('.filter-select');
     const addbut = document.querySelector('.PLEASE_B');
+
+    const closeBtn = document.getElementById("closeModal");
+    const form = document.getElementById("addStudentForm");
+
+    if (closeBtn) {
+        closeBtn.addEventListener("click", hideModal);
+    }
+
+    window.addEventListener("click", function (e) {
+        const modal = document.getElementById("addStudentModal");
+        if (e.target === modal) {
+            hideModal();
+        }
+    });
+
+    if (form) {
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const payload = {
+                user_id: document.getElementById("studentRoll").value,
+                username: document.getElementById("studentName").value,
+                building: document.getElementById("studentBuilding").value,
+                roomno: document.getElementById("studentRoom").value,
+                email: document.getElementById("studentEmail").value,
+                userpassword: document.getElementById("studentPassword").value
+            };
+
+            try {
+                const res = await fetch("https://fmsbackend-iiitd.up.railway.app/admin/create-user", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await res.json();
+                if (res.ok) {
+                    alert("Student added successfully!");
+                    hideModal();
+                    location.reload();
+                } else {
+                    alert("Error: " + (result.error || "Something went wrong"));
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Failed to add student.");
+            }
+        });
+    }
 
     if (!tableBody || !searchInput || !filterSelect || !addbut) {
         console.error("FATAL: Could not find essential table elements.");
@@ -360,17 +419,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // --- Add Student Button (adjustment if pwd column displayed) ---
     addbut.addEventListener('click', function () {
-        if (tableBody.querySelector('tr.editing')) {
-            alert('Please save or cancel first.'); return;
-        }
-        // Create placeholders for Roll, Name, Building, Room, Email
-        const newRow = createStudentRow('', '', '', '', ''); // No password placeholder needed here
-        newRow.classList.add('editing');
-        tableBody.appendChild(newRow);
-        makeRowEditable(newRow); // Will create inputs for all editable fields including password
-        newRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        newRow.querySelector('input.edit-input')?.focus();
-        rows = getRows();
+        showModal();
     });
 
     // Listeners and CSS injection remain the same
@@ -382,3 +431,4 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     console.log("Setup complete.");
 });
+
