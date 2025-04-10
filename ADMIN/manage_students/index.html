@@ -77,6 +77,29 @@
                 </table>
             </div>
         </div>
+        <!-- Add Student Modal -->
+<div id="addStudentModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Add New Student</h2>
+      <form id="addStudentForm">
+        <input type="text" id="studentRoll" placeholder="Student Roll No." required />
+        <input type="text" id="studentName" placeholder="Student Name" required />
+        <select id="studentBuilding" required>
+          <option value="" disabled selected>Select Building</option>
+          <option value="H1 boys hostel">H1 boys hostel</option>
+          <option value="H2 boys hostel">H2 boys hostel</option>
+          <option value="Old Boys Hostel">Old Boys Hostel</option>
+          <option value="Girls Hostel">Girls Hostel</option>
+        </select>
+        <input type="text" id="studentRoom" placeholder="Room No." required />
+        <input type="email" id="studentEmail" placeholder="Email ID" required />
+        <input type="password" id="studentPassword" placeholder="Password" required />
+        <button type="submit" class="save-btn">Save</button>
+      </form>
+    </div>
+  </div>
+  
     </main>
 
     <script src="script.js"></script>

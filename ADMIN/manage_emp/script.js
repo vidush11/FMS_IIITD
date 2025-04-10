@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const addButton = document.querySelector('.EMP_ADD');
 
     // Add "Add Employee" button to the top of the table
-
+    const empModal = document.getElementById('addEmployeeModal');
+    const empCloseBtn = document.getElementById('closeEmployeeModal');
+    const empForm = document.getElementById('addEmployeeForm');
 
     // Available roles for the dropdown
     const availableRoles = [
@@ -22,6 +24,59 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Counter for new employee IDs
     let lastEmployeeId = 0;
+    addButton?.addEventListener('click', () => {
+        empModal.style.display = 'block';
+    });
+
+    // Close modal
+    empCloseBtn?.addEventListener('click', () => {
+        empModal.style.display = 'none';
+    });
+
+    // Optional: Close when clicking outside modal
+    window.addEventListener('click', (e) => {
+        if (e.target === empModal) {
+            empModal.style.display = 'none';
+        }
+    });
+
+    // Handle form submission
+    empForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const payload = {
+            worker_id: document.getElementById('empID').value.trim(),
+            worker_name: document.getElementById('empName').value.trim(),
+            phone: document.getElementById('empPhone').value.trim(),
+            assigned_role: document.getElementById('empRole').value.trim(),
+            workerpassword: document.getElementById('empPassword').value.trim()
+        };
+
+        if (!payload.worker_id || !payload.worker_name || !payload.phone || !payload.assigned_role || !payload.workerpassword) {
+            alert("Please fill all fields.");
+            return;
+        }
+
+        try {
+            const res = await fetch('https://fmsbackend-iiitd.up.railway.app/admin/add-employee', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.error || "Failed to add employee");
+
+            alert("Employee added successfully!");
+            empModal.style.display = 'none';
+            empForm.reset();
+            populateEmployeeTable();
+
+        } catch (err) {
+            console.error(err);
+            alert(`Error: ${err.message}`);
+        }
+    });
 
     // Get all non-empty rows initially
     function getRows() {
