@@ -140,6 +140,65 @@ async function loadDashboardActiveRequests() {
     }
 }
 
+async function loadAssignedWorkersDashboard(limit = 7) {
+    const tableBody = document.querySelector('.service-management .data-table tbody');
+    if (!tableBody) return;
+
+    try {
+        const response = await fetch(`https://fmsbackend-iiitd.up.railway.app/worker/latest-area-of-service?limit=${limit}`);
+        const data = await response.json();
+        const workers = data.workers || [];
+
+        tableBody.innerHTML = '';
+
+        if (workers.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No assignments found</td></tr>`;
+            return;
+        }
+
+        const buildingOptions = [
+            "LHC complex",
+            "R&D block",
+            "Old Academic",
+            "Faculty Residence",
+            "H1 boys hostel",
+            "H2 boys hostel",
+            "Girls Hostel",
+            "Old Boys Hostel"
+        ];
+
+        workers.forEach(worker => {
+            const row = document.createElement('tr');
+            const optionsHTML = buildingOptions.map(loc => {
+                const selected = loc === worker.assigned_location ? 'selected' : '';
+                return `<option value="${loc}" ${selected}>${loc}</option>`;
+            }).join('');
+
+            row.innerHTML = `
+                <td>${worker.worker_id}</td>
+                <td>${worker.name}</td>
+                <td>
+                    <select data-employee="${worker.worker_id}">
+                        <option value="">Select Building</option>
+                        ${optionsHTML}
+                    </select>
+                </td>
+                <td>
+                    <div class="action-buttons" style="justify-content: flex-start;">
+                        <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+    } catch (err) {
+        console.error("Failed to load assignments:", err);
+        tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Error loading assignments</td></tr>`;
+    }
+}
+
+
 async function loadComplaintsWithLimit() {
     const tableBody = document.querySelector('.active-complaints .data-table tbody');
     if (!tableBody) return;
@@ -187,7 +246,50 @@ async function loadComplaintsWithLimit() {
 document.addEventListener('DOMContentLoaded', () => {
     loadDashboardActiveRequests();
     loadComplaintsWithLimit(); // Fetch and display 5 complaints
+    loadAssignedWorkersDashboard();
 
+    document.addEventListener('click', async function (e) {
+        const saveBtn = e.target.closest('.btn-save');
+        if (!saveBtn) return;
+    
+        e.preventDefault();
+    
+        const row = saveBtn.closest('tr');
+        if (!row) return;
+    
+        const workerId = parseInt(row.cells[0]?.textContent.trim());
+        const selectedBuilding = row.querySelector('select')?.value;
+    
+        if (!selectedBuilding || selectedBuilding === '') {
+            alert('Please select a building before saving.');
+            return;
+        }
+    
+        try {
+            const response = await fetch("https://fmsbackend-iiitd.up.railway.app/worker/new-assign", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    worker_id: workerId,
+                    assigned_location: selectedBuilding
+                })
+            });
+    
+            const result = await response.json();
+    
+            if (!response.ok) {
+                throw new Error(result.error || 'Assignment update failed');
+            }
+    
+            alert('Assignment updated successfully!');
+        } catch (err) {
+            console.error("Error saving assignment:", err);
+            alert(`Error: ${err.message}`);
+        }
+    });
+    
 });
 
 

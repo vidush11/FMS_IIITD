@@ -172,3 +172,123 @@ function handleEdit(employeeId) {
     console.log('Editing service area for employee:', employeeId);
     // Add your edit logic here
 } 
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadWorkerAssignments();
+});
+
+async function loadWorkerAssignments() {
+    const tableBody = document.querySelector('.data-table tbody');
+    if (!tableBody) return;
+
+    try {
+        const res = await fetch('https://fmsbackend-iiitd.up.railway.app/worker/latest-area-of-service');
+        const data = await res.json();
+
+        const workers = data?.workers || [];
+        tableBody.innerHTML = ''; // Clear existing rows
+
+        const buildingOptions = [
+            "LHC complex",
+            "R&D block",
+            "Old Academic",
+            "Faculty Residence",
+            "H1 boys hostel",
+            "H2 boys hostel",
+            "Girls Hostel",
+            "Old Boys Hostel"
+        ];
+
+        if (workers.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No workers found</td></tr>`;
+            return;
+        }
+
+        workers.forEach((worker, index) => {
+            const row = document.createElement('tr');
+
+            // Build the select dropdown
+            const select = document.createElement('select');
+            select.name = `area${worker.worker_id}`;
+            select.dataset.employee = worker.worker_id;
+            
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.disabled = true;
+            defaultOption.selected = !worker.assigned_location;
+            defaultOption.textContent = 'Select Building';
+            select.appendChild(defaultOption);
+
+            buildingOptions.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                if (worker.assigned_location === option) {
+                    opt.selected = true;
+                }
+                select.appendChild(opt);
+            });
+
+            // Construct row HTML
+            row.innerHTML = `
+                <td>${worker.worker_id}</td>
+                <td>${worker.name}</td>
+                <td></td>
+                <td>
+                    <div class="action-buttons" style="justify-content: flex-start;">
+                        <a href="#" class="action-btn btn-save"><i class="fas fa-save"></i></a>
+                    </div>
+                </td>
+            `;
+
+            row.querySelector('td:nth-child(3)').appendChild(select); // Inject the select dropdown
+            tableBody.appendChild(row);
+        });
+
+    } catch (err) {
+        console.error("Error loading worker assignments:", err);
+        tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Error loading data</td></tr>`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const table = document.querySelector('.data-table');
+
+    table.addEventListener('click', async (e) => {
+        const saveBtn = e.target.closest('.btn-save');
+        if (!saveBtn) return;
+
+        e.preventDefault();
+        const row = saveBtn.closest('tr');
+        const workerId = parseInt(row.cells[0].textContent.trim());
+        const select = row.querySelector('select');
+        const selectedLocation = select?.value;
+
+        if (!workerId || !selectedLocation || selectedLocation === "select") {
+            alert("Please select a valid building for assignment.");
+            return;
+        }
+
+        try {
+            const response = await fetch('https://fmsbackend-iiitd.up.railway.app/worker/new-assign', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    worker_id: workerId,
+                    assigned_location: selectedLocation
+                })
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to assign service.");
+            }
+
+            alert(`Assigned successfully!`);
+        } catch (error) {
+            console.error("Error assigning service:", error);
+            alert("Failed to assign service. Please try again.");
+        }
+    });
+});
+
