@@ -140,9 +140,54 @@ async function loadDashboardActiveRequests() {
     }
 }
 
+async function loadComplaintsWithLimit() {
+    const tableBody = document.querySelector('.active-complaints .data-table tbody');
+    if (!tableBody) return;
+
+    try {
+        const response = await fetch(`https://fmsbackend-iiitd.up.railway.app/complaint/active-complaints?limit=5`);
+        const data = await response.json();
+        const complaints = data.complaints || [];
+
+        tableBody.innerHTML = ""; // Clear existing rows
+
+        if (complaints.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No complaints found</td></tr>`;
+            return;
+        }
+
+        complaints.forEach(item => {
+            const statusClass = item.is_resolved ? "resolved" : "in-progress";
+            const statusText = item.is_resolved ? "Resolved" : "In Progress";
+
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${item.complaint_id}</td>
+                <td>${new Date(item.complaint_datetime).toLocaleString()}</td>
+                <td>${item.complaint}</td>
+                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="#" class="action-btn btn-edit" title="Update Status"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="#" class="action-btn btn-reject" title="Delete Complaint"><i class="fas fa-trash"></i></a>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error("Failed to load complaints:", error);
+        tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Error loading complaints</td></tr>`;
+    }
+}
+
+
 // Call it inside DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     loadDashboardActiveRequests();
+    loadComplaintsWithLimit(); // Fetch and display 5 complaints
+
 });
 
 

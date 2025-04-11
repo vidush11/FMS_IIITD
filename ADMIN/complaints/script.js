@@ -149,8 +149,58 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    async function fetchAndDisplayComplaints() {
+        try {
+            const response = await fetch('https://fmsbackend-iiitd.up.railway.app/complaint/active-complaints'); // Adjust URL as needed
+            const data = await response.json();
+    
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to fetch complaints");
+            }
+    
+            const complaints = data.complaints || [];
+            const tbody = document.querySelector('.data-table tbody');
+            tbody.innerHTML = ""; // Clear old rows
+    
+            if (complaints.length === 0) {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td colspan="5" style="text-align:center;">No active complaints found</td>`;
+                tbody.appendChild(row);
+                return;
+            }
+    
+            complaints.forEach(c => {
+                const statusClass = c.is_resolved ? 'resolved' : 'in-progress';
+                const statusText = c.is_resolved ? 'Resolved' : 'In Progress';
+    
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${c.complaint_id}</td>
+                    <td>${new Date(c.complaint_datetime).toLocaleString()}</td>
+                    <td>${c.complaint}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="action-btn btn-edit" title="Update Status"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="#" class="action-btn btn-reject" title="Delete Complaint"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+    
+            // Refresh row references
+            rows = getRows();
+            filterTable();
+        } catch (err) {
+            console.error("Error fetching complaints:", err);
+            alert("Failed to load complaints.");
+        }
+    }
+
     // --- Initial Filter ---
     filterTable();
+    fetchAndDisplayComplaints();
 });
 
 // Removed placeholder functions as they are not implemented here
