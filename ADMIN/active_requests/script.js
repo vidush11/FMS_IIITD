@@ -82,38 +82,66 @@ document.addEventListener('DOMContentLoaded', function () {
     let rows = getRows();
 
     // Function to filter table rows based on search and status
+    // Function to filter table rows based on search and status
     function filterTable() {
-        if (!searchInput || !filterSelect) { // Add checks for elements
-            console.error("Search input or filter select not found for filtering.");
+        // Ensure elements exist
+        if (!searchInput || !tableBody) {
+            console.error("Search input, filter select, or table body not found for filtering.");
             return;
         }
-        const searchTerm = searchInput.value.toLowerCase();
-        // Values are 'all', 'pending', 'in-progress'
-        rows = getRows(); // Re-fetch rows
 
-        rows.forEach(row => {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        // Get selected status filter ('all', 'pending', 'completed')
+
+
+        // Get current rows from the DOM *inside* the function
+        const currentRows = tableBody.querySelectorAll('tr');
+
+        if (!currentRows || currentRows.length === 0) {
+            console.log("No rows found in table body to filter.");
+            return;
+        }
+
+        currentRows.forEach(row => {
+            // Skip header rows
+            if (row.querySelectorAll('th').length > 0) return;
+            // Keep editing rows visible
             if (row.classList.contains('editing')) {
                 row.style.display = '';
                 return;
             }
-            // Indices: 0:EmpID, 1:UserID, 2:Service, 3:Building, 4:Room, 5:Time, 6:Status Cell
-            const requestData = {
-                empId: row.cells[0]?.textContent.toLowerCase() || '',
-                userId: row.cells[1]?.textContent.toLowerCase() || '',
-                service: row.cells[2]?.textContent.toLowerCase() || '',
-                building: row.cells[3]?.textContent.toLowerCase() || '',
-                room: row.cells[4]?.textContent.toLowerCase() || '',
-                time: row.cells[5]?.textContent.toLowerCase() || '',
-                status: row.querySelector('.status-badge')?.textContent.toLowerCase() || '' // Status is in cell 6
-            };
 
-            const matchesSearch = Object.values(requestData).some(value =>
+            const cells = row.querySelectorAll('td');
+            // Ensure we have enough cells before trying to access them
+            if (cells.length < 7) { // Expecting at least 7 cells (0-6) for data + status
+                row.style.display = 'none'; // Hide malformed rows
+                console.warn("Skipping row with insufficient cells:", row);
+                return;
+            }
+
+            // --- गैदर डेटा फॉर सर्चिंग ---
+            const requestDataForSearch = {
+                empId: cells[0]?.textContent.toLowerCase() || '',
+                userId: cells[1]?.textContent.toLowerCase() || '',
+                service: cells[2]?.textContent.toLowerCase() || '',
+                building: cells[3]?.textContent.toLowerCase() || '',
+                room: cells[4]?.textContent.toLowerCase() || '',
+                time: cells[5]?.textContent.toLowerCase() || '', // Searches the formatted time string
+                status: cells[6].querySelector('.status-badge')?.textContent.toLowerCase() || '' // Status text from badge
+            };
+            const matchesSearch = Object.values(requestDataForSearch).some(value =>
                 value.includes(searchTerm)
             );
 
-            // Status is in cell 6
-            const statusElement = row.querySelector('.status-badge');
+            // --- गैदर डेटा फॉर फिल्टरिंग (गेट द क्लास) ---
 
+            // Find the status class (e.g., 'pending', 'completed') from the badge's classList
+            // Get 'pending' or 'completed' etc.
+
+            // --- फिल्टर लॉजिक ---
+
+
+            // --- अप्लाई विजिबिलिटी बेस्ड ऑन **बोथ** सर्च एंड फिल्टर ---
             row.style.display = matchesSearch ? '' : 'none';
         });
     }

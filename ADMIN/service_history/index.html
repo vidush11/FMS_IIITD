@@ -42,6 +42,38 @@
                     <i class="fas fa-search search-icon"></i>
                 </div>
                 
+                <div class="filter-group date-time-filter">
+                    <label for="start-date">Start Date</label>
+                    <input type="date" class="date-time-input" id="S_D">
+                </div>
+                <div class="filter-group date-time-filter">
+                    <label for="start-time">Start Time</label>
+                    <input type="time" class="date-time-input" id="S_T">
+                </div>
+                <div class="filter-group date-time-filter">
+                    <label for="end-date">End Date</label>
+                    <input type="date" class="date-time-input" id="E_D">
+                </div>
+                <div class="filter-group date-time-filter">
+                    <label for="end-time">End Time</label>
+                    <input type="time" class="date-time-input" id="E_T">
+                </div>
+               
+                <div class="filter-group building-filter">
+                     <label for="building-select">Building</label>
+                    <select class="filter-select" id="building-select"> 
+                        <option value="all">All Buildings</option>
+                        <option value="H1 boys hostel">H1 boys hostel</option>
+                        <option value="H2 boys hostel">H2 boys hostel</option>
+                        <option value="Old Boys Hostel">Old Boys Hostel</option>
+                        <option value="Girls Hostel">Girls Hostel</option>
+                    </select>
+                </div>
+            
+              
+                <button id="filter-apply-btn" title="Apply Filters" style="background-color:darkgreen; color:white; height:30px;width:30px; border-radius:2px; border:none; cursor:pointer;">
+                    <i class="fas fa-check"></i>
+                </button>
             </div>
 
             <table class="data-table">
@@ -57,7 +89,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                 </tbody>
             </table>
         </div>
