@@ -11,6 +11,82 @@ document.addEventListener('DOMContentLoaded', function () {
     const empCloseBtn = document.getElementById('closeEmployeeModal');
     const empForm = document.getElementById('addEmployeeForm');
 
+    const employeeInfoModal = document.getElementById('employeeInfoModal');
+        const employeeBasicDetails = document.getElementById('employeeBasicDetails');
+        const employeeServiceTableBody = document.getElementById('employeeServiceTableBody');
+        const closeEmployeeInfoModal = document.getElementById('closeEmployeeInfoModal');
+
+        document.querySelector('.data-table tbody').addEventListener('click', async function(e) {
+            const infoBtn = e.target.closest('.btn-info');
+            if (!infoBtn) return;
+            e.preventDefault();
+
+            const row = infoBtn.closest('tr');
+            const cells = row.querySelectorAll('td');
+
+            const workerId = cells[0].textContent.trim();
+            const name = cells[1].textContent.trim();
+            const phone = cells[2].textContent.trim();
+            const role = cells[3].textContent.trim();
+            const joining = cells[4].textContent.trim();
+            const rating = cells[5].textContent.trim();
+
+            employeeBasicDetails.innerHTML = `
+                <p><strong>ID:</strong> ${workerId}</p>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Role:</strong> ${role}</p>
+                <p><strong>Date of Joining:</strong> ${joining}</p>
+                <p><strong>Rating:</strong> ${rating}</p>
+            `;
+
+            employeeServiceTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Loading...</td></tr>`;
+
+            employeeInfoModal.style.display = 'block';
+
+            try {
+                const res = await fetch("https://fmsbackend-iiitd.up.railway.app/worker/completed-requests", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ worker_id: workerId })
+                });
+                const data = await res.json();
+
+                employeeServiceTableBody.innerHTML = '';
+                if (!res.ok || !Array.isArray(data.requests) || data.requests.length === 0) {
+                    employeeServiceTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No service records found.</td></tr>';
+                    return;
+                }
+
+                data.requests.forEach(service => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${service.building}</td>
+                        <td>${service.room_no}</td>
+                        <td>${new Date(service.request_time).toLocaleString()}</td>
+                        <td>${service.feedback || 'N/A'}</td>
+                        <td>${service.services?.service_type || 'N/A'}</td>
+                    `;
+                    employeeServiceTableBody.appendChild(row);
+                });
+
+            } catch (err) {
+                console.error("Error fetching service history:", err);
+                employeeServiceTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;">Failed to load service history.</td></tr>';
+            }
+        });
+
+        closeEmployeeInfoModal.addEventListener('click', () => {
+            employeeInfoModal.style.display = 'none';
+            employeeServiceTableBody.innerHTML = '';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === employeeInfoModal) {
+                employeeInfoModal.style.display = 'none';
+                employeeServiceTableBody.innerHTML = '';
+            }
+        });
     // Available roles for the dropdown
     const availableRoles = [
         'Electrician',

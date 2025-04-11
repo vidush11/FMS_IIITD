@@ -122,7 +122,8 @@ body {
     grid-template-areas:
         "requests profile"
         "management complaints"
-        "top-employees avgrequests";
+        "top-employees avgrequests"
+        "linechart linechart";
 }
 
 /* General Card Styling */
@@ -316,3 +317,20 @@ body {
 .btn-logout:hover { background-color: #a52d23; } /* Darker red on hover */
 .avgrequests { grid-area: avgrequests; }
 .chart { grid-area: chart; }
+/* .line-avg-services {
+    grid-area: linechart;
+} */
+#serviceSelect {
+    padding: 10px 14px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+#fetchWorkersBtn {
+    padding: 10px 16px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+

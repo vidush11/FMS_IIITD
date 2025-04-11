@@ -111,7 +111,28 @@
             </form>
         </div>
     </div>
-
+    <div id="employeeInfoModal" class="modal">
+        <div class="modal-content" style="width: 95%; max-height: 90vh; margin: 2% auto;">
+            <span id="closeEmployeeInfoModal" class="close-button">&times;</span>
+            <h2>Employee Details</h2>
+            <div id="employeeBasicDetails"></div>
+            <h3 style="margin-top: 20px;">Service History</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Building</th>
+                        <th>Room No</th>
+                        <th>Request Time</th>
+                        <th>Feedback</th>
+                        <th>Service Type</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeServiceTableBody">
+                    <tr><td colspan="5" style="text-align:center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <!-- Script -->
     <script src="script.js"></script>
 </body>

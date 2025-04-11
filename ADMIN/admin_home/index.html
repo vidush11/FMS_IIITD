@@ -159,7 +159,39 @@
                     </table>
                 </div>
             </section>
-
+            <!-- Line Graph for Avg Services per Worker -->
+            <section class="card main-section line-avg-services">
+                <div class="card-header">Average Services Handled Per Worker</div>
+                <div class="card-content">
+                    <canvas id="lineAvgChart" height="120"></canvas>
+                </div>
+            </section>
+            <section class="card main-section top-performers">
+                <div class="card-header">The HARD WORKERS! - Top Performers</div>
+                <div class="card-content">
+              
+                  <!-- Dropdown and button -->
+                  <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <label for="serviceSelect"><strong>Service Type:</strong></label>
+                    <select id="serviceSelect" style="padding: 5px;">
+                      <option value="Housekeeping">Housekeeping</option>
+                      <option value="Security">Security</option>
+                      <option value="Painting">Painting</option>
+                      <option value="Carpentry">Carpentry</option>
+                      <option value="Electrical Work">Electrical Work</option>
+                      <option value="Miscellaneous">Miscellaneous</option>
+                    </select>
+                    <button id="fetchWorkersBtn" style="padding: 6px 12px; background-color: #39AEA8; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                      <i class="fas fa-check"></i>
+                    </button>
+                  </div>
+              
+                  <!-- Cards will be shown here -->
+                  <div id="workerCardsContainer" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px;"></div>
+              
+                </div>
+              </section>
+              
         </div> <!-- End content-grid -->
 
     </main>

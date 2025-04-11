@@ -285,6 +285,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+async function renderLineChartForAvgServices() {
+    try {
+        const res = await fetch('https://fmsbackend-iiitd.up.railway.app/worker/avg-services');
+        const result = await res.json();
+
+        if (!res.ok || !Array.isArray(result.data)) {
+            throw new Error(result.error || "Failed to fetch chart data");
+        }
+
+        const ctx = document.getElementById("lineAvgChart").getContext("2d");
+
+        const labels = result.data.map(worker => `ID ${worker.worker_id}`);
+        const values = result.data.map(worker => worker.avg_services);
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Average Services",
+                    data: values,
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    tension: 0.3,
+                    fill: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: "#1f77b4",
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Worker ID'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Avg Services'
+                        }
+                    }
+                }
+            }
+        });
+
+    } catch (err) {
+        console.error("Line chart error:", err);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", renderLineChartForAvgServices);
+
 async function loadAvgRequestsPerService() {
     try {
         const response = await fetch("https://fmsbackend-iiitd.up.railway.app/statistics/avg-requests-per-service");
@@ -482,6 +541,66 @@ if (ctx) {
 } else {
     console.warn("Chart element with ID 'serviceChart' not found.");
 }
+
+document.getElementById("fetchWorkersBtn").addEventListener("click", async () => {
+    const selectedService = document.getElementById("serviceSelect").value;
+  
+    try {
+      const response = await fetch("https://fmsbackend-iiitd.up.railway.app/worker/highest-completed", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ service_type: selectedService })
+      });
+  
+      const result = await response.json();
+      if (result.data && Array.isArray(result.data)) {
+        renderWorkerCards(result.data);
+      } else {
+        console.error("Invalid response format:", result);
+        document.getElementById("workerCardsContainer").innerHTML = "<p>No workers found for this service.</p>";
+      }
+    } catch (error) {
+      console.error("Error fetching workers:", error);
+      document.getElementById("workerCardsContainer").innerHTML = "<p style='color:red;'>Failed to fetch workers.</p>";
+    }
+  });
+  
+  function renderWorkerCards(workers) {
+    const container = document.getElementById("workerCardsContainer");
+    container.innerHTML = ""; // clear old cards
+  
+    if (workers.length === 0) {
+      container.innerHTML = "<p>No workers found for this service.</p>";
+      return;
+    }
+  
+    workers.forEach(worker => {
+      const card = document.createElement("div");
+      card.style.cssText = `
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        padding: 15px;
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      `;
+  
+      card.innerHTML = `
+        <div style="font-size: 3em; color: #003D39; margin-bottom: 10px;">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <h4 style="margin: 5px 0;">${worker.name}</h4>
+        <p style="margin: 0; font-size: 0.9em; color: #666;">ID: ${worker.worker_id}</p>
+      `;
+  
+      container.appendChild(card);
+    });
+  }
 
 // Make sure this script doesn't define functions removed earlier
 // e.g., viewAllRequests, viewAllServices, viewAllComplaints

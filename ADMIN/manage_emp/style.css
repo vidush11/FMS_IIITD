@@ -532,4 +532,14 @@ body {
   #addEmployeeForm button:hover {
     background-color: #0056b3;
   }
-  
+  .modal-content {
+    background-color: #fff;
+    margin: 2% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80vw; /* full width based on viewport */
+    max-width: 800px; /* or increase this if needed */
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 8px;
+}
