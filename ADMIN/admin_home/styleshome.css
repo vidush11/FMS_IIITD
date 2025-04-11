@@ -121,7 +121,8 @@ body {
     gap: 25px;
     grid-template-areas:
         "requests profile"
-        "management complaints";
+        "management complaints"
+        "top-employees avgrequests";
 }
 
 /* General Card Styling */
@@ -313,3 +314,5 @@ body {
 .btn-view-profile:hover { background-color: var(--primary-dark); }
 .btn-logout { background-color: var(--danger-color); }
 .btn-logout:hover { background-color: #a52d23; } /* Darker red on hover */
+.avgrequests { grid-area: avgrequests; }
+.chart { grid-area: chart; }

@@ -247,6 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDashboardActiveRequests();
     loadComplaintsWithLimit(); // Fetch and display 5 complaints
     loadAssignedWorkersDashboard();
+    loadAvgRequestsPerService();
+    loadTopRatedEmployees();
 
     document.addEventListener('click', async function (e) {
         const saveBtn = e.target.closest('.btn-save');
@@ -291,6 +293,87 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
 });
+
+async function loadAvgRequestsPerService() {
+    try {
+        const response = await fetch("https://fmsbackend-iiitd.up.railway.app/statistics/avg-requests-per-service");
+        const data = await response.json();
+
+        if (!response.ok) throw new Error(data.error || 'Failed to fetch');
+
+        const labels = data.averages.map(entry => entry.service_type);
+        const values = data.averages.map(entry => parseFloat(entry.average_requests.toFixed(2)));
+
+        const ctx = document.getElementById("avgRequestChart").getContext("2d");
+        console.log("Chart data:", labels, values);
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels,
+                datasets: [{
+                    label: "Avg Requests/Day",
+                    data: values,
+                    backgroundColor: "rgba(0, 61, 57, 1)",
+                    borderColor: "rgba(0, 61, 57, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: context => `${context.parsed.y} requests/day`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: "Requests" }
+                    }
+                }
+            }
+        });
+    } catch (err) {
+        console.error("Chart load error:", err);
+    }
+}
+
+async function loadTopRatedEmployees() {
+    const tableBody = document.querySelector('.top-employees .data-table tbody');
+    if (!tableBody) return;
+
+    try {
+        const response = await fetch('https://fmsbackend-iiitd.up.railway.app/statistics/top-rated-workers');
+        const data = await response.json();
+        const workers = data.workers || [];
+
+        tableBody.innerHTML = '';
+
+        if (workers.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No top employees found</td></tr>`;
+            return;
+        }
+
+        workers.forEach(worker => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${worker.worker_id}</td>
+                <td>${worker.name}</td>
+                <td>${worker.assigned_role}</td>
+                <td>${worker.rating.toFixed(2)}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+    } catch (err) {
+        console.error("Failed to load top employees:", err);
+        tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Error loading data</td></tr>`;
+    }
+}
+
 
 
 // Profile Functions
