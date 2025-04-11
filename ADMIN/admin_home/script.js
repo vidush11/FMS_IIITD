@@ -204,7 +204,7 @@ async function loadComplaintsWithLimit() {
     if (!tableBody) return;
 
     try {
-        const response = await fetch(`https://fmsbackend-iiitd.up.railway.app/complaint/active-complaints?limit=5`);
+        const response = await fetch(`https://fmsbackend-iiitd.up.railway.app/complaint/last-day-complaints`);
         const data = await response.json();
         const complaints = data.complaints || [];
 
@@ -222,8 +222,8 @@ async function loadComplaintsWithLimit() {
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${item.complaint_id}</td>
-                <td>${new Date(item.complaint_datetime).toLocaleString()}</td>
-                <td>${item.complaint}</td>
+                <td>${new Date(item.complaints.complaint_datetime).toLocaleString()}</td>
+                <td>${item.complaints.complaint}</td>
                 <td><span class="status-badge ${statusClass}">${statusText}</span></td>
                 <td>
                     <div class="action-buttons">
