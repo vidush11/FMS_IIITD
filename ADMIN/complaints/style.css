@@ -371,3 +371,29 @@ h1 {
         font-size: 0.85rem;
     }
 }
+
+.date-filter-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 1rem;
+}
+
+#complaintDateFilter {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#dateFilterBtn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#dateFilterBtn i {
+    pointer-events: none;
+}

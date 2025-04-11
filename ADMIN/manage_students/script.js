@@ -29,6 +29,8 @@ const studentDetails = document.getElementById("studentDetails");
 const fetchHistoryBtn = document.getElementById("fetchHistoryBtn");
 const historyTableBody = document.querySelector("#historyTable tbody");
 const historyDateInput = document.getElementById("historyDate");
+const complaintTableBody = document.querySelector("#complaintTableBody");
+
 
 // Attach click handler for each info button
 document.querySelectorAll('.btn-info').forEach(btn => {
@@ -52,6 +54,7 @@ document.querySelectorAll('.btn-info').forEach(btn => {
 
         studentInfoModal.dataset.userid = userId;
         studentInfoModal.style.display = "block";
+        
     });
 });
 
@@ -93,6 +96,7 @@ fetchHistoryBtn.addEventListener('click', async () => {
                 <td>${new Date(service.request_time).toLocaleString()}</td>
                 <td>${service.feedback || "N/A"}</td>
                 <td>${service.rating || "N/A"}</td>
+                <td>${service.is_completed || "false"}</td>
             `;
             historyTableBody.appendChild(row);
         });
@@ -514,7 +518,7 @@ fetchHistoryBtn.addEventListener('click', async () => {
 
     // Replace this (remove nested DOMContentLoaded listener)
 document.querySelectorAll('.btn-info').forEach(btn => {
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', async function () {
         const row = this.closest('tr');
         const cells = row.querySelectorAll('td');
 
@@ -533,6 +537,45 @@ document.querySelectorAll('.btn-info').forEach(btn => {
         `;
 
         studentInfoModal.dataset.userid = userId;
+        try {
+            const complaintRes = await fetch("https://fmsbackend-iiitd.up.railway.app/complaint/user-complaints", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: userId })
+            });
+        
+            const complaintData = await complaintRes.json();
+            complaintTableBody.innerHTML = '';
+        
+            if (!complaintRes.ok || !Array.isArray(complaintData.complaints)) {
+                throw new Error(complaintData.error || "Failed to fetch complaints");
+            }
+            if (complaintData.complaints.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="4" style="text-align:center;">No complaints found.</td>`;
+                complaintTableBody.appendChild(row);
+            } else {
+                complaintData.complaints.forEach(entry => {
+                    console.log(entry.complaint_id);
+                    console.log(new Date(entry.complaints.complaint_datetime).toLocaleString());
+                    console.log(entry.complaints.complaint);
+                    console.log(entry.is_resolved ? 'Resolved' : 'In Progress');
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${entry.complaint_id}</td>
+                        <td>${new Date(entry.complaints.complaint_datetime).toLocaleString()}</td>
+                        <td>${entry.complaints.complaint}</td>
+                        <td>${entry.is_resolved ? 'Resolved' : 'In Progress'}</td>
+                    `;
+                    complaintTableBody.appendChild(row);
+                });
+            }
+        } catch (err) {
+            console.error("Error fetching complaints:", err);
+            const row = document.createElement('tr');
+            row.innerHTML = `<td colspan="4" style="text-align:center; color:red;">Error loading complaints</td>`;
+            complaintTableBody.appendChild(row);
+        }
         studentInfoModal.style.display = "block";
     });
 });
@@ -568,12 +611,15 @@ fetchHistoryBtn.addEventListener('click', async () => {
                 <td>${service.building}</td>
                 <td>${new Date(service.request_time).toLocaleString()}</td>
                 <td>${service.feedback || "N/A"}</td>
+                <td>${service.rating || "N/A"}</td>
+                <td>${service.is_completed || "false"}</td>
             `;
             historyTableBody.appendChild(row);
         });
     } catch (err) {
         console.error("Failed to fetch service history:", err);
-    }
+    }       
+    
 });
 
 

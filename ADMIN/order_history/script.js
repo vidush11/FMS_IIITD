@@ -5,6 +5,44 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('.search-input');
     const filterSelect = document.querySelector('.filter-select');
     const tableBody = document.querySelector('.data-table tbody');
+    const workerIdInput = document.getElementById("assignWorkerId");
+const locationSelect = document.getElementById("assignLocation");
+const filterBtn = document.getElementById("assignBtn"); // This is your "Filter" button
+filterBtn.addEventListener("click", async () => {
+    const workerId = workerIdInput.value.trim();
+    const location = locationSelect.value.trim();
+
+    let url = "https://fmsbackend-iiitd.up.railway.app/orders/location-worker-orders";
+
+    console.log(workerId);
+    console.log(location);  
+
+    try {
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                worker_id: workerId || null,  // send null if empty
+                location: location || null
+            })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !Array.isArray(data.orders)) {
+            throw new Error(data.error || "Failed to fetch filtered data.");
+        }
+
+        orderHistoryData = data.orders; // Replace global data
+        renderFiltered(orderHistoryData); // Rerender the table
+    } catch (err) {
+        console.error("Filtering error:", err);
+        alert(`Failed to apply filter: ${err.message}`);
+    }
+});
+
 
     // --- Check if elements exist ---
     if (!searchInput || !filterSelect || !tableBody) {
