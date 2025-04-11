@@ -152,7 +152,62 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
     });
-
+    document.getElementById("dateFilterBtn").addEventListener("click", async () => {
+        const selectedDate = document.getElementById("complaintDateFilter").value;
+        if (!selectedDate) {
+            alert("Please select a date to filter.");
+            return;
+        }
+    
+        try {
+            const response = await fetch("https://fmsbackend-iiitd.up.railway.app/complaint/date-complaints", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ date: selectedDate })
+            });
+    
+            const data = await response.json();
+    
+            if (!response.ok || !Array.isArray(data.complaints)) {
+                throw new Error(data.error || "Failed to fetch complaints.");
+            }
+    
+            const complaints = data.complaints;
+            const tbody = document.querySelector('.data-table tbody');
+            tbody.innerHTML = "";
+    
+            if (complaints.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No complaints found on selected date</td></tr>`;
+                return;
+            }
+    
+            complaints.forEach(c => {
+                const statusClass = c.is_resolved ? 'resolved' : 'in-progress';
+                const statusText = c.is_resolved ? 'Resolved' : 'In Progress';
+    
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${c.complaint_id}</td>
+                    <td>${new Date(c.complaint_datetime).toLocaleString()}</td>
+                    <td>${c.complaint}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="action-btn btn-edit" title="Update Status"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="#" class="action-btn btn-reject" title="Delete Complaint"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+    
+            rows = getRows();
+            filterTable();
+        } catch (err) {
+            console.error("Date filter error:", err);
+            alert("Failed to filter complaints by date.");
+        }
+    });    
     async function fetchAndDisplayComplaints() {
         try {
             const response = await fetch('https://fmsbackend-iiitd.up.railway.app/complaint/active-complaints'); // Adjust URL as needed

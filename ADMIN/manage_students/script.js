@@ -22,6 +22,92 @@ document.addEventListener('DOMContentLoaded', async function () {
     const closeBtn = document.getElementById("closeModal");
     const form = document.getElementById("addStudentForm");
 
+    // --------- Student Info Modal Setup ---------
+const studentInfoModal = document.getElementById("studentInfoModal");
+const closeStudentModalBtn = document.getElementById("closeStudentModal");
+const studentDetails = document.getElementById("studentDetails");
+const fetchHistoryBtn = document.getElementById("fetchHistoryBtn");
+const historyTableBody = document.querySelector("#historyTable tbody");
+const historyDateInput = document.getElementById("historyDate");
+const complaintTableBody = document.querySelector("#complaintTableBody");
+
+
+// Attach click handler for each info button
+document.querySelectorAll('.btn-info').forEach(btn => {
+    btn.addEventListener('click', function () {
+        const row = this.closest('tr');
+        const cells = row.querySelectorAll('td');
+
+        const userId = cells[0].textContent.trim();
+        const name = cells[1].textContent.trim();
+        const building = cells[2].textContent.trim();
+        const room = cells[3].textContent.trim();
+        const email = cells[4].textContent.trim();
+
+        studentDetails.innerHTML = `
+            <p><strong>Roll No:</strong> ${userId}</p>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Hostel:</strong> ${building}</p>
+            <p><strong>Room:</strong> ${room}</p>
+            <p><strong>Email:</strong> ${email}</p>
+        `;
+
+        studentInfoModal.dataset.userid = userId;
+        studentInfoModal.style.display = "block";
+        
+    });
+});
+
+// Close modal on 'X'
+closeStudentModalBtn.addEventListener('click', () => {
+    studentInfoModal.style.display = "none";
+    historyTableBody.innerHTML = '';
+});
+
+// Close modal on outside click
+window.addEventListener('click', e => {
+    if (e.target === studentInfoModal) {
+        studentInfoModal.style.display = "none";
+        historyTableBody.innerHTML = '';
+    }
+});
+
+// Fetch services on date + user_id
+fetchHistoryBtn.addEventListener('click', async () => {
+    const date = historyDateInput.value;
+    const userId = studentInfoModal.dataset.userid;
+    if (!date || !userId) {
+        alert("Please select a date");
+        return;
+    }
+
+    try {
+        const res = await fetch(`https://fmsbackend-iiitd.up.railway.app/statistics/services-by-date?user_id=${userId}&date=${date}`);
+        const data = await res.json();
+        historyTableBody.innerHTML = '';
+
+        data.services.forEach(service => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${service.service_id}</td>
+                <td>${service.worker_id}</td>
+                <td>${service.room_no}</td>
+                <td>${service.building}</td>
+                <td>${new Date(service.request_time).toLocaleString()}</td>
+                <td>${service.feedback || "N/A"}</td>
+                <td>${service.rating || "N/A"}</td>
+                <td>${service.is_completed || "false"}</td>
+            `;
+            historyTableBody.appendChild(row);
+        });
+
+    } catch (err) {
+        console.error("Failed to fetch services:", err);
+        alert("Could not fetch data.");
+    }
+});
+
+
     if (closeBtn) {
         closeBtn.addEventListener("click", hideModal);
     }
@@ -438,6 +524,113 @@ document.addEventListener('DOMContentLoaded', async function () {
     const style = document.createElement('style');
     style.textContent = ` /* ... your styles ... */ `;
     document.head.appendChild(style);
+
+    // Replace this (remove nested DOMContentLoaded listener)
+document.querySelectorAll('.btn-info').forEach(btn => {
+    btn.addEventListener('click', async function () {
+        const row = this.closest('tr');
+        const cells = row.querySelectorAll('td');
+
+        const userId = cells[0].textContent;
+        const name = cells[1].textContent;
+        const email = cells[4].textContent; // Email is column 4
+        const hostel = cells[2].textContent;
+        const room = cells[3].textContent;
+
+        studentDetails.innerHTML = `
+            <p><strong>Roll No:</strong> ${userId}</p>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Hostel:</strong> ${hostel}</p>
+            <p><strong>Room:</strong> ${room}</p>
+        `;
+
+        studentInfoModal.dataset.userid = userId;
+        try {
+            const complaintRes = await fetch("https://fmsbackend-iiitd.up.railway.app/complaint/user-complaints", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: userId })
+            });
+        
+            const complaintData = await complaintRes.json();
+            complaintTableBody.innerHTML = '';
+        
+            if (!complaintRes.ok || !Array.isArray(complaintData.complaints)) {
+                throw new Error(complaintData.error || "Failed to fetch complaints");
+            }
+            if (complaintData.complaints.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="4" style="text-align:center;">No complaints found.</td>`;
+                complaintTableBody.appendChild(row);
+            } else {
+                complaintData.complaints.forEach(entry => {
+                    console.log(entry.complaint_id);
+                    console.log(new Date(entry.complaints.complaint_datetime).toLocaleString());
+                    console.log(entry.complaints.complaint);
+                    console.log(entry.is_resolved ? 'Resolved' : 'In Progress');
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${entry.complaint_id}</td>
+                        <td>${new Date(entry.complaints.complaint_datetime).toLocaleString()}</td>
+                        <td>${entry.complaints.complaint}</td>
+                        <td>${entry.is_resolved ? 'Resolved' : 'In Progress'}</td>
+                    `;
+                    complaintTableBody.appendChild(row);
+                });
+            }
+        } catch (err) {
+            console.error("Error fetching complaints:", err);
+            const row = document.createElement('tr');
+            row.innerHTML = `<td colspan="4" style="text-align:center; color:red;">Error loading complaints</td>`;
+            complaintTableBody.appendChild(row);
+        }
+        studentInfoModal.style.display = "block";
+    });
+});
+
+closeStudentModalBtn.addEventListener('click', () => {
+    studentInfoModal.style.display = "none";
+    historyTableBody.innerHTML = '';
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target === studentInfoModal) {
+        studentInfoModal.style.display = "none";
+        historyTableBody.innerHTML = '';
+    }
+});
+
+fetchHistoryBtn.addEventListener('click', async () => {
+    const date = document.getElementById("historyDate").value;
+    const userId = studentInfoModal.dataset.userid;
+    if (!date || !userId) return;
+
+    try {
+        const res = await fetch(`https://fmsbackend-iiitd.up.railway.app/statistics/services-by-date?user_id=${userId}&date=${date}`);
+        const data = await res.json();
+        historyTableBody.innerHTML = '';
+
+        data.services.forEach(service => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${service.service_id}</td>
+                <td>${service.worker_id}</td>
+                <td>${service.room_no}</td>
+                <td>${service.building}</td>
+                <td>${new Date(service.request_time).toLocaleString()}</td>
+                <td>${service.feedback || "N/A"}</td>
+                <td>${service.rating || "N/A"}</td>
+                <td>${service.is_completed || "false"}</td>
+            `;
+            historyTableBody.appendChild(row);
+        });
+    } catch (err) {
+        console.error("Failed to fetch service history:", err);
+    }       
+    
+});
+
 
     console.log("Setup complete.");
 });

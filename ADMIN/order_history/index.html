@@ -43,10 +43,13 @@
         <div class="table-container">
 
             <div class="table-actions">
+                <!-- Search -->
                 <div class="search-box">
                     <input type="text" placeholder="Search orders..." class="search-input">
                     <i class="fas fa-search search-icon"></i>
                 </div>
+            
+                <!-- Filters -->
                 <div class="filter-box">
                     <select class="filter-select">
                         <option value="all">All Status</option>
@@ -54,7 +57,27 @@
                         <option value="false">Not Completed (False)</option>
                     </select>
                 </div>
+            
+                <!-- New Assign Fields -->
+                <div class="assign-controls">
+                    <input type="number" id="assignWorkerId" placeholder="Enter Worker ID" />
+                    <select id="assignLocation">
+                        <option value="">Select Location</option>
+                        <option value="LHC complex">LHC complex</option>
+                        <option value="R&D block">R&D block</option>
+                        <option value="Old Academic">Old Academic</option>
+                        <option value="Faculty Residence">Faculty Residence</option>
+                        <option value="H1 boys hostel">H1 boys hostel</option>
+                        <option value="H2 boys hostel">H2 boys hostel</option>
+                        <option value="Girls Hostel">Girls Hostel</option>
+                        <option value="Old Boys Hostel">Old Boys Hostel</option>
+                    </select>
+                    <button id="assignBtn" title="Assign">
+                        <i class="fas fa-check"></i>
+                    </button>
+                </div>
             </div>
+            
 
             <div class="table-wrapper">
                 <table class="data-table">
