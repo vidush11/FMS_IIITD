@@ -57,12 +57,11 @@
                         <option value="all">All Roles</option>
                         <!-- Options will match availableRoles in JS -->
                         <option value="Electrician">Electrician</option>
-                        <option value="Plumber">Plumber</option>
+                        <option value="Cleaner">Cleaner</option>
                         <option value="Carpenter">Carpenter</option>
-                        <option value="HVAC Technician">HVAC Technician</option>
-                        <option value="Security">Security</option>
-                        <option value="Janitor">Janitor</option>
-                        <option value="Maintenance Staff">Maintenance Staff</option>
+                        <option value="Painter">Painter</option>
+                        <option value="Guard">Guard</option>
+                        <option value="Miscellaneous">Miscellaneous</option>
                     </select>
                 </div>
             </div>
@@ -74,9 +73,11 @@
                         <tr>
                             <th>Employee ID</th>
                             <th>Name</th>
-                            <th>Date of Joining</th>
                             <th>Phone Number</th>
                             <th>Assigned Role</th>
+                            <th>Date of Joining</th>
+                            <th>Rating</th>
+                            <th>Password</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -87,29 +88,29 @@
             </div>
         </div>
     </main>
-<!-- Add Employee Modal -->
-<div id="addEmployeeModal" class="modal">
-    <div class="modal-content">
-      <span id="closeEmployeeModal" class="close-button">&times;</span>
-      <h2>Add Employee</h2>
-      <form id="addEmployeeForm">
-        <input type="text" id="empID" placeholder="Worker ID" required />
-        <input type="text" id="empName" placeholder="Name" required />
-        <input type="text" id="empPhone" placeholder="Phone Number" required />
-        <select id="empRole" required>
-          <option value="">Select Role</option>
-          <option value="plumber">Plumber</option>
-          <option value="electrician">Electrician</option>
-          <option value="cleaner">Cleaner</option>
-          <option value="guard">Guard</option>
-          <!-- Add more roles as needed -->
-        </select>
-        <input type="password" id="empPassword" placeholder="Password" required />
-        <button type="submit">Save</button>
-      </form>
+    <!-- Add Employee Modal -->
+    <div id="addEmployeeModal" class="modal">
+        <div class="modal-content">
+            <span id="closeEmployeeModal" class="close-button">&times;</span>
+            <h2>Add Employee</h2>
+            <form id="addEmployeeForm">
+                <input type="text" id="empID" placeholder="Worker ID" required />
+                <input type="text" id="empName" placeholder="Name" required />
+                <input type="text" id="empPhone" placeholder="Phone Number" required />
+                <select id="empRole" required>
+                    <option value="">Select Role</option>
+                    <option value="plumber">Plumber</option>
+                    <option value="electrician">Electrician</option>
+                    <option value="cleaner">Cleaner</option>
+                    <option value="guard">Guard</option>
+                    <!-- Add more roles as needed -->
+                </select>
+                <input type="password" id="empPassword" placeholder="Password" required />
+                <button type="submit">Save</button>
+            </form>
+        </div>
     </div>
-  </div>
-    
+
     <!-- Script -->
     <script src="script.js"></script>
 </body>

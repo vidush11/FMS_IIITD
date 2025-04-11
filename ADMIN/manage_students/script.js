@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             };
 
             try {
-                const res = await fetch("https://fmsbackend-iiitd.up.railway.app/admin/create-user", {
+                const res = await fetch("https://fmsbackend-iiitd.up.railway.app/admin/add-user", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
@@ -55,9 +55,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 const result = await res.json();
                 if (res.ok) {
+                    console.log(result);
                     alert("Student added successfully!");
                     hideModal();
-                    location.reload();
                 } else {
                     alert("Error: " + (result.error || "Something went wrong"));
                 }

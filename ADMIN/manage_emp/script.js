@@ -14,12 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Available roles for the dropdown
     const availableRoles = [
         'Electrician',
-        'Plumber',
-        'Carpenter',
-        'HVAC Technician',
-        'Security',
-        'Janitor',
-        'Maintenance Staff'
+        'Cleaner',
+        'Painter',
+        'Carpentry',
+        'Guard',
+        'Miscellaneous'
     ];
 
     // Counter for new employee IDs
@@ -43,22 +42,25 @@ document.addEventListener('DOMContentLoaded', function () {
     // Handle form submission
     empForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const now = new Date();
 
         const payload = {
             worker_id: document.getElementById('empID').value.trim(),
-            worker_name: document.getElementById('empName').value.trim(),
-            phone: document.getElementById('empPhone').value.trim(),
+            name: document.getElementById('empName').value.trim(),
+            phone_no: document.getElementById('empPhone').value.trim(),
             assigned_role: document.getElementById('empRole').value.trim(),
+            date_of_joining: now,
+            rating: 0,
             workerpassword: document.getElementById('empPassword').value.trim()
         };
 
-        if (!payload.worker_id || !payload.worker_name || !payload.phone || !payload.assigned_role || !payload.workerpassword) {
+        if (!payload.worker_id || !payload.name || !payload.phone_no || !payload.assigned_role || !payload.workerpassword) {
             alert("Please fill all fields.");
             return;
         }
 
         try {
-            const res = await fetch('https://fmsbackend-iiitd.up.railway.app/admin/add-employee', {
+            const res = await fetch('https://fmsbackend-iiitd.up.railway.app/admin/add-worker', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -189,83 +191,152 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Function to make a row editable
+    // Function to make a row editable
     function makeRowEditable(row) {
         const cells = row.querySelectorAll('td');
-        const originalValues = [];
+        // Indices based on image: 0=ID, 1=Name, 2=Phone, 3=Role, 4=DoJ, 5=Rating, 6=Password, 7=Actions
+        const numberOfDataCells = cells.length - 1; // Exclude actions cell
+
+        const originalValues = Array.from(cells).map(cell => cell.textContent); // Store original text values
         row.dataset.originalHTML = {}; // Use dataset for original HTML
 
-        // Indices: 1=Name, 2=DoJ, 3=Phone, 4=Role
-        for (let i = 1; i < cells.length - 1; i++) {
+        // --- Loop through data cells (0 to numberOfDataCells - 1) ---
+        for (let i = 0; i < numberOfDataCells; i++) {
             const cell = cells[i];
-            originalValues[i] = cell.textContent; // Store original text
-            row.dataset.originalHTML[i] = cell.innerHTML; // Store original HTML structure
+            const currentText = cell.textContent.trim(); // Get trimmed text content
+            row.dataset.originalHTML[i] = cell.innerHTML; // Store original HTML
 
+            // --- Skip making Employee ID (index 0) editable ---
+            if (i === 0) {
+                console.log(`Skipping edit for cell ${i} (Employee ID)`);
+                continue;
+            }
+
+            // --- Create inputs/selects for other cells ---
             let inputElement;
-            if (i === 2) { // Date of Joining
-                inputElement = document.createElement('input');
-                inputElement.type = 'date';
-                inputElement.value = formatDateForInput(cell.textContent);
-            } else if (i === 3) { // Phone number
-                inputElement = document.createElement('input');
-                inputElement.type = 'tel';
-                inputElement.value = cell.textContent;
-            } else if (i === 4) { // Role
-                inputElement = createRoleSelect(cell.textContent);
-            } else { // Name (i=1)
-                inputElement = document.createElement('input');
-                inputElement.type = 'text';
-                inputElement.value = cell.textContent;
+
+            switch (i) {
+                case 1: // Name (Index 1)
+                    inputElement = document.createElement('input');
+                    inputElement.type = 'text';
+                    inputElement.value = currentText;
+                    inputElement.classList.add('edit-input', 'name-input');
+                    break;
+                case 2: // Phone Number (Index 2)
+                    inputElement = document.createElement('input');
+                    inputElement.type = 'tel'; // Use 'tel' type
+                    inputElement.value = currentText;
+                    inputElement.classList.add('edit-input', 'phone-input');
+                    break;
+                case 3: // Assigned Role (Index 3)
+                    console.log(`Creating role select for cell ${i}, current text: "${currentText}"`);
+                    // Pass the trimmed text content to match against availableRoles
+                    inputElement = createRoleSelect(currentText); // createRoleSelect handles the selection logic
+                    inputElement.classList.add('edit-input'); // Keep common class
+                    break;
+                case 4: // Date of Joining (Index 4)
+                    console.log(`Creating date input for cell ${i}, current text: "${currentText}"`);
+                    inputElement = document.createElement('input');
+                    inputElement.type = 'date';
+                    // --- FIX: Directly use the text content if it's YYYY-MM-DD ---
+                    inputElement.value = currentText; // Assign directly
+                    inputElement.classList.add('edit-input', 'date-input');
+                    break;
+                case 5: // Rating (Index 5)
+                    inputElement = document.createElement('input');
+                    inputElement.type = 'number'; // Use 'number' type
+                    inputElement.step = '0.01'; // Allow decimals for rating
+                    inputElement.value = currentText;
+                    inputElement.classList.add('edit-input', 'rating-input');
+                    break;
+                case 6: // Password (Index 6)
+                    inputElement = document.createElement('input');
+                    inputElement.type = 'password';
+                    inputElement.placeholder = 'Enter new password (optional)'; // Don't show current password
+                    inputElement.classList.add('edit-input', 'password-input');
+                    break;
+                default:
+                    // Should not happen with current structure
+                    console.warn("Unhandled cell index in makeRowEditable:", i);
+                    continue; // Skip this cell if index is unexpected
             }
 
-            // Add edit-input class if it's an input or select we added
-            if (inputElement.tagName === 'INPUT' || inputElement.tagName === 'SELECT') {
-                inputElement.classList.add('edit-input');
-            }
-
-            cell.innerHTML = ''; // Clear cell before appending new element
+            // Append the created input/select
+            cell.innerHTML = '';
             cell.appendChild(inputElement);
         }
 
-        // Store original buttons and replace with Save/Cancel
-        const actionCell = cells[cells.length - 1];
-        row.dataset.originalActionsHTML = actionCell.innerHTML;
+        // --- Update Action Buttons ---
+        const actionCell = cells[numberOfDataCells]; // Actions cell (index 7)
+        row.dataset.originalActionsHTML = actionCell.innerHTML; // Store original buttons
         actionCell.innerHTML = `
-            <div class="action-buttons">
-                <a href="#" class="action-btn btn-save"><i class="fas fa-check"></i></a>
-                <a href="#" class="action-btn btn-cancel" title="Cancel Edit"><i class="fas fa-times"></i></a>
-            </div>
-        `;
+        <div class="action-buttons">
+            <a href="#" class="action-btn btn-save" title="Save Changes"><i class="fas fa-check"></i></a>
+            <a href="#" class="action-btn btn-cancel" title="Cancel Edit"><i class="fas fa-times"></i></a>
+        </div>
+    `;
 
-        // Add event listeners for THIS INSTANCE of save/cancel
+        // --- Attach Save/Cancel Listeners ---
         const saveBtn = actionCell.querySelector('.btn-save');
-        const cancelBtn = actionCell.querySelector('.btn-cancel');
+        const cancelBtn = actionCell.querySelector('.btn-cancel'); // Make sure cancel button exists
 
+        // --- Save Button Handler ---
         saveBtn.addEventListener('click', function handleSave(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const inputsAndSelect = row.querySelectorAll('.edit-input'); // Name, DoJ, Phone, Role select
-            inputsAndSelect.forEach((element, index) => {
-                const targetCell = cells[index + 1];
-                if (element.type === 'date') {
-                    targetCell.textContent = formatDateForDisplay(element.value);
-                } else {
-                    targetCell.textContent = element.value;
+            // ... (Your existing save logic using querySelector to get values - this part was good) ...
+            e.preventDefault(); e.stopPropagation();
+            const payload = {};
+            payload.worker_id = cells[0].textContent.trim();
+            payload.name = row.querySelector('td:nth-child(2) input.edit-input')?.value.trim();
+            payload.phone_no = row.querySelector('td:nth-child(3) input.edit-input')?.value.trim();
+            payload.assigned_role = row.querySelector('td:nth-child(4) select.edit-input')?.value; // Corrected selector for Role
+            payload.date_of_joining = row.querySelector('td:nth-child(5) input[type="date"].edit-input')?.value; // Corrected selector for DoJ
+            payload.rating = row.querySelector('td:nth-child(6) input.rating-input')?.value;
+            const passwordInputVal = row.querySelector('td:nth-child(7) input.password-input')?.value;
+            if (passwordInputVal && passwordInputVal.trim() !== '') { payload.workerpassword = passwordInputVal; }
+            if (payload.rating !== undefined && payload.rating !== '') { payload.rating = parseFloat(payload.rating); if (isNaN(payload.rating)) { payload.rating = null; } } else if (payload.rating === '') { payload.rating = null; }
+            console.log("Data gathered for PUT:", payload);
+            if (!payload.worker_id || !payload.name || !payload.phone_no || !payload.assigned_role || !payload.date_of_joining) { alert('Error: Required fields missing.'); return; }
+            const apiUrl = "https://fmsbackend-iiitd.up.railway.app/admin/update-worker-data"; // ** CHECK URL **
+            const fetchOptions = { method: "PUT", headers: { "Content-Type": "application/json", "Accept": "application/json" }, credentials: 'include', body: JSON.stringify(payload) };
+            saveBtn.style.opacity = '0.5'; saveBtn.style.pointerEvents = 'none'; if (cancelBtn) { cancelBtn.style.opacity = '0.5'; cancelBtn.style.pointerEvents = 'none'; }
+            fetch(apiUrl, fetchOptions)
+                .then(response => { if (!response.ok) { return response.text().then(text => { /* Error Handling */ throw new Error(`API Error ${response.status}: ${text || response.statusText}`); }); } return response.json(); })
+                .then(data => {
+                    console.log("Worker updated successfully:", data);
+                    cells[1].textContent = payload.name;
+                    cells[2].textContent = payload.phone_no;
+                    cells[3].textContent = payload.assigned_role;
+                    cells[4].textContent = payload.date_of_joining; // Display raw date YYYY-MM-DD is fine
+                    cells[5].textContent = payload.rating !== null ? payload.rating : 'N/A';
+                    cells[6].textContent = '******'; // Password placeholder
+                    actionCell.innerHTML = row.dataset.originalActionsHTML || '';
+                    row.classList.remove('editing');
+                    filterTable();
+                })
+                .catch(error => {
+                    console.error("Error updating worker:", error); alert(`Failed to update employee: ${error.message}`);
+                    cells.forEach((cell, index) => { if (index > 0 && index < cells.length - 1) { if (row.dataset.originalHTML && row.dataset.originalHTML[index] !== undefined) { cell.innerHTML = row.dataset.originalHTML[index]; } else if (originalValues && originalValues[index] !== undefined) { cell.textContent = originalValues[index]; } } });
+                    actionCell.innerHTML = row.dataset.originalActionsHTML || ''; row.classList.remove('editing');
+                })
+                .finally(() => { delete row.dataset.originalHTML; delete row.dataset.originalActionsHTML; /* Optionally re-enable buttons */ });
+        });
+
+        // --- Cancel Button Handler ---
+        cancelBtn.addEventListener('click', function handleCancel(e) {
+            e.preventDefault(); e.stopPropagation();
+            // Restore original HTML for all data cells
+            cells.forEach((cell, index) => {
+                if (index < numberOfDataCells) { // Only restore data cells (0 to 6)
+                    cell.innerHTML = row.dataset.originalHTML[index] || originalValues[index]; // Use original HTML if stored
                 }
             });
-            actionCell.innerHTML = row.dataset.originalActionsHTML || '';
+            actionCell.innerHTML = row.dataset.originalActionsHTML || ''; // Restore original action buttons
             row.classList.remove('editing');
-            filterTable(); // Re-apply filter
-        });
-
-        cancelBtn.addEventListener('click', function handleCancel(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            for (let i = 1; i < cells.length - 1; i++) {
-                cells[i].innerHTML = row.dataset.originalHTML[i] || originalValues[i]; // Restore original HTML
-            }
-            actionCell.innerHTML = row.dataset.originalActionsHTML || '';
-            row.classList.remove('editing');
-        });
+            // Clean up stored data
+            delete row.dataset.originalHTML;
+            delete row.dataset.originalActionsHTML;
+            console.log(`Edit cancelled for worker ${originalValues[0]}`);
+        }, { once: true }); // Keep { once: true } for cancel
     }
 
     // Event delegation for table body clicks
@@ -304,21 +375,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Add new employee functionality
-    addButton.addEventListener('click', function () {
-        lastEmployeeId++;
-        const newRow = createEmployeeRow(null, '', '', '', ''); // Pass null for ID
-
-        const lastDataRow = Array.from(tableBody.querySelectorAll('tr:not(.empty-row)')).pop();
-        if (lastDataRow) {
-            lastDataRow.insertAdjacentElement('afterend', newRow);
-        } else {
-            tableBody.insertBefore(newRow, tableBody.firstChild);
-        }
-        rows = getRows(); // Update rows list
-
-        newRow.classList.add('editing');
-        makeRowEditable(newRow);
-    });
 
     // Add CSS for the add button, edit inputs, role select, and filter/search bar
     const style = document.createElement('style');
@@ -440,26 +496,12 @@ document.addEventListener('DOMContentLoaded', function () {
     filterTable();
 });
 
-const employees = [
-    {
-        id: 'EMP001',
-        name: 'John Smith',
-        joiningDate: '01/01/2024',
-        phone: '9876543210',
-        role: 'Electrician'
-    },
-    {
-        id: 'EMP002',
-        name: 'Sarah Wilson',
-        joiningDate: '15/01/2024',
-        phone: '9876543211',
-        role: 'Plumber'
-    },
+let employees = [
     // Add more employee objects here as needed
 ];
 
 // Function to populate the employee table
-function populateEmployeeTable() {
+async function populateEmployeeTable() {
     const tableBody = document.querySelector('.data-table tbody');
     if (!tableBody) {
         console.error('Table body not found!');
@@ -469,15 +511,33 @@ function populateEmployeeTable() {
     // Clear existing content
     tableBody.innerHTML = '';
 
+    try {
+        console.log("Fetching initial orders data...");
+        const response = await fetch("https://fmsbackend-iiitd.up.railway.app/admin/view-employees", { credentials: 'include' });
+        console.log("Fetch response status:", response.status);
+        if (!response.ok) { let errorText = response.statusText; try { errorText = await response.text(); } catch (e) { } throw new Error(`HTTP error ${response.status}: ${errorText}`); }
+        const fetchedResult = await response.json();
+        console.log("Data fetched:", fetchedResult);
+        if (!fetchedResult || !Array.isArray(fetchedResult.employees)) { console.error("Fetched data unexpected format. Received:", fetchedResult); throw new Error("Unexpected data format."); }
+        employees = fetchedResult.employees;
+        // Render the full initial data set
+    } catch (error) {
+        console.error("Error fetching/processing data:", error);
+        // --- Update Colspan ---
+        tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">Failed to load orders: ${error.message}</td></tr>`;
+    }
+
     // Populate table with employee data
     employees.forEach(employee => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${employee.id}</td>
+            <td>${employee.worker_id}</td>
             <td>${employee.name}</td>
-            <td>${employee.joiningDate}</td>
-            <td>${employee.phone}</td>
-            <td>${employee.role}</td>
+            <td>${employee.phone_no}</td>
+            <td>${employee.assigned_role}</td>
+            <td>${employee.date_of_joining}</td>
+            <td>${employee.rating}</td>
+            <td>${employee.workerpassword}</td>
             <td>
                 <div class="action-buttons">
                     <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
@@ -493,18 +553,7 @@ function populateEmployeeTable() {
     const currentRows = employees.length;
     const emptyRowsToAdd = Math.max(0, minRows - currentRows);
 
-    for (let i = 0; i < emptyRowsToAdd; i++) {
-        const emptyRow = document.createElement('tr');
-        emptyRow.innerHTML = `
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        `;
-        tableBody.appendChild(emptyRow);
-    }
+
 }
 
 // Function to generate next employee ID
@@ -518,23 +567,10 @@ function generateNextEmployeeId() {
 }
 
 // Function to add a new employee
-function addEmployee() {
-    // Here you would typically show a form or modal to collect employee details
-    // For now, let's add a sample employee
-    const newEmployee = {
-        id: generateNextEmployeeId(),
-        name: 'New Employee',
-        joiningDate: new Date().toLocaleDateString(),
-        phone: '9876543212',
-        role: 'Maintenance Staff'
-    };
 
-    employees.push(newEmployee);
-    populateEmployeeTable();
-}
 
 // Add click event listener to the Add Employee button
-document.querySelector('.EMP_ADD').addEventListener('click', addEmployee);
+//document.querySelector('.EMP_ADD').addEventListener('click', addEmployee);
 
 // Initialize the table when the page loads
 document.addEventListener('DOMContentLoaded', populateEmployeeTable); 
