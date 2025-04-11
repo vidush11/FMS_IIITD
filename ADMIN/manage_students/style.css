@@ -30,6 +30,10 @@ body {
     --header-bg: #003D39;    /* Dark header for tables */
 }
 
+.btn-info{
+    background-color:green;
+}
+
 /* Sidebar */
 .sidebar {
     width: 250px;

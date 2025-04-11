@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 <div class="action-buttons">
                     <a href="#" class="action-btn btn-edit" title="Edit Student"><i class="fas fa-pencil-alt"></i></a>
                     <a href="#" class="action-btn btn-reject" data-userid="${rollNo}" title="Remove Student"><i class="fas fa-trash"></i></a>
+                    <a href="#" class="action-btn btn-info" data-userid="${rollNo}" title="info student"><i class="fas fa-info-circle"></i></a>
                 </div>
             </td>
         `;
