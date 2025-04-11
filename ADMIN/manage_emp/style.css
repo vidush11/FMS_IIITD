@@ -47,6 +47,10 @@ body {
     z-index: 1000;
 }
 
+.btn-info{
+    background-color:green;
+}
+
 .sidebar-header {
     padding: 20px;
     display: flex;

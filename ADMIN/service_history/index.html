@@ -10,11 +10,9 @@
 </head>
 
 <body>
+    <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <i class="fas fa-city"></i>
-            </div>
+        <div class="sidebar-header"> <i class="fas fa-city logo"></i>
             <h2>FMS Admin</h2>
         </div>
         <nav class="sidebar-nav">
@@ -27,7 +25,6 @@
                         Services</a></li>
                 <li><a href="../order_history/index.html"><i class="fas fa-history fa-fw"></i> Manage Orders</a></li>
                 <li><a href="#" class="active"><i class="fas fa-clipboard-list fa-fw"></i> Request History</a></li>
-
             </ul>
         </nav>
     </aside>
@@ -36,32 +33,29 @@
         <h1>Request History</h1>
 
         <div class="table-container">
+
             <div class="table-actions">
                 <div class="search-box">
                     <input type="text" placeholder="Search history..." class="search-input">
                     <i class="fas fa-search search-icon"></i>
                 </div>
-                
+
+
                 <div class="filter-group date-time-filter">
-                    <label for="start-date">Start Date</label>
-                    <input type="date" class="date-time-input" id="S_D">
+                    <label for="start-datetime">Start Date/Time</label>
+                    <input type="datetime-local" class="date-time-input" id="start-datetime">
                 </div>
+
+
                 <div class="filter-group date-time-filter">
-                    <label for="start-time">Start Time</label>
-                    <input type="time" class="date-time-input" id="S_T">
+                    <label for="end-datetime">End Date/Time</label>
+                    <input type="datetime-local" class="date-time-input" id="end-datetime">
                 </div>
-                <div class="filter-group date-time-filter">
-                    <label for="end-date">End Date</label>
-                    <input type="date" class="date-time-input" id="E_D">
-                </div>
-                <div class="filter-group date-time-filter">
-                    <label for="end-time">End Time</label>
-                    <input type="time" class="date-time-input" id="E_T">
-                </div>
-               
+
+
                 <div class="filter-group building-filter">
-                     <label for="building-select"></label>
-                    <select class="filter-select" id="building-select"> 
+                    <label for="building-select">Building</label>
+                    <select class="filter-select" id="building-select">
                         <option value="all">All Buildings</option>
                         <option value="H1 boys hostel">H1 boys hostel</option>
                         <option value="H2 boys hostel">H2 boys hostel</option>
@@ -69,29 +63,33 @@
                         <option value="Girls Hostel">Girls Hostel</option>
                     </select>
                 </div>
-            
-              
-                <button id="filter-apply-btn" title="Apply Filters" style="background-color:darkgreen; color:white; height:30px;width:30px; border-radius:2px; border:none; cursor:pointer;">
+
+
+                <button id="filter-apply-btn" title="Apply Filters"
+                    style="background-color:darkgreen; color:white; height:30px; width: 30px; border-radius:2px; border:none; cursor:pointer; padding: 0; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-check"></i>
                 </button>
             </div>
 
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Employee ID</th>
-                        <th>User ID</th>
-                        <th>Requested Service</th>
-                        <th>Location</th>
-                        <th>Requested Time</th>
-                        <th>Status</th>
-                        <th>Feedback</th>
-                    </tr>
-                </thead>
-                <tbody>
 
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>User ID</th>
+                            <th>Requested Service</th>
+                            <th>Location</th>
+                            <th>Requested Time</th>
+                            <th>Status</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 

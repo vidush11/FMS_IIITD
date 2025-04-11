@@ -184,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="action-buttons">
                     <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
                     <a href="#" class="action-btn btn-reject"><i class="fas fa-trash"></i></a>
+                    <a href="#" class="action-btn btn-info" data-userid="${rollNo}" title="info student"><i class="fas fa-info-circle"></i></a>
                 </div>
             </td>
         `;
@@ -539,6 +540,7 @@ async function populateEmployeeTable() {
                 <div class="action-buttons">
                     <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
                     <a href="#" class="action-btn btn-reject" data-workerid="${employee.worker_id}"><i class="fas fa-trash"></i></a>
+                    <a href="#" class="action-btn btn-info" data-userid="${employee.worker_id}" title="info student"><i class="fas fa-info-circle"></i></a>
                 </div>
             </td>
         `;
