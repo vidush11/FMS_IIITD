@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             else if (i === 5) { // Password (Index 5 IF DISPLAYED) -> Password Input
                 inputElement = document.createElement('input');
                 inputElement.type = 'text';
-                inputElement.placeholder = originalValues[i]; // Placeholder instead of current value
+                inputElement.value = originalValues[i]; // Placeholder instead of current value
                 inputElement.classList.add('edit-input');
             }
             else { // Name (i=1), Room (i=3) -> Text Input
@@ -345,17 +345,18 @@ document.addEventListener('DOMContentLoaded', async function () {
                 })
                 .then(data => {
                     console.log("Update successful:", data);
+                    row.classList.remove('editing');
                     // Update cell content visually (skip Roll No cell 0)
                     cells[1].textContent = payload.username;
                     cells[2].textContent = payload.building;
                     cells[3].textContent = payload.roomno;
                     cells[4].textContent = payload.email;
-                    cells[5].textcontent = payload.userpassword;
+                    cells[5].textContent = payload.userpassword;
                     // Don't need to update password cell display
 
                     actionCell.innerHTML = row.dataset.originalActionsHTML || '';
                     row.classList.remove('editing');
-                    
+
                     filterTable();
                 })
                 .catch(error => {

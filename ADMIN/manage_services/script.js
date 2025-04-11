@@ -5,6 +5,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     loadAvgRequestsPerService();
+    loadTopRatedEmployees();
+    happyusers();
+    Users_with_complaints_but_no_requests()
 })
 // Keep this file if you plan to add other dynamic features later.
 
@@ -105,4 +108,100 @@ if (ctx) {
     });
 } else {
     console.warn("Chart element with ID 'serviceChart' not found.");
+}
+
+async function loadTopRatedEmployees() {
+    const tableBody = document.querySelector('.bpe .data-table tbody');
+    if (!tableBody) return;
+
+    try {
+        const response = await fetch('https://fmsbackend-iiitd.up.railway.app/worker/num20');
+        const data = await response.json();
+        console.log("nnnn", data);
+        const workers = data.data || [];
+
+        tableBody.innerHTML = '';
+
+        if (workers.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No top employees found</td></tr>`;
+            return;
+        }
+
+        workers.forEach(worker => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${worker.worker_id}</td>
+                <td>${worker.name}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+    } catch (err) {
+        console.error("Failed to load top employees:", err);
+        tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Error loading data</td></tr>`;
+    }
+}
+
+async function happyusers() {
+    const tableBody = document.querySelector('.awe .data-table tbody');
+    if (!tableBody) return;
+
+    try {
+        const response = await fetch('https://fmsbackend-iiitd.up.railway.app/users/num19');
+        const data = await response.json();
+        console.log("wowow", data);
+        const workers = data.users || [];
+
+        tableBody.innerHTML = '';
+
+        if (workers.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No top employees found</td></tr>`;
+            return;
+        }
+
+        workers.forEach(worker => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${worker.user_id}</td>
+                <td>${worker.username}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+    } catch (err) {
+        console.error("Failed to load top employees:", err);
+        tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Error loading data</td></tr>`;
+    }
+}
+
+async function Users_with_complaints_but_no_requests() {
+    const tableBody = document.querySelector('.dfd .data-table tbody');
+    if (!tableBody) return;
+
+    try {
+        const response = await fetch('https://fmsbackend-iiitd.up.railway.app/users/num21');
+        const data = await response.json();
+        console.log("bsdk", data);
+        const workers = data.user || [];
+
+        tableBody.innerHTML = '';
+
+        if (workers.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No top employees found</td></tr>`;
+            return;
+        }
+
+        workers.forEach(worker => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${worker.user_id}</td>
+                <td>${worker.username}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+    } catch (err) {
+        console.error("Failed to load top employees:", err);
+        tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Error loading data</td></tr>`;
+    }
 }

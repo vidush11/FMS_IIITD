@@ -95,14 +95,78 @@
             </ul>
         </section>
 
-        <div style="display:flex;flex:1fr 1fr;">
+        <h1 style="margin-top:20px;margin-bottom:20px; font-size:50px;">Statistics</h1>
 
-            <section class="card main-section avgrequests">
+        <div style="display:flex; justify-content:space-around; margin-top : 20px;  flex-wrap: wrap; gap:25px; align-items:center;
+">
+
+            <section class="card main-section avgrequests " style="width:900px;">
                 <div class="card-header">Average Requests for each Service per Day</div>
                 <div class="card-content">
                     <canvas id="avgRequestChart" height="200"></canvas>
                 </div>
             </section>
+
+            <section class="card main-section bpe" style="width:500px;">
+                <div class="card-header">Workers with Above Average Rating</div>
+                <div class="card-content">
+
+                    <div class="table-wrapper" style="max-height: 350px; padding-top:0px;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee ID</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card main-section awe" style="width:500px;">
+                <div class="card-header">Frequent Users</div>
+                <div class="card-content">
+
+                    <div class="table-wrapper" style="max-height: 350px; padding-top:0px;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card main-section dfd" style="width:500px; margin-right:30px;">
+                <div class="card-header">Users with complaints but no requests</div>
+                <div class="card-content">
+
+                    <div class="table-wrapper" style="max-height: 350px; padding-top:0px;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
         </div>
 
     </main>
