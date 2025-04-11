@@ -610,3 +610,54 @@ body {
 .service-list li.editing .edit-input {
     flex: 1;
 }
+
+/* --- Styles for Scrollable Table Inside Card --- */
+
+/* Ensure card content can hold a scrollable area */
+.card .card-content {
+    padding: 0;
+    /* Remove padding if wrapper handles it */
+    display: flex;
+    /* Allow wrapper to grow */
+    flex-direction: column;
+    flex-grow: 1;
+    /* If you want card-content to scroll instead of table-wrapper, add these: */
+    /* overflow-y: auto; */
+    /* max-height: 350px; /* Adjust as needed */
+}
+
+/* The scrollable wrapper */
+.card .table-wrapper {
+    flex-grow: 1;
+    /* Take available space */
+    overflow-y: auto;
+    /* Enable vertical scroll */
+    min-height: 0;
+    /* Flexbox scroll fix */
+    padding: 15px;
+    /* Add padding inside the scroll area */
+    /* Apply max-height here if you want only table content scrolling */
+    /* max-height: 350px; /* Adjust value as needed */
+}
+
+/* Make table header sticky within the card's table-wrapper */
+.card .data-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    /* Background should already be set by general .data-table thead rule */
+    background-color: var(--header-bg);
+    /* Explicitly set again just in case */
+}
+
+/* Minor adjustments for table inside card (optional) */
+.card .data-table {
+    margin-bottom: 0;
+    /* Remove bottom margin if padding is on wrapper */
+}
+
+.card .data-table td,
+.card .data-table th {
+    padding: 8px 10px;
+    /* Slightly smaller padding inside card */
+}
