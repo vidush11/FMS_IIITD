@@ -15,28 +15,19 @@ body {
     /* Prevent scrolling on the body itself */
 }
 
-/* Colors */
 :root {
-    --primary-color: #1ABC9C;
-    /* Teal */
-    --primary-dark: #16A085;
-    /* Darker Teal */
-    --secondary-bg: #E8F8F5;
-    /* Very light teal background */
-    --card-bg: #ffffff;
-    /* White card background */
+    --primary-color: #39AEA8; /* Teal */
+    --primary-dark: #39AEA8;  /* Darker Teal */
+    --secondary-bg: #E1FFFD; /* Very light teal background */
+    --card-bg: #ffffff;      /* White card background */
     --text-light: #ffffff;
     --text-dark: #333333;
     --text-muted: #666666;
     --border-color: #dddddd;
-    --danger-color: #C0392B;
-    /* Red for logout/cancel */
-    --success-color: #27AE60;
-    /* Green for accept */
-    --edit-color: #2980B9;
-    /* Blue for edit */
-    --header-bg: #34495E;
-    /* Dark header for tables */
+    --danger-color: #C0392B;  /* Red for logout/cancel */
+    --success-color: #27AE60; /* Green for accept */
+    --edit-color: #2980B9;    /* Blue for edit */
+    --header-bg: #003D39;    /* Dark header for tables */
 }
 
 /* Sidebar */
