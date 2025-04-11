@@ -28,30 +28,33 @@ document.addEventListener('DOMContentLoaded', function () {
                     "Content-Type": "application/json"
                 },
             });
-    
+
             const data = await response.json();
             const requests = data.requests || [];
-    
+
             if (!tableBody) return;
             tableBody.innerHTML = ""; // Clear table
-    
+
             if (requests.length === 0) {
                 const row = document.createElement("tr");
                 row.innerHTML = `<td colspan="8" style="text-align:center;">No active requests found</td>`;
                 tableBody.appendChild(row);
                 return;
             }
-    
+
             requests.forEach((item) => {
                 const row = document.createElement("tr");
-    
+                // --- STORE ORIGINAL TIME ---
+                row.dataset.requestTimeOriginal = item.time; // Store the raw timestamp string
+                row.dataset.userId = item.user_id; // Store user ID for easier access
+
                 row.innerHTML = `
                     <td>${item.worker_id || "N/A"}</td>
                     <td>${item.user_id}</td>
                     <td>${item.service}</td>
                     <td>${item.building}</td>
                     <td>${item.room_no}</td>
-                    <td>${new Date(item.time).toLocaleString()}</td>
+                    <td>${new Date(item.time).toLocaleString()}</td> 
                     <td><span class="status-badge ${item.status.toLowerCase()}">${item.status}</span></td>
                     <td>
                         <div class="action-buttons">
@@ -60,17 +63,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                     </td>
                 `;
-    
                 tableBody.appendChild(row);
             });
-    
+
             // Refresh rows for search/filter logic
             rows = getRows();
             filterTable();
         } catch (error) {
             console.error("Error fetching Requests:", error);
         }
-    }    
+    }
     fetchAndDisplayRequests();
     function getRows() {
         // Ensure we select rows from the correct table body
@@ -86,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         const searchTerm = searchInput.value.toLowerCase();
-        const filterValue = filterSelect.value; // Values are 'all', 'pending', 'in-progress'
+        // Values are 'all', 'pending', 'in-progress'
         rows = getRows(); // Re-fetch rows
 
         rows.forEach(row => {
@@ -111,10 +113,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Status is in cell 6
             const statusElement = row.querySelector('.status-badge');
-            const matchesFilter = filterValue === 'all' ||
-                (statusElement && statusElement.classList.contains(filterValue));
 
-            row.style.display = matchesSearch && matchesFilter ? '' : 'none';
+            row.style.display = matchesSearch ? '' : 'none';
         });
     }
 
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         select.className = 'status-select edit-input'; // Add edit-input for styling
         const statuses = {
             'pending': 'Pending',
-            'in-progress': 'In Progress'
+            'completed': 'Completed'
             // Add other relevant statuses like 'completed' if needed later
         };
 
@@ -150,18 +150,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Function to make an active request row editable (Employee ID and Status)
+    // Function to make an active request row editable (Employee ID and Status)
+    // Function to make an active request row editable (Employee ID and Status)
     function makeRowEditable(row) {
         const cells = row.querySelectorAll('td');
-        const empIdCell = cells[0]; // Employee ID is the first cell
-        const statusCell = cells[6]; // Status is the 7th cell (index 6)
-        const actionCell = cells[cells.length - 1]; // Actions cell is last
+        // Indices: 0=EmpID, 1=UserID, 2=Service, 3=Building, 4=Room, 5=Time, 6=Status, 7=Actions
+        const empIdCell = cells[0];
+        // We get UserID and Original Time from dataset now
+        const statusCell = cells[6];
+        const actionCell = cells[7];
 
-        // Store original HTML for relevant cells
+        // Store original HTML
         row.dataset.originalEmpIdHTML = empIdCell.innerHTML;
         row.dataset.originalStatusHTML = statusCell.innerHTML;
         row.dataset.originalActionsHTML = actionCell.innerHTML;
+        // Note: originalUserId and originalRequestTime are already set on the row dataset
 
-        // --- Create input field for Employee ID --- 
+        // Create Employee ID input
         const empIdInput = document.createElement('input');
         empIdInput.type = 'text';
         empIdInput.value = empIdCell.textContent.trim();
@@ -169,17 +174,16 @@ document.addEventListener('DOMContentLoaded', function () {
         empIdCell.innerHTML = '';
         empIdCell.appendChild(empIdInput);
 
-        // --- Create select dropdown for Status --- 
+        // Create Status select dropdown
         const originalStatusBadge = statusCell.querySelector('.status-badge');
-        const currentStatusClass = originalStatusBadge ? Array.from(originalStatusBadge.classList).find(cls => cls !== 'status-badge') : 'pending'; // Default to pending if no badge
-        const statusSelect = createStatusSelect(currentStatusClass);
-        statusCell.innerHTML = ''; // Clear the cell
+        const currentStatusClass = originalStatusBadge ? Array.from(originalStatusBadge.classList).find(cls => cls !== 'status-badge') : 'pending';
+        const statusSelect = createStatusSelect(currentStatusClass); // Uses your existing helper
+        statusCell.innerHTML = '';
         statusCell.appendChild(statusSelect);
 
-        // Focus the first input field
         empIdInput.focus();
 
-        // Replace action buttons with Save/Cancel
+        // Replace action buttons
         actionCell.innerHTML = `
             <div class="action-buttons">
                 <a href="#" class="action-btn btn-save" title="Save Changes"><i class="fas fa-check"></i></a>
@@ -187,52 +191,130 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `;
 
-        // Add listeners specifically for these new Save/Cancel buttons
         const saveBtn = actionCell.querySelector('.btn-save');
         const cancelBtn = actionCell.querySelector('.btn-cancel');
 
+        // --- Save Button Handler ---
         saveBtn.addEventListener('click', function handleSave(e) {
             e.preventDefault();
             e.stopPropagation();
 
-            // Get new values
+            // --- 1. Gather Data ---
             const newEmpId = empIdInput.value.trim();
-            const newStatusClass = statusSelect.value;
+            const newStatusClass = statusSelect.value; // 'pending' or 'completed'
+            const isCompletedBoolean = newStatusClass === 'completed'; // Convert status string to boolean
 
-            // --- Update Employee ID Cell --- 
-            empIdCell.textContent = newEmpId;
+            // --- Get Identifiers from row's dataset ---
+            const userId = row.dataset.userId;
+            const originalRequestTime = row.dataset.requestTimeOriginal; // Use the stored original time
 
-            // --- Update Status Cell with new badge --- 
-            statusCell.innerHTML = '';
-            statusCell.appendChild(createStatusBadge(newStatusClass));
+            // Basic check for identifiers
+            if (!userId || !originalRequestTime) {
+                alert("Error: Could not get identifying information (User ID / Time) for the request.");
+                return;
+            }
+            if (!newEmpId && isCompletedBoolean) { // Ensure worker assigned if completing
+                alert("Error: Please assign an Employee ID before completing the request.");
+                return;
+            }
 
-            // Restore original action buttons
-            actionCell.innerHTML = row.dataset.originalActionsHTML || '';
-            row.classList.remove('editing');
+            // --- 2. Prepare Payload ---
+            // ** Adjust payload keys based on backend requirements **
+            const payload = {
+                user_id: userId,
+                worker_id: newEmpId || null, // Send the new worker_id (or null if cleared)
+                request_time: originalRequestTime, // Send the ORIGINAL timestamp string
+                iscompleted: isCompletedBoolean // Send the boolean status
+            };
 
-            // Clean up dataset attributes
-            delete row.dataset.originalEmpIdHTML;
-            delete row.dataset.originalStatusHTML;
-            delete row.dataset.originalActionsHTML;
+            // ** Replace with your ACTUAL backend endpoint for updates **
+            // Using the complete-request endpoint name from your error message
+            const apiUrl = `https://fmsbackend-iiitd.up.railway.app/admin/complete-request`;
 
-            filterTable(); // Re-apply filters if needed
-        });
+            console.log("Sending PUT request to update request:", apiUrl, payload);
 
+            // Disable buttons visually
+            saveBtn.style.opacity = '0.5'; saveBtn.style.pointerEvents = 'none';
+            if (cancelBtn) { cancelBtn.style.opacity = '0.5'; cancelBtn.style.pointerEvents = 'none'; }
+
+            // --- 3. Execute Fetch ---
+            fetch(apiUrl, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(payload)
+            })
+                .then(response => {
+                    console.log('Update Request API Response Status:', response.status);
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            let errorDetail = text || response.statusText;
+                            try { errorDetail = JSON.parse(text).error || JSON.parse(text).message || errorDetail; } catch (e) { }
+                            throw new Error(`API Error ${response.status}: ${errorDetail}`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // --- SUCCESS: Update UI ---
+                    console.log("Request successfully updated on backend:", data);
+                    empIdCell.textContent = newEmpId || 'N/A'; // Update Emp ID cell
+                    statusCell.innerHTML = '';
+                    statusCell.appendChild(createStatusBadge(newStatusClass)); // Update status cell
+                    actionCell.innerHTML = row.dataset.originalActionsHTML || '';
+                    row.classList.remove('editing');
+                    // Re-fetch data to reflect changes (especially if item was completed)
+                    fetchAndDisplayRequests();
+                })
+                .catch(error => {
+                    // --- ERROR: Revert UI ---
+                    console.error("Error updating request via API:", error);
+                    alert(`Failed to update request: ${error.message}`);
+                    empIdCell.innerHTML = row.dataset.originalEmpIdHTML || '';
+                    statusCell.innerHTML = row.dataset.originalStatusHTML || '';
+                    actionCell.innerHTML = row.dataset.originalActionsHTML || '';
+                    row.classList.remove('editing');
+                })
+                .finally(() => {
+                    // Clean up stored data attributes
+                    delete row.dataset.originalEmpIdHTML;
+                    delete row.dataset.originalStatusHTML;
+                    delete row.dataset.originalActionsHTML;
+                    // No need to delete userId/requestTimeOriginal as they are set during render
+                    // Re-enable buttons (optional safety)
+                });
+
+        }); // End Save Listener
+
+        // --- Cancel Button Handler ---
         cancelBtn.addEventListener('click', function handleCancel(e) {
             e.preventDefault();
             e.stopPropagation();
             // Restore original cell HTML
             empIdCell.innerHTML = row.dataset.originalEmpIdHTML || '';
             statusCell.innerHTML = row.dataset.originalStatusHTML || '';
-            // Restore original buttons
             actionCell.innerHTML = row.dataset.originalActionsHTML || '';
             row.classList.remove('editing');
             // Clean up dataset attributes
             delete row.dataset.originalEmpIdHTML;
             delete row.dataset.originalStatusHTML;
             delete row.dataset.originalActionsHTML;
-        });
+        }, { once: true }); // Keep { once: true } for cancel
     }
+
+
+    // --- (Ensure the rest of your script is present) ---
+    // document.addEventListener('DOMContentLoaded', function () { ... });
+    // fetchAndDisplayRequests function
+    // getRows function
+    // filterTable function
+    // createStatusSelect function
+    // createStatusBadge function
+    // tableBody click listener calling makeRowEditable
+    // Initial fetchAndDisplayRequests() call
+    // etc.
+
+    // --- (Keep the rest of your code: fetchAndDisplayRequests, getRows, filterTable, createStatusSelect, createStatusBadge, event listeners, initial calls etc.) ---
 
     // --- Event Listeners ---
     if (searchInput) {

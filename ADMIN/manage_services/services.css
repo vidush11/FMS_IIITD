@@ -16,18 +16,26 @@ body {
 }
 
 :root {
-    --primary-color: #39AEA8; /* Teal */
-    --primary-dark: #39AEA8;  /* Darker Teal */
-    --secondary-bg: #E1FFFD; /* Very light teal background */
-    --card-bg: #ffffff;      /* White card background */
+    --primary-color: #39AEA8;
+    /* Teal */
+    --primary-dark: #39AEA8;
+    /* Darker Teal */
+    --secondary-bg: #E1FFFD;
+    /* Very light teal background */
+    --card-bg: #ffffff;
+    /* White card background */
     --text-light: #ffffff;
     --text-dark: #333333;
     --text-muted: #666666;
     --border-color: #dddddd;
-    --danger-color: #C0392B;  /* Red for logout/cancel */
-    --success-color: #27AE60; /* Green for accept */
-    --edit-color: #2980B9;    /* Blue for edit */
-    --header-bg: #003D39;    /* Dark header for tables */
+    --danger-color: #C0392B;
+    /* Red for logout/cancel */
+    --success-color: #27AE60;
+    /* Green for accept */
+    --edit-color: #2980B9;
+    /* Blue for edit */
+    --header-bg: #003D39;
+    /* Dark header for tables */
 }
 
 /* Sidebar */
@@ -385,6 +393,14 @@ body {
 /* Optional: Adjust vertical alignment if needed */
 .data-table th .action-buttons {
     vertical-align: middle;
+}
+
+.avgrequests {
+    grid-area: avgrequests;
+}
+
+.chart {
+    grid-area: chart;
 }
 
 /* =============== Additions for Manage Services List Page =============== */

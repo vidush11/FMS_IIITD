@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // --- Existing Filter Function ---
     function filterTable() {
         const searchTerm = searchInput.value.toLowerCase();
-        const filterValue = filterSelect.value;
+      
         const rows = tableBody.querySelectorAll('tr:not(.empty-row)');
 
         rows.forEach(row => {
@@ -64,16 +64,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                 value.includes(searchTerm)
             );
 
-            const matchesFilter = filterValue === 'all' ||
-                (row.querySelector('.status-badge')?.classList.contains(filterValue) ?? false);
-
-            row.style.display = matchesSearch && matchesFilter ? '' : 'none';
+            
+            row.style.display = matchesSearch ? '' : 'none';
         });
     }
 
     // Attach listeners
     searchInput.addEventListener('input', filterTable);
-    filterSelect.addEventListener('change', filterTable);
+   
 
     // Initial load
     await fetchServiceHistory();

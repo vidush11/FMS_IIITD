@@ -112,9 +112,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const employeeData = {
                 id: row.cells[0]?.textContent.toLowerCase() || '',
                 name: row.cells[1]?.textContent.toLowerCase() || '',
-                doj: row.cells[2]?.textContent.toLowerCase() || '',
-                phone: row.cells[3]?.textContent.toLowerCase() || '',
-                role: row.cells[4]?.textContent.toLowerCase() || ''
+                doj: row.cells[4]?.textContent.toLowerCase() || '',
+                phone: row.cells[2]?.textContent.toLowerCase() || '',
+                role: row.cells[3]?.textContent.toLowerCase() || ''
             };
 
             // Check search match
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
             );
 
             // Check filter match (Role is in cell 4)
-            const roleCell = row.cells[4];
+            const roleCell = row.cells[3];
             const matchesFilter = filterValue === 'all' ||
                 (roleCell && roleCell.textContent === filterValue);
 
@@ -251,8 +251,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     break;
                 case 6: // Password (Index 6)
                     inputElement = document.createElement('input');
-                    inputElement.type = 'password';
-                    inputElement.placeholder = 'Enter new password (optional)'; // Don't show current password
+                    inputElement.type = 'text';
+                    inputElement.value = currentText; // Don't show current password
                     inputElement.classList.add('edit-input', 'password-input');
                     break;
                 default:
@@ -272,13 +272,13 @@ document.addEventListener('DOMContentLoaded', function () {
         actionCell.innerHTML = `
         <div class="action-buttons">
             <a href="#" class="action-btn btn-save" title="Save Changes"><i class="fas fa-check"></i></a>
-            <a href="#" class="action-btn btn-cancel" title="Cancel Edit"><i class="fas fa-times"></i></a>
+           
         </div>
     `;
 
         // --- Attach Save/Cancel Listeners ---
         const saveBtn = actionCell.querySelector('.btn-save');
-        const cancelBtn = actionCell.querySelector('.btn-cancel'); // Make sure cancel button exists
+        // Make sure cancel button exists
 
         // --- Save Button Handler ---
         saveBtn.addEventListener('click', function handleSave(e) {
@@ -296,9 +296,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (payload.rating !== undefined && payload.rating !== '') { payload.rating = parseFloat(payload.rating); if (isNaN(payload.rating)) { payload.rating = null; } } else if (payload.rating === '') { payload.rating = null; }
             console.log("Data gathered for PUT:", payload);
             if (!payload.worker_id || !payload.name || !payload.phone_no || !payload.assigned_role || !payload.date_of_joining) { alert('Error: Required fields missing.'); return; }
-            const apiUrl = "https://fmsbackend-iiitd.up.railway.app/admin/update-worker-data"; // ** CHECK URL **
+            const apiUrl = "https://fmsbackend-iiitd.up.railway.app/admin/update-worker-role"; // ** CHECK URL **
             const fetchOptions = { method: "PUT", headers: { "Content-Type": "application/json", "Accept": "application/json" }, credentials: 'include', body: JSON.stringify(payload) };
-            saveBtn.style.opacity = '0.5'; saveBtn.style.pointerEvents = 'none'; if (cancelBtn) { cancelBtn.style.opacity = '0.5'; cancelBtn.style.pointerEvents = 'none'; }
+            // saveBtn.style.opacity = '0.5'; saveBtn.style.pointerEvents = 'none'; if (cancelBtn) { cancelBtn.style.opacity = '0.5'; cancelBtn.style.pointerEvents = 'none'; }
+            saveBtn.style.opacity = '0.5'; saveBtn.style.pointerEvents = 'none';
             fetch(apiUrl, fetchOptions)
                 .then(response => { if (!response.ok) { return response.text().then(text => { /* Error Handling */ throw new Error(`API Error ${response.status}: ${text || response.statusText}`); }); } return response.json(); })
                 .then(data => {
@@ -308,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     cells[3].textContent = payload.assigned_role;
                     cells[4].textContent = payload.date_of_joining; // Display raw date YYYY-MM-DD is fine
                     cells[5].textContent = payload.rating !== null ? payload.rating : 'N/A';
-                    cells[6].textContent = '******'; // Password placeholder
+                    cells[6].textContent = payload.workerpassword; // Password placeholder
                     actionCell.innerHTML = row.dataset.originalActionsHTML || '';
                     row.classList.remove('editing');
                     filterTable();
@@ -322,21 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // --- Cancel Button Handler ---
-        cancelBtn.addEventListener('click', function handleCancel(e) {
-            e.preventDefault(); e.stopPropagation();
-            // Restore original HTML for all data cells
-            cells.forEach((cell, index) => {
-                if (index < numberOfDataCells) { // Only restore data cells (0 to 6)
-                    cell.innerHTML = row.dataset.originalHTML[index] || originalValues[index]; // Use original HTML if stored
-                }
-            });
-            actionCell.innerHTML = row.dataset.originalActionsHTML || ''; // Restore original action buttons
-            row.classList.remove('editing');
-            // Clean up stored data
-            delete row.dataset.originalHTML;
-            delete row.dataset.originalActionsHTML;
-            console.log(`Edit cancelled for worker ${originalValues[0]}`);
-        }, { once: true }); // Keep { once: true } for cancel
+        // Keep { once: true } for cancel
     }
 
     // Event delegation for table body clicks
@@ -363,12 +350,22 @@ document.addEventListener('DOMContentLoaded', function () {
             makeRowEditable(row);
         } else if (target.classList.contains('btn-reject')) {
             if (confirm('Are you sure you want to remove this employee?')) {
+                let worker_id = target.dataset.workerid;
                 row.style.opacity = '0';
                 setTimeout(() => {
                     row.remove();
                     rows = getRows(); // Update rows list
                     updateLastEmployeeId();
                 }, 300);
+                fetch("https://fmsbackend-iiitd.up.railway.app/admin/remove-worker", {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        worker_id: worker_id
+                    })
+                }).then(res => res.json()).then(data => { console.log(data) })
             }
         }
         // Save/Cancel are handled by listeners attached in makeRowEditable
@@ -541,7 +538,7 @@ async function populateEmployeeTable() {
             <td>
                 <div class="action-buttons">
                     <a href="#" class="action-btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
-                    <a href="#" class="action-btn btn-reject"><i class="fas fa-trash"></i></a>
+                    <a href="#" class="action-btn btn-reject" data-workerid="${employee.worker_id}"><i class="fas fa-trash"></i></a>
                 </div>
             </td>
         `;

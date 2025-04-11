@@ -54,92 +54,61 @@
                         <i class="fas fa-broom"></i> <!-- Housekeeping icon -->
                         <span>Housekeeping</span>
                     </div>
-                    <div class="service-actions">
-                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Housekeeping">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Housekeeping">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
+
                 </li>
                 <li>
                     <div class="service-info">
                         <i class="fas fa-paint-roller"></i> <!-- Painting icon -->
                         <span>Painting</span>
                     </div>
-                    <div class="service-actions">
-                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Painting">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Painting">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
+
                 </li>
                 <li>
                     <div class="service-info">
                         <i class="fas fa-tools"></i> <!-- Carpentry icon -->
                         <span>Carpentry</span>
                     </div>
-                    <div class="service-actions">
-                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Carpentry">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Carpentry">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
+
                 </li>
                 <li>
                     <div class="service-info">
                         <i class="fas fa-bolt"></i> <!-- Electrical Work icon -->
                         <span>Electrical Work</span>
                     </div>
-                    <div class="service-actions">
-                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Electrical Work">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Electrical Work">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
+
                 </li>
                 <li>
                     <div class="service-info">
                         <i class="fas fa-user-shield"></i> <!-- Security icon -->
                         <span>Security</span>
                     </div>
-                    <div class="service-actions">
-                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Security">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Security">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
+
                 </li>
                 <li>
                     <div class="service-info">
                         <i class="fas fa-cog"></i> <!-- Miscellaneous icon -->
                         <span>Miscellaneous</span>
                     </div>
-                    <div class="service-actions">
-                        <a href="#" class="service-action-btn service-edit-btn" title="Edit Miscellaneous">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="#" class="service-action-btn service-delete-btn" title="Delete Miscellaneous">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
+
                 </li>
                 <!-- Add more services as needed -->
             </ul>
         </section>
 
+        <div style="display:flex;flex:1fr 1fr;">
+
+            <section class="card main-section avgrequests">
+                <div class="card-header">Average Requests for each Service per Day</div>
+                <div class="card-content">
+                    <canvas id="avgRequestChart" height="200"></canvas>
+                </div>
+            </section>
+        </div>
+
     </main>
 
     <!-- Link to the SAME external JavaScript file -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 
 </body>

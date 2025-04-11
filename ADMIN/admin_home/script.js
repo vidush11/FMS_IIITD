@@ -2,7 +2,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Dashboard loaded');
 
-    
+    document.querySelector(".login-time").innerHTML = new Date();
+
     // Profile actions
     const viewProfileBtn = document.querySelector('.btn-view-profile');
     if (viewProfileBtn) {
@@ -126,12 +127,7 @@ async function loadDashboardActiveRequests() {
                 <td>${item.room_no}</td>
                 <td>${new Date(item.time).toLocaleString()}</td>
                 <td><span class="status-badge ${item.status}">${item.status.replace("-", " ")}</span></td>
-                <td>
-                    <div class="action-buttons">
-                        <a href="#" class="action-btn btn-edit" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                        <a href="#" class="action-btn btn-reject" title="Remove"><i class="fas fa-trash"></i></a>
-                    </div>
-                </td>
+                
             `;
             dashboardTableBody.appendChild(row);
         });
@@ -225,12 +221,7 @@ async function loadComplaintsWithLimit() {
                 <td>${new Date(item.complaints.complaint_datetime).toLocaleString()}</td>
                 <td>${item.complaints.complaint}</td>
                 <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                <td>
-                    <div class="action-buttons">
-                        <a href="#" class="action-btn btn-edit" title="Update Status"><i class="fas fa-pencil-alt"></i></a>
-                        <a href="#" class="action-btn btn-reject" title="Delete Complaint"><i class="fas fa-trash"></i></a>
-                    </div>
-                </td>
+                
             `;
             tableBody.appendChild(row);
         });
@@ -253,20 +244,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', async function (e) {
         const saveBtn = e.target.closest('.btn-save');
         if (!saveBtn) return;
-    
+
         e.preventDefault();
-    
+
         const row = saveBtn.closest('tr');
         if (!row) return;
-    
+
         const workerId = parseInt(row.cells[0]?.textContent.trim());
         const selectedBuilding = row.querySelector('select')?.value;
-    
+
         if (!selectedBuilding || selectedBuilding === '') {
             alert('Please select a building before saving.');
             return;
         }
-    
+
         try {
             const response = await fetch("https://fmsbackend-iiitd.up.railway.app/worker/new-assign", {
                 method: "POST",
@@ -278,20 +269,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     assigned_location: selectedBuilding
                 })
             });
-    
+
             const result = await response.json();
-    
+
             if (!response.ok) {
                 throw new Error(result.error || 'Assignment update failed');
             }
-    
+
             alert('Assignment updated successfully!');
         } catch (err) {
             console.error("Error saving assignment:", err);
             alert(`Error: ${err.message}`);
         }
     });
-    
+
 });
 
 async function loadAvgRequestsPerService() {
