@@ -406,14 +406,23 @@ document.addEventListener('DOMContentLoaded', async function () {
             makeRowEditable(row);
         } else if (target.classList.contains('btn-reject') && !isEditing) {
             const userIdToDelete = target.dataset.userid;
+            console.log(userIdToDelete);
             if (!userIdToDelete) { alert("Error: Cannot identify user."); return; }
             if (confirm(`Remove student ${userIdToDelete}?`)) {
                 row.style.opacity = '0';
                 setTimeout(() => row.remove(), 300);
-                fetch("https://fmsbackend-iiitd.up.railway.app/admin/remove-user", { /* ... DELETE request ... */ })
-                    .then(res => { /* ... */ })
-                    .then(data => { /* ... */ rows = getRows(); })
-                    .catch(error => { /* ... */ row.style.opacity = '1'; });
+                fetch("https://fmsbackend-iiitd.up.railway.app/admin/remove-user", {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        user_id: userIdToDelete
+                    })
+                })
+                    .then(res => res.json())
+                    .then(data => { console.log(data); rows = getRows(); })
+
             }
         }
     });

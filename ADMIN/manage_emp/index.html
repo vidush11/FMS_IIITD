@@ -92,21 +92,22 @@
     <div id="addEmployeeModal" class="modal">
         <div class="modal-content">
             <span id="closeEmployeeModal" class="close-button">&times;</span>
-            <h2>Add Employee</h2>
+            <h2 style="margin-bottom:15px;">Add Employee</h2>
             <form id="addEmployeeForm">
                 <input type="text" id="empID" placeholder="Worker ID" required />
                 <input type="text" id="empName" placeholder="Name" required />
                 <input type="text" id="empPhone" placeholder="Phone Number" required />
                 <select id="empRole" required>
-                    <option value="">Select Role</option>
-                    <option value="plumber">Plumber</option>
-                    <option value="electrician">Electrician</option>
-                    <option value="cleaner">Cleaner</option>
-                    <option value="guard">Guard</option>
+                    <option value="Electrician">Electrician</option>
+                    <option value="Cleaner">Cleaner</option>
+                    <option value="Carpenter">Carpenter</option>
+                    <option value="Painter">Painter</option>
+                    <option value="Guard">Guard</option>
+                    <option value="Miscellaneous">Miscellaneous</option>
                     <!-- Add more roles as needed -->
                 </select>
                 <input type="password" id="empPassword" placeholder="Password" required />
-                <button type="submit">Save</button>
+                <button type="submit" style="background-color:green">Save</button>
             </form>
         </div>
     </div>

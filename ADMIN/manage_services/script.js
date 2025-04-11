@@ -1,139 +1,108 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Get all service list items
-    const serviceItems = document.querySelectorAll('.service-list li');
+// Complete script.js for Manage Services Page (Buttons Functionality Removed)
 
-    serviceItems.forEach(item => {
-        const editBtn = item.querySelector('.service-edit-btn');
-        const deleteBtn = item.querySelector('.service-delete-btn');
-        const serviceInfo = item.querySelector('.service-info span');
+// No JavaScript needed for button functionality as they have been removed.
 
-        if (editBtn) {
-            editBtn.addEventListener('click', function (e) {
-                e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
 
-                // If already editing, return
-                if (item.classList.contains('editing')) return;
+    loadAvgRequestsPerService();
+})
+// Keep this file if you plan to add other dynamic features later.
 
-                // Store original text
-                const originalText = serviceInfo.textContent;
+console.log("Manage Services script loaded (button functionality removed).");
 
-                // Create input field
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.value = originalText;
-                input.className = 'edit-input';
+async function loadAvgRequestsPerService() {
+    try {
+        const response = await fetch("https://fmsbackend-iiitd.up.railway.app/statistics/avg-requests-per-service");
+        const data = await response.json();
 
-                // Create save button
-                const saveBtn = document.createElement('a');
-                saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-                saveBtn.className = 'service-action-btn save-btn';
-                saveBtn.href = '#';
+        if (!response.ok) throw new Error(data.error || 'Failed to fetch');
 
-                // Create cancel button
-                const cancelBtn = document.createElement('a');
-                cancelBtn.innerHTML = '<i class="fas fa-times"></i>';
-                cancelBtn.className = 'service-action-btn cancel-btn';
-                cancelBtn.href = '#';
+        const labels = data.averages.map(entry => entry.service_type);
+        const values = data.averages.map(entry => parseFloat(entry.average_requests.toFixed(2)));
 
-                // Add editing class to item
-                item.classList.add('editing');
-
-                // Replace text with input
-                serviceInfo.textContent = '';
-                serviceInfo.appendChild(input);
-
-                // Replace edit and delete buttons with save and cancel
-                const actionsDiv = item.querySelector('.service-actions');
-                actionsDiv.innerHTML = '';
-                actionsDiv.appendChild(saveBtn);
-                actionsDiv.appendChild(cancelBtn);
-
-                // Focus input
-                input.focus();
-
-                // Save functionality
-                saveBtn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const newValue = input.value.trim();
-                    if (newValue && newValue !== originalText) {
-                        serviceInfo.textContent = newValue;
-                        console.log(`Service name updated from "${originalText}" to "${newValue}"`);
-                        // Here you would typically make an API call to update the service name
-                    } else {
-                        serviceInfo.textContent = originalText;
+        const ctx = document.getElementById("avgRequestChart").getContext("2d");
+        console.log("Chart data:", labels, values);
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels,
+                datasets: [{
+                    label: "Avg Requests/Day",
+                    data: values,
+                    backgroundColor: "rgba(0, 61, 57, 1)",
+                    borderColor: "rgba(0, 61, 57, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: context => `${context.parsed.y} requests/day`
+                        }
                     }
-                    resetEditState();
-                });
-
-                // Cancel functionality
-                cancelBtn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    serviceInfo.textContent = originalText;
-                    resetEditState();
-                });
-
-                // Reset edit state
-                function resetEditState() {
-                    item.classList.remove('editing');
-                    actionsDiv.innerHTML = `
-                        <a href="#" class="service-action-btn service-edit-btn" title="Edit ${originalText}">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="#" class="service-action-btn service-delete-btn" title="Delete ${originalText}">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    `;
-                    // Reattach event listeners
-                    attachEventListeners(item);
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: "Requests" }
+                    }
                 }
-            });
-        }
-
-        if (deleteBtn) {
-            deleteBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                const serviceName = serviceInfo.textContent;
-
-                if (confirm(`Are you sure you want to delete ${serviceName}?`)) {
-                    item.classList.add('fade-out');
-                    setTimeout(() => {
-                        item.remove();
-                        console.log(`Service "${serviceName}" deleted`);
-                        // Here you would typically make an API call to delete the service
-                    }, 300);
-                }
-            });
-        }
-    });
-});
-
-// Function to attach event listeners to a service item
-function attachEventListeners(item) {
-    const editBtn = item.querySelector('.service-edit-btn');
-    const deleteBtn = item.querySelector('.service-delete-btn');
-    const serviceInfo = item.querySelector('.service-info span');
-
-    if (editBtn) {
-        editBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Trigger click event to maintain functionality
-            editBtn.click();
-        });
-    }
-
-    if (deleteBtn) {
-        deleteBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const serviceName = serviceInfo.textContent;
-
-            if (confirm(`Are you sure you want to delete ${serviceName}?`)) {
-                item.classList.add('fade-out');
-                setTimeout(() => {
-                    item.remove();
-                    console.log(`Service "${serviceName}" deleted`);
-                    // Here you would typically make an API call to delete the service
-                }, 300);
             }
         });
+    } catch (err) {
+        console.error("Chart load error:", err);
     }
-} 
+}
+
+const ctx = document.getElementById('serviceChart')?.getContext('2d');
+if (ctx) {
+    const serviceChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Completed', 'Pending', 'In Progress'],
+            datasets: [{
+                label: 'Services Status',
+                data: [12, 19, 3], // Example data
+                backgroundColor: [
+                    'rgba(40, 167, 69, 0.7)',  // Success color (Completed)
+                    'rgba(255, 193, 7, 0.7)', // Warning color (Pending)
+                    'rgba(0, 123, 255, 0.7)'  // Primary color (In Progress)
+                ],
+                borderColor: [
+                    'rgba(40, 167, 69, 1)',
+                    'rgba(255, 193, 7, 1)',
+                    'rgba(0, 123, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed !== null) {
+                                label += context.parsed;
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+} else {
+    console.warn("Chart element with ID 'serviceChart' not found.");
+}

@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     filterSelect.addEventListener('change', filterTable);
 
     // Listener for action buttons (Edit, Delete, Save, Cancel)
-    tableBody.addEventListener('click', function (e) {
+    tableBody.addEventListener('click', async function (e) {
         const targetButton = e.target.closest('.action-btn');
         if (!targetButton) return;
 
@@ -116,6 +116,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const statusSelect = statusCell.querySelector('.status-select');
             if (statusSelect) {
                 const newStatusClass = statusSelect.value;
+                console.log(newStatusClass);
+                if (newStatusClass === "resolved") {
+                    await fetch("https://fmsbackend-iiitd.up.railway.app/admin/resolve-complaint", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            complaint_id: complaintId
+                        })
+                    }).then(res => res.json()).then(data => { console.log(data) })
+                }
+
                 // Update status cell with new badge
                 statusCell.innerHTML = '';
                 statusCell.appendChild(createStatusBadge(newStatusClass));
@@ -137,15 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
             delete row.dataset.originalStatusHTML;
             delete row.dataset.originalActionsHTML;
 
-        } else if (targetButton.classList.contains('btn-reject')) {
-            if (confirm(`Are you sure you want to delete complaint ${complaintId}?`)) {
-                console.log(`Deleting Complaint ID: ${complaintId}`);
-                row.style.opacity = '0';
-                setTimeout(() => {
-                    row.remove();
-                    rows = getRows(); // Update the rows list after deletion
-                }, 300);
-            }
         }
     });
 
@@ -153,26 +157,27 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             const response = await fetch('https://fmsbackend-iiitd.up.railway.app/complaint/active-complaints'); // Adjust URL as needed
             const data = await response.json();
-    
+
             if (!response.ok) {
                 throw new Error(data.error || "Failed to fetch complaints");
             }
-    
+
             const complaints = data.complaints || [];
+            console.log(complaints);
             const tbody = document.querySelector('.data-table tbody');
             tbody.innerHTML = ""; // Clear old rows
-    
+
             if (complaints.length === 0) {
                 const row = document.createElement("tr");
                 row.innerHTML = `<td colspan="5" style="text-align:center;">No active complaints found</td>`;
                 tbody.appendChild(row);
                 return;
             }
-    
+
             complaints.forEach(c => {
                 const statusClass = c.is_resolved ? 'resolved' : 'in-progress';
                 const statusText = c.is_resolved ? 'Resolved' : 'In Progress';
-    
+
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${c.complaint_id}</td>
@@ -182,13 +187,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>
                         <div class="action-buttons">
                             <a href="#" class="action-btn btn-edit" title="Update Status"><i class="fas fa-pencil-alt"></i></a>
-                            <a href="#" class="action-btn btn-reject" title="Delete Complaint"><i class="fas fa-trash"></i></a>
                         </div>
                     </td>
                 `;
                 tbody.appendChild(row);
             });
-    
+
             // Refresh row references
             rows = getRows();
             filterTable();
