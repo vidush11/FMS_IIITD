@@ -99,6 +99,37 @@
       </form>
     </div>
   </div>
+
+<!-- Student Info Modal -->
+<div id="studentInfoModal" class="modal">
+    <div class="modal-content">
+        <span id="closeStudentModal" class="close">&times;</span>
+        <h2>Student Details</h2>
+        <div id="studentDetails"></div>
+        <label for="historyDate">Select Date:</label>
+        <input type="date" id="historyDate" />
+        <button id="fetchHistoryBtn">Fetch Services</button>
+        <div class="table-wrapper">
+            <table id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Service ID</th>
+                        <th>Worker ID</th>
+                        <th>Room No</th>
+                        <th>Building</th>
+                        <th>Request Time</th>
+                        <th>Feedback</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+
   
     </main>
 
