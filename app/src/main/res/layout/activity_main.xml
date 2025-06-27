@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="39dp"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:text="H2 boys hostel"
+            android:textAlignment="textEnd"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="49dp"
+            app:srcCompat="@mipmap/app_icon" />
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="164dp"
+            android:layout_height="43dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="49dp"
+            android:layout_marginTop="105dp"
+            android:layout_marginEnd="197dp"
+            android:fontFamily="@font/alumni_sans_bold"
+            android:text="Dashboard"
+            android:textAlignment="textStart"
+            android:textColor="#000000"
+            android:textSize="44sp" />
+
+        <RelativeLayout
+            android:layout_width="306dp"
+            android:layout_height="410dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentBottom="false"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="159dp"
+            android:background="@drawable/shape">
+
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:fontFamily="@font/alumni_sans_bold"
+                android:gravity="center"
+                android:text="Work Queue"
+                android:textAlignment="center"
+                android:textColor="#070707"
+                android:textSize="28sp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="296dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="87dp"
+                android:layout_marginRight="0dp"
+                android:fillViewport="true">
+
+                <RelativeLayout
+                    android:id="@+id/work_queue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="0dp"
+                    android:orientation="vertical">
+
+                    <!--                        <RelativeLayout-->
+                    <!--                            android:layout_width="266dp"-->
+                    <!--                            android:layout_height="60dp"-->
+                    <!--                            android:layout_marginStart="19dp"-->
+                    <!--                            android:layout_marginTop="10dp"-->
+                    <!--                            android:background="@drawable/shape2">-->
+
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/first_tab"-->
+                    <!--                                android:layout_width="119dp"-->
+                    <!--                                android:layout_height="50dp"-->
+                    <!--                                android:layout_alignParentStart="true"-->
+                    <!--                                android:layout_alignParentLeft="false"-->
+                    <!--                                android:layout_alignParentRight="false"-->
+                    <!--                                android:layout_alignParentBottom="true"-->
+                    <!--                                android:layout_marginStart="9dp"-->
+                    <!--                                android:layout_marginLeft="7dp"-->
+                    <!--                                android:layout_marginRight="132dp"-->
+                    <!--                                android:layout_marginBottom="5dp"-->
+                    <!--                                android:fontFamily="@font/alumni_sans_regular"-->
+                    <!--                                android:gravity="center"-->
+                    <!--                                android:text="306, H2 Hostel"-->
+                    <!--                                android:textAlignment="center"-->
+                    <!--                                android:textColor="#FFFFFF"-->
+                    <!--                                android:textSize="20sp" />-->
+
+                    <!--                            <Button-->
+                    <!--                                android:id="@+id/button6"-->
+                    <!--                                android:layout_width="48dp"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_alignParentTop="true"-->
+                    <!--                                android:layout_alignParentEnd="true"-->
+                    <!--                                android:layout_marginTop="9dp"-->
+                    <!--                                android:layout_marginEnd="66dp"-->
+                    <!--                                android:backgroundTint="#FFFFFF"-->
+                    <!--                                android:fontFamily="casual"-->
+                    <!--                                android:gravity="center"-->
+                    <!--                                android:padding="3dp"-->
+                    <!--                                android:text="✓"-->
+                    <!--                                android:textAlignment="center"-->
+                    <!--                                android:textColor="#4CAF50"-->
+                    <!--                                android:textSize="22sp"-->
+                    <!--                                app:cornerRadius="4dp"-->
+
+                    <!--                                />-->
+
+                    <!--                            <Button-->
+                    <!--                                android:id="@+id/button7"-->
+                    <!--                                android:layout_width="49dp"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_alignParentTop="true"-->
+                    <!--                                android:layout_alignParentRight="true"-->
+                    <!--                                android:layout_marginTop="9dp"-->
+                    <!--                                android:layout_marginRight="12dp"-->
+                    <!--                                android:backgroundTint="#FFFFFF"-->
+                    <!--                                android:fontFamily="casual"-->
+                    <!--                                android:padding="3dp"-->
+                    <!--                                android:text="❌"-->
+                    <!--                                android:textColor="#FF0000"-->
+                    <!--                                android:textSize="18sp"-->
+                    <!--                                app:cornerRadius="4dp" />-->
+
+                    <!--                        </RelativeLayout>-->
+
+                    <!--                        <RelativeLayout-->
+                    <!--                            android:id="@+id/relativeLayout"-->
+                    <!--                            android:layout_width="262dp"-->
+                    <!--                            android:layout_height="63dp"-->
+                    <!--                            android:layout_marginStart="19dp"-->
+                    <!--                            android:layout_marginTop="84dp"-->
+                    <!--                            android:background="@drawable/shape3">-->
+
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/textView20"-->
+                    <!--                                android:layout_width="100dp"-->
+                    <!--                                android:layout_height="47dp"-->
+                    <!--                                android:layout_alignParentLeft="false"-->
+                    <!--                                android:layout_alignParentTop="true"-->
+                    <!--                                android:layout_alignParentEnd="true"-->
+                    <!--                                android:layout_alignParentRight="false"-->
+                    <!--                                android:layout_marginLeft="7dp"-->
+                    <!--                                android:layout_marginTop="7dp"-->
+                    <!--                                android:layout_marginEnd="130dp"-->
+                    <!--                                android:layout_marginRight="132dp"-->
+                    <!--                                android:fontFamily="@font/alumni_sans_regular"-->
+                    <!--                                android:gravity="center"-->
+                    <!--                                android:text="306, H2 Hostel"-->
+                    <!--                                android:textAlignment="textStart"-->
+                    <!--                                android:textColor="#000000"-->
+                    <!--                                android:textSize="20sp" />-->
+
+                    <!--                            <Button-->
+                    <!--                                android:id="@+id/button8"-->
+                    <!--                                android:layout_width="27dp"-->
+                    <!--                                android:layout_height="30dp"-->
+                    <!--                                android:layout_alignParentTop="true"-->
+                    <!--                                android:layout_alignParentEnd="false"-->
+                    <!--                                android:layout_alignParentRight="true"-->
+                    <!--                                android:layout_marginTop="19dp"-->
+                    <!--                                android:layout_marginEnd="52dp"-->
+                    <!--                                android:layout_marginRight="53dp"-->
+                    <!--                                android:backgroundTint="#FFFFFF"-->
+                    <!--                                android:fontFamily="casual"-->
+                    <!--                                android:gravity="center"-->
+                    <!--                                android:padding="3dp"-->
+                    <!--                                android:text="✓"-->
+                    <!--                                android:textAlignment="center"-->
+                    <!--                                android:textColor="#92CFCC"-->
+                    <!--                                android:textSize="14sp"-->
+                    <!--                                android:visibility="invisible"-->
+                    <!--                                app:cornerRadius="0dp" />-->
+
+                    <!--                            <Button-->
+                    <!--                                android:id="@+id/button9"-->
+                    <!--                                android:layout_width="25dp"-->
+                    <!--                                android:layout_height="30dp"-->
+                    <!--                                android:layout_alignParentTop="true"-->
+                    <!--                                android:layout_alignParentEnd="false"-->
+                    <!--                                android:layout_alignParentRight="true"-->
+                    <!--                                android:layout_alignParentBottom="false"-->
+                    <!--                                android:layout_marginTop="19dp"-->
+                    <!--                                android:layout_marginEnd="20dp"-->
+                    <!--                                android:layout_marginRight="21dp"-->
+                    <!--                                android:layout_marginBottom="15dp"-->
+                    <!--                                android:backgroundTint="#FFFFFF"-->
+                    <!--                                android:fontFamily="casual"-->
+                    <!--                                android:padding="3dp"-->
+                    <!--                                android:text="X"-->
+                    <!--                                android:textColor="#FF0000"-->
+                    <!--                                android:textSize="14sp"-->
+                    <!--                                android:visibility="invisible"-->
+                    <!--                                app:cornerRadius="0dp" />-->
+
+                    <!--                        </RelativeLayout>-->
+
+                    <!--                                                <RelativeLayout-->
+                    <!--                                                    android:layout_width="239dp"-->
+                    <!--                                                    android:layout_height="64dp"-->
+                    <!--                                                    android:layout_marginStart="19dp"-->
+                    <!--                                                    android:layout_marginTop="158dp"-->
+                    <!--                                                    android:layout_marginEnd="23dp"-->
+                    <!--                                                    android:background="@drawable/shape3">-->
+
+                    <!--                                                    <TextView-->
+                    <!--                                                        android:id="@+id/textView21"-->
+                    <!--                                                        android:layout_width="100dp"-->
+                    <!--                                                        android:layout_height="47dp"-->
+                    <!--                                                        android:layout_alignParentLeft="false"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="true"-->
+                    <!--                                                        android:layout_alignParentRight="false"-->
+                    <!--                                                        android:layout_marginLeft="7dp"-->
+                    <!--                                                        android:layout_marginTop="7dp"-->
+                    <!--                                                        android:layout_marginEnd="130dp"-->
+                    <!--                                                        android:layout_marginRight="132dp"-->
+                    <!--                                                        android:fontFamily="@font/alumni_sans_regular"-->
+                    <!--                                                        android:gravity="center"-->
+                    <!--                                                        android:text="306, H2 Hostel"-->
+                    <!--                                                        android:textAlignment="textStart"-->
+                    <!--                                                        android:textColor="#000000"-->
+                    <!--                                                        android:textSize="20sp" />-->
+
+                    <!--                                                    <Button-->
+                    <!--                                                        android:id="@+id/button10"-->
+                    <!--                                                        android:layout_width="27dp"-->
+                    <!--                                                        android:layout_height="30dp"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="false"-->
+                    <!--                                                        android:layout_alignParentRight="true"-->
+                    <!--                                                        android:layout_marginTop="19dp"-->
+                    <!--                                                        android:layout_marginEnd="52dp"-->
+                    <!--                                                        android:layout_marginRight="53dp"-->
+                    <!--                                                        android:backgroundTint="#FFFFFF"-->
+                    <!--                                                        android:fontFamily="casual"-->
+                    <!--                                                        android:gravity="center"-->
+                    <!--                                                        android:padding="3dp"-->
+                    <!--                                                        android:text="✓"-->
+                    <!--                                                        android:textAlignment="center"-->
+                    <!--                                                        android:textColor="#92CFCC"-->
+                    <!--                                                        android:textSize="14sp"-->
+                    <!--                                                        android:visibility="invisible"-->
+                    <!--                                                        app:cornerRadius="0dp" />-->
+
+                    <!--                                                    <Button-->
+                    <!--                                                        android:id="@+id/button11"-->
+                    <!--                                                        android:layout_width="25dp"-->
+                    <!--                                                        android:layout_height="30dp"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="false"-->
+                    <!--                                                        android:layout_alignParentRight="true"-->
+                    <!--                                                        android:layout_alignParentBottom="false"-->
+                    <!--                                                        android:layout_marginTop="19dp"-->
+                    <!--                                                        android:layout_marginEnd="20dp"-->
+                    <!--                                                        android:layout_marginRight="21dp"-->
+                    <!--                                                        android:layout_marginBottom="15dp"-->
+                    <!--                                                        android:backgroundTint="#FFFFFF"-->
+                    <!--                                                        android:fontFamily="casual"-->
+                    <!--                                                        android:padding="3dp"-->
+                    <!--                                                        android:text="X"-->
+                    <!--                                                        android:textColor="#FF0000"-->
+                    <!--                                                        android:textSize="14sp"-->
+                    <!--                                                        android:visibility="invisible"-->
+                    <!--                                                        app:cornerRadius="0dp" />-->
+                    <!--                                                </RelativeLayout>-->
+
+                    <!--                                                <RelativeLayout-->
+                    <!--                                                    android:layout_width="239dp"-->
+                    <!--                                                    android:layout_height="64dp"-->
+                    <!--                                                    android:layout_marginStart="19dp"-->
+                    <!--                                                    android:layout_marginTop="232dp"-->
+                    <!--                                                    android:layout_marginEnd="23dp"-->
+                    <!--                                                    android:background="@drawable/shape3">-->
+
+                    <!--                                                    <TextView-->
+                    <!--                                                        android:id="@+id/textView22"-->
+                    <!--                                                        android:layout_width="100dp"-->
+                    <!--                                                        android:layout_height="47dp"-->
+                    <!--                                                        android:layout_alignParentLeft="false"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="true"-->
+                    <!--                                                        android:layout_alignParentRight="false"-->
+                    <!--                                                        android:layout_marginLeft="7dp"-->
+                    <!--                                                        android:layout_marginTop="7dp"-->
+                    <!--                                                        android:layout_marginEnd="130dp"-->
+                    <!--                                                        android:layout_marginRight="132dp"-->
+                    <!--                                                        android:fontFamily="@font/alumni_sans_regular"-->
+                    <!--                                                        android:gravity="center"-->
+                    <!--                                                        android:text="306, H2 Hostel"-->
+                    <!--                                                        android:textAlignment="textStart"-->
+                    <!--                                                        android:textColor="#000000"-->
+                    <!--                                                        android:textSize="20sp" />-->
+
+                    <!--                                                    <Button-->
+                    <!--                                                        android:id="@+id/button12"-->
+                    <!--                                                        android:layout_width="27dp"-->
+                    <!--                                                        android:layout_height="30dp"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="false"-->
+                    <!--                                                        android:layout_alignParentRight="true"-->
+                    <!--                                                        android:layout_marginTop="19dp"-->
+                    <!--                                                        android:layout_marginEnd="52dp"-->
+                    <!--                                                        android:layout_marginRight="53dp"-->
+                    <!--                                                        android:backgroundTint="#FFFFFF"-->
+                    <!--                                                        android:fontFamily="casual"-->
+                    <!--                                                        android:gravity="center"-->
+                    <!--                                                        android:padding="3dp"-->
+                    <!--                                                        android:text="✓"-->
+                    <!--                                                        android:textAlignment="center"-->
+                    <!--                                                        android:textColor="#92CFCC"-->
+                    <!--                                                        android:textSize="14sp"-->
+                    <!--                                                        android:visibility="invisible"-->
+                    <!--                                                        app:cornerRadius="0dp" />-->
+
+                    <!--                                                    <Button-->
+                    <!--                                                        android:id="@+id/button13"-->
+                    <!--                                                        android:layout_width="25dp"-->
+                    <!--                                                        android:layout_height="30dp"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="false"-->
+                    <!--                                                        android:layout_alignParentRight="true"-->
+                    <!--                                                        android:layout_alignParentBottom="false"-->
+                    <!--                                                        android:layout_marginTop="19dp"-->
+                    <!--                                                        android:layout_marginEnd="20dp"-->
+                    <!--                                                        android:layout_marginRight="21dp"-->
+                    <!--                                                        android:layout_marginBottom="15dp"-->
+                    <!--                                                        android:backgroundTint="#FFFFFF"-->
+                    <!--                                                        android:fontFamily="casual"-->
+                    <!--                                                        android:padding="3dp"-->
+                    <!--                                                        android:text="X"-->
+                    <!--                                                        android:textColor="#FF0000"-->
+                    <!--                                                        android:textSize="14sp"-->
+                    <!--                                                        android:visibility="invisible"-->
+                    <!--                                                        app:cornerRadius="0dp" />-->
+                    <!--                                                </RelativeLayout>-->
+
+                    <!--                                                <RelativeLayout-->
+                    <!--                                                    android:layout_width="239dp"-->
+                    <!--                                                    android:layout_height="64dp"-->
+                    <!--                                                    android:layout_marginStart="19dp"-->
+                    <!--                                                    android:layout_marginTop="306dp"-->
+                    <!--                                                    android:layout_marginEnd="23dp"-->
+                    <!--                                                    android:background="@drawable/shape3">-->
+
+                    <!--                                                    <TextView-->
+                    <!--                                                        android:id="@+id/textView23"-->
+                    <!--                                                        android:layout_width="100dp"-->
+                    <!--                                                        android:layout_height="47dp"-->
+                    <!--                                                        android:layout_alignParentLeft="false"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="true"-->
+                    <!--                                                        android:layout_alignParentRight="false"-->
+                    <!--                                                        android:layout_marginLeft="7dp"-->
+                    <!--                                                        android:layout_marginTop="7dp"-->
+                    <!--                                                        android:layout_marginEnd="130dp"-->
+                    <!--                                                        android:layout_marginRight="132dp"-->
+                    <!--                                                        android:fontFamily="@font/alumni_sans_regular"-->
+                    <!--                                                        android:gravity="center"-->
+                    <!--                                                        android:text="306, H2 Hostel"-->
+                    <!--                                                        android:textAlignment="textStart"-->
+                    <!--                                                        android:textColor="#000000"-->
+                    <!--                                                        android:textSize="20sp" />-->
+
+                    <!--                                                    <Button-->
+                    <!--                                                        android:id="@+id/button14"-->
+                    <!--                                                        android:layout_width="27dp"-->
+                    <!--                                                        android:layout_height="30dp"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="false"-->
+                    <!--                                                        android:layout_alignParentRight="true"-->
+                    <!--                                                        android:layout_marginTop="19dp"-->
+                    <!--                                                        android:layout_marginEnd="52dp"-->
+                    <!--                                                        android:layout_marginRight="53dp"-->
+                    <!--                                                        android:backgroundTint="#FFFFFF"-->
+                    <!--                                                        android:fontFamily="casual"-->
+                    <!--                                                        android:gravity="center"-->
+                    <!--                                                        android:padding="3dp"-->
+                    <!--                                                        android:text="✓"-->
+                    <!--                                                        android:textAlignment="center"-->
+                    <!--                                                        android:textColor="#92CFCC"-->
+                    <!--                                                        android:textSize="14sp"-->
+                    <!--                                                        android:visibility="invisible"-->
+                    <!--                                                        app:cornerRadius="0dp" />-->
+
+                    <!--                                                    <Button-->
+                    <!--                                                        android:id="@+id/button15"-->
+                    <!--                                                        android:layout_width="25dp"-->
+                    <!--                                                        android:layout_height="30dp"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="false"-->
+                    <!--                                                        android:layout_alignParentRight="true"-->
+                    <!--                                                        android:layout_alignParentBottom="false"-->
+                    <!--                                                        android:layout_marginTop="19dp"-->
+                    <!--                                                        android:layout_marginEnd="20dp"-->
+                    <!--                                                        android:layout_marginRight="21dp"-->
+                    <!--                                                        android:layout_marginBottom="15dp"-->
+                    <!--                                                        android:backgroundTint="#FFFFFF"-->
+                    <!--                                                        android:fontFamily="casual"-->
+                    <!--                                                        android:padding="3dp"-->
+                    <!--                                                        android:text="X"-->
+                    <!--                                                        android:textColor="#FF0000"-->
+                    <!--                                                        android:textSize="14sp"-->
+                    <!--                                                        android:visibility="invisible"-->
+                    <!--                                                        app:cornerRadius="0dp" />-->
+                    <!--                                                </RelativeLayout>-->
+
+                    <!--                                                <RelativeLayout-->
+                    <!--                                                    android:layout_width="239dp"-->
+                    <!--                                                    android:layout_height="64dp"-->
+                    <!--                                                    android:layout_marginStart="19dp"-->
+                    <!--                                                    android:layout_marginTop="380dp"-->
+                    <!--                                                    android:layout_marginEnd="23dp"-->
+                    <!--                                                    android:background="@drawable/shape3">-->
+
+                    <!--                                                    <TextView-->
+                    <!--                                                        android:id="@+id/textView24"-->
+                    <!--                                                        android:layout_width="100dp"-->
+                    <!--                                                        android:layout_height="47dp"-->
+                    <!--                                                        android:layout_alignParentLeft="false"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="true"-->
+                    <!--                                                        android:layout_alignParentRight="false"-->
+                    <!--                                                        android:layout_marginLeft="7dp"-->
+                    <!--                                                        android:layout_marginTop="7dp"-->
+                    <!--                                                        android:layout_marginEnd="130dp"-->
+                    <!--                                                        android:layout_marginRight="132dp"-->
+                    <!--                                                        android:fontFamily="@font/alumni_sans_regular"-->
+                    <!--                                                        android:gravity="center"-->
+                    <!--                                                        android:text="306, H2 Hostel"-->
+                    <!--                                                        android:textAlignment="textStart"-->
+                    <!--                                                        android:textColor="#000000"-->
+                    <!--                                                        android:textSize="20sp" />-->
+
+                    <!--                                                    <Button-->
+                    <!--                                                        android:id="@+id/button1"-->
+                    <!--                                                        android:layout_width="27dp"-->
+                    <!--                                                        android:layout_height="30dp"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="false"-->
+                    <!--                                                        android:layout_alignParentRight="true"-->
+                    <!--                                                        android:layout_marginTop="19dp"-->
+                    <!--                                                        android:layout_marginEnd="52dp"-->
+                    <!--                                                        android:layout_marginRight="53dp"-->
+                    <!--                                                        android:backgroundTint="#FFFFFF"-->
+                    <!--                                                        android:fontFamily="casual"-->
+                    <!--                                                        android:gravity="center"-->
+                    <!--                                                        android:padding="3dp"-->
+                    <!--                                                        android:text="✓"-->
+                    <!--                                                        android:textAlignment="center"-->
+                    <!--                                                        android:textColor="#92CFCC"-->
+                    <!--                                                        android:textSize="14sp"-->
+                    <!--                                                        android:visibility="invisible"-->
+                    <!--                                                        app:cornerRadius="0dp" />-->
+
+                    <!--                                                    <Button-->
+                    <!--                                                        android:id="@+id/button2"-->
+                    <!--                                                        android:layout_width="25dp"-->
+                    <!--                                                        android:layout_height="30dp"-->
+                    <!--                                                        android:layout_alignParentTop="true"-->
+                    <!--                                                        android:layout_alignParentEnd="false"-->
+                    <!--                                                        android:layout_alignParentRight="true"-->
+                    <!--                                                        android:layout_alignParentBottom="false"-->
+                    <!--                                                        android:layout_marginTop="19dp"-->
+                    <!--                                                        android:layout_marginEnd="20dp"-->
+                    <!--                                                        android:layout_marginRight="21dp"-->
+                    <!--                                                        android:layout_marginBottom="15dp"-->
+                    <!--                                                        android:backgroundTint="#FFFFFF"-->
+                    <!--                                                        android:fontFamily="casual"-->
+                    <!--                                                        android:padding="3dp"-->
+                    <!--                                                        android:text="X"-->
+                    <!--                                                        android:textColor="#FF0000"-->
+                    <!--                                                        android:textSize="14sp"-->
+                    <!--                                                        android:visibility="invisible"-->
+                    <!--                                                        app:cornerRadius="0dp" />-->
+                    <!--                                                </RelativeLayout>-->
+                </RelativeLayout>
+
+            </ScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="306dp"
+            android:layout_height="113dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="585dp"
+            android:background="@drawable/shape">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginStart="0dp"
+                android:fontFamily="@font/alumni_sans_bold"
+                android:gravity="center"
+                android:text="Work Statistics"
+                android:textAlignment="center"
+                android:textColor="#070707"
+                android:textSize="22sp" />
+
+            <RelativeLayout
+                android:layout_width="77dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/shape4">
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="132dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/alumni_sans_regular"
+                    android:gravity="center"
+                    android:text="7 today"
+                    android:textAlignment="center"
+                    android:textColor="#2E2B2B"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="77dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/shape4">
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="132dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/alumni_sans_regular"
+                    android:gravity="center"
+                    android:text="90 this week"
+                    android:textAlignment="center"
+                    android:textColor="#2E2B2B"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="77dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="205dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/shape4">
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="132dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/alumni_sans_regular"
+                    android:gravity="center"
+                    android:text="400 this month"
+                    android:textAlignment="center"
+                    android:textColor="#2E2B2B"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="137dp"
+            android:layout_height="66dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="715dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginRight="19dp"
+            android:backgroundTint="#003D39"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:padding="3dp"
+            android:text="Leave Application"
+            android:textColor="#DEDEDE"
+            android:textSize="20sp"
+            app:cornerRadius="16dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="146dp"
+            android:layout_height="65dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="717dp"
+            android:layout_marginEnd="214dp"
+            android:layout_marginRight="19dp"
+            android:backgroundTint="#003D39"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:padding="3dp"
+            android:text="Take A Break"
+            android:textColor="#DEDEDE"
+            android:textSize="20sp"
+            app:cornerRadius="16dp" />
+
+        <Button
+            android:id="@+id/signOut"
+            android:layout_width="139dp"
+            android:layout_height="64dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="790dp"
+            android:layout_marginEnd="53dp"
+            android:layout_marginRight="19dp"
+            android:backgroundTint="#003D39"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:padding="3dp"
+            android:text="Sign Out"
+            android:textColor="#DEDEDE"
+            android:textSize="20sp"
+            app:cornerRadius="16dp" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="145dp"
+            android:layout_height="64dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="792dp"
+            android:layout_marginEnd="215dp"
+            android:layout_marginRight="19dp"
+            android:backgroundTint="#003D39"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:padding="3dp"
+            android:text="Past Orders"
+            android:textColor="#DEDEDE"
+            android:textSize="20sp"
+            app:cornerRadius="16dp" />
+
+    </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

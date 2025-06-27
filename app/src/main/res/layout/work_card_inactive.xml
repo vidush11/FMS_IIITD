@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="266dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="84dp"
+        android:background="@drawable/shape3">
+
+        <TextView
+            android:id="@+id/textid"
+            android:layout_width="119dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="9dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="132dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:gravity="center"
+            android:text="306, H2 Hostel"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="27dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="52dp"
+            android:layout_marginRight="53dp"
+            android:backgroundTint="#FFFFFF"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="✓"
+            android:textAlignment="center"
+            android:textColor="#92CFCC"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:cornerRadius="0dp" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="false"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="#FFFFFF"
+            android:fontFamily="casual"
+            android:padding="3dp"
+            android:text="X"
+            android:textColor="#FF0000"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:cornerRadius="0dp" />
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

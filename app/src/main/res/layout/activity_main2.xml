@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity2">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="66dp"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:text="3rd Floor\nH2 hostel"
+            android:textAlignment="textEnd"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="49dp"
+            app:srcCompat="@mipmap/app_icon" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="164dp"
+            android:layout_height="43dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="181dp"
+            android:fontFamily="@font/alumni_sans_bold"
+            android:text="Dashboard"
+            android:textAlignment="textStart"
+            android:textColor="#000000"
+            android:textSize="44sp" />
+
+
+        <RelativeLayout
+            android:layout_width="301dp"
+            android:layout_height="289dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentBottom="false"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="190dp"
+            android:background="@drawable/shape">
+
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="112dp"
+                android:layout_height="51dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="153dp"
+                android:fontFamily="@font/alumni_sans_bold"
+                android:gravity="center"
+                android:text="Building"
+                android:textAlignment="textStart"
+                android:textColor="#070707"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="-2dp"
+                android:fontFamily="@font/alumni_sans_bold"
+                android:gravity="center"
+                android:text="Order Manager"
+                android:textAlignment="center"
+                android:textColor="#070707"
+                android:textSize="28sp" />
+
+            <EditText
+                android:id="@+id/studentRollNumber"
+                android:layout_width="275dp"
+                android:layout_height="49dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="84dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/shape_white"
+                android:ems="10"
+                android:fontFamily="@font/alumni_sans_regular"
+                android:hint="Student Roll Number"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:textAlignment="viewStart"
+                android:textColor="#000000"
+                android:textColorHint="#80000000"
+                android:textSize="22sp" />
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="139dp"
+                android:layout_height="47dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="154dp"
+                android:layout_marginEnd="21dp"
+                android:background="@drawable/shape_white"
+                android:backgroundTint="#FFFFFF"
+                android:spinnerMode="dropdown" />
+
+            <Button
+                android:id="@+id/saveOrder"
+                android:layout_width="258dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="228dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginRight="19dp"
+                android:backgroundTint="#003D39"
+                android:fontFamily="@font/alumni_sans_regular"
+                android:padding="3dp"
+                android:text="Save Order"
+                android:textColor="#DEDEDE"
+                android:textSize="20sp"
+                app:cornerRadius="16dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="306dp"
+            android:layout_height="108dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="49dp"
+            android:layout_marginTop="508dp"
+            android:background="@drawable/shape">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="279dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="0dp"
+                android:fontFamily="@font/alumni_sans_bold"
+                android:gravity="center"
+                android:text="Work Statistics"
+                android:textAlignment="center"
+                android:textColor="#070707"
+                android:textSize="22sp" />
+
+            <RelativeLayout
+                android:layout_width="77dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/shape4">
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="132dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/alumni_sans_regular"
+                    android:gravity="center"
+                    android:text="7 today"
+                    android:textAlignment="center"
+                    android:textColor="#2E2B2B"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="77dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/shape4">
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="132dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/alumni_sans_regular"
+                    android:gravity="center"
+                    android:text="90 this week"
+                    android:textAlignment="center"
+                    android:textColor="#2E2B2B"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="77dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="205dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/shape4">
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="132dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/alumni_sans_regular"
+                    android:gravity="center"
+                    android:text="400 this month"
+                    android:textAlignment="center"
+                    android:textColor="#2E2B2B"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="146dp"
+            android:layout_height="65dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="657dp"
+            android:layout_marginEnd="214dp"
+            android:layout_marginRight="19dp"
+            android:backgroundTint="#003D39"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:padding="3dp"
+            android:text="Take A Break"
+            android:textColor="#DEDEDE"
+            android:textSize="20sp"
+            app:cornerRadius="16dp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="137dp"
+            android:layout_height="66dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="655dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginRight="19dp"
+            android:backgroundTint="#003D39"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:padding="3dp"
+            android:text="Leave Application"
+            android:textColor="#DEDEDE"
+            android:textSize="20sp"
+            app:cornerRadius="16dp" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="145dp"
+            android:layout_height="64dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="732dp"
+            android:layout_marginEnd="215dp"
+            android:layout_marginRight="19dp"
+            android:backgroundTint="#003D39"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:padding="3dp"
+            android:text="Past Orders"
+            android:textColor="#DEDEDE"
+            android:textSize="20sp"
+            app:cornerRadius="16dp" />
+
+        <Button
+            android:id="@+id/signOut"
+            android:layout_width="139dp"
+            android:layout_height="64dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="730dp"
+            android:layout_marginEnd="53dp"
+            android:layout_marginRight="19dp"
+            android:backgroundTint="#003D39"
+            android:fontFamily="@font/alumni_sans_regular"
+            android:padding="3dp"
+            android:text="Sign Out"
+            android:textColor="#DEDEDE"
+            android:textSize="20sp"
+            app:cornerRadius="16dp" />
+
+    </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
